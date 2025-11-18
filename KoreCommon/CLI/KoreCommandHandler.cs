@@ -98,6 +98,7 @@ public class KoreCommandHandler
         AddCommandHandler(new KoreCommandFileRename());
         AddCommandHandler(new KoreCommandCommonUnitTest());
         AddCommandHandler(new KoreCommandPause());
+        AddCommandHandler(new KoreCommandLogAdd());
     }
 
     // ---------------------------------------------------------------------------------------------
