@@ -33,6 +33,9 @@ public static class KoreTestCenter
             KoreTestPositionLLA.RunTests(testLog);
             KoreTestRoute.RunTests(testLog);
 
+            // Shapefile tests (run early since they don't depend on other tests)
+            KoreTestShapefile.RunTests(testLog);
+
             // Graphics: Mesh and color tests
             KoreTestColor.RunTests(testLog);
             KoreTestMesh.RunTests(testLog);
