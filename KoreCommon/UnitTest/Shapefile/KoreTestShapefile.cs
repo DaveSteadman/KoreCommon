@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using KoreCommon;
+using KoreCommon.SkiaSharp;
 
 namespace KoreCommon.UnitTest;
 
@@ -15,7 +16,7 @@ public static class KoreTestShapefile
     public static void RunTests(KoreTestLog testLog)
     {
         // Create temp directory for test files
-        TestDir = Path.Combine(Path.GetTempPath(), "KoreShapefileTests_" + Guid.NewGuid().ToString("N"));
+        TestDir = KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "KoreShapefileTests_" + Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(TestDir);
 
         try
@@ -43,6 +44,9 @@ public static class KoreTestShapefile
 
             // PRJ file test
             RunSafeTest(testLog, "Shapefile PRJ File Written with WGS84", TestPrjFileWritten);
+
+            // Visualization test
+            RunSafeTest(testLog, "Shapefile Streets Visualization", TestDrawStreets);
         }
         finally
         {
@@ -51,7 +55,7 @@ public static class KoreTestShapefile
             {
                 if (Directory.Exists(TestDir))
                 {
-                    Directory.Delete(TestDir, true);
+                    //Directory.Delete(TestDir, true);
                 }
             }
             catch
@@ -82,12 +86,12 @@ public static class KoreTestShapefile
     {
         string basePath = Path.Combine(TestDir, "test_point");
 
-        var collection = new ShapefileFeatureCollection
+        var collection = new KoreShapefileFeatureCollection
         {
             GeometryType = ShapefileGeometryType.Point
         };
 
-        collection.Features.Add(new ShapefileFeature
+        collection.Features.Add(new KoreShapefileFeature
         {
             RecordNumber = 1,
             GeometryType = ShapefileGeometryType.Point,
@@ -95,7 +99,7 @@ public static class KoreTestShapefile
             Attributes = new Dictionary<string, object?> { { "name", "London" } }
         });
 
-        collection.Features.Add(new ShapefileFeature
+        collection.Features.Add(new KoreShapefileFeature
         {
             RecordNumber = 2,
             GeometryType = ShapefileGeometryType.Point,
@@ -104,10 +108,10 @@ public static class KoreTestShapefile
         });
 
         // Write
-        ShapefileWriter.Write(basePath, collection);
+        KoreShapefileWriter.Write(basePath, collection);
 
         // Read back
-        var readCollection = ShapefileReader.Read(basePath);
+        var readCollection = KoreShapefileReader.Read(basePath);
 
         // Verify
         bool passed = readCollection.Features.Count == 2;
@@ -139,12 +143,12 @@ public static class KoreTestShapefile
         multiPoint.Points.Add(new KoreLLPoint { LatDegs = 30.0, LonDegs = 40.0 });
         multiPoint.Points.Add(new KoreLLPoint { LatDegs = 50.0, LonDegs = 60.0 });
 
-        var collection = new ShapefileFeatureCollection
+        var collection = new KoreShapefileFeatureCollection
         {
             GeometryType = ShapefileGeometryType.MultiPoint
         };
 
-        collection.Features.Add(new ShapefileFeature
+        collection.Features.Add(new KoreShapefileFeature
         {
             RecordNumber = 1,
             GeometryType = ShapefileGeometryType.MultiPoint,
@@ -153,10 +157,10 @@ public static class KoreTestShapefile
         });
 
         // Write
-        ShapefileWriter.Write(basePath, collection);
+        KoreShapefileWriter.Write(basePath, collection);
 
         // Read back
-        var readCollection = ShapefileReader.Read(basePath);
+        var readCollection = KoreShapefileReader.Read(basePath);
 
         // Verify
         bool passed = readCollection.Features.Count == 1;
@@ -198,12 +202,12 @@ public static class KoreTestShapefile
         multiLine.LineStrings.Add(line1);
         multiLine.LineStrings.Add(line2);
 
-        var collection = new ShapefileFeatureCollection
+        var collection = new KoreShapefileFeatureCollection
         {
             GeometryType = ShapefileGeometryType.PolyLine
         };
 
-        collection.Features.Add(new ShapefileFeature
+        collection.Features.Add(new KoreShapefileFeature
         {
             RecordNumber = 1,
             GeometryType = ShapefileGeometryType.PolyLine,
@@ -212,10 +216,10 @@ public static class KoreTestShapefile
         });
 
         // Write
-        ShapefileWriter.Write(basePath, collection);
+        KoreShapefileWriter.Write(basePath, collection);
 
         // Read back
-        var readCollection = ShapefileReader.Read(basePath);
+        var readCollection = KoreShapefileReader.Read(basePath);
 
         // Verify
         bool passed = readCollection.Features.Count == 1;
@@ -255,12 +259,12 @@ public static class KoreTestShapefile
         var multiPolygon = new KoreGeoMultiPolygon();
         multiPolygon.Polygons.Add(polygon);
 
-        var collection = new ShapefileFeatureCollection
+        var collection = new KoreShapefileFeatureCollection
         {
             GeometryType = ShapefileGeometryType.Polygon
         };
 
-        collection.Features.Add(new ShapefileFeature
+        collection.Features.Add(new KoreShapefileFeature
         {
             RecordNumber = 1,
             GeometryType = ShapefileGeometryType.Polygon,
@@ -269,10 +273,10 @@ public static class KoreTestShapefile
         });
 
         // Write
-        ShapefileWriter.Write(basePath, collection);
+        KoreShapefileWriter.Write(basePath, collection);
 
         // Read back
-        var readCollection = ShapefileReader.Read(basePath);
+        var readCollection = KoreShapefileReader.Read(basePath);
 
         // Verify
         bool passed = readCollection.Features.Count == 1;
@@ -322,12 +326,12 @@ public static class KoreTestShapefile
         var multiPolygon = new KoreGeoMultiPolygon();
         multiPolygon.Polygons.Add(polygon);
 
-        var collection = new ShapefileFeatureCollection
+        var collection = new KoreShapefileFeatureCollection
         {
             GeometryType = ShapefileGeometryType.Polygon
         };
 
-        collection.Features.Add(new ShapefileFeature
+        collection.Features.Add(new KoreShapefileFeature
         {
             RecordNumber = 1,
             GeometryType = ShapefileGeometryType.Polygon,
@@ -336,10 +340,10 @@ public static class KoreTestShapefile
         });
 
         // Write
-        ShapefileWriter.Write(basePath, collection);
+        KoreShapefileWriter.Write(basePath, collection);
 
         // Read back
-        var readCollection = ShapefileReader.Read(basePath);
+        var readCollection = KoreShapefileReader.Read(basePath);
 
         // Verify
         bool passed = readCollection.Features.Count == 1;
@@ -367,12 +371,12 @@ public static class KoreTestShapefile
     {
         string basePath = Path.Combine(TestDir, "test_int_attr");
 
-        var collection = new ShapefileFeatureCollection
+        var collection = new KoreShapefileFeatureCollection
         {
             GeometryType = ShapefileGeometryType.Point
         };
 
-        collection.Features.Add(new ShapefileFeature
+        collection.Features.Add(new KoreShapefileFeature
         {
             RecordNumber = 1,
             GeometryType = ShapefileGeometryType.Point,
@@ -380,8 +384,8 @@ public static class KoreTestShapefile
             Attributes = new Dictionary<string, object?> { { "count", 42 }, { "negval", -100 } }
         });
 
-        ShapefileWriter.Write(basePath, collection);
-        var readCollection = ShapefileReader.Read(basePath);
+        KoreShapefileWriter.Write(basePath, collection);
+        var readCollection = KoreShapefileReader.Read(basePath);
 
         bool passed = readCollection.Features.Count == 1;
         if (passed)
@@ -398,12 +402,12 @@ public static class KoreTestShapefile
     {
         string basePath = Path.Combine(TestDir, "test_double_attr");
 
-        var collection = new ShapefileFeatureCollection
+        var collection = new KoreShapefileFeatureCollection
         {
             GeometryType = ShapefileGeometryType.Point
         };
 
-        collection.Features.Add(new ShapefileFeature
+        collection.Features.Add(new KoreShapefileFeature
         {
             RecordNumber = 1,
             GeometryType = ShapefileGeometryType.Point,
@@ -411,8 +415,8 @@ public static class KoreTestShapefile
             Attributes = new Dictionary<string, object?> { { "value", 3.14159 }, { "negval", -99.99 } }
         });
 
-        ShapefileWriter.Write(basePath, collection);
-        var readCollection = ShapefileReader.Read(basePath);
+        KoreShapefileWriter.Write(basePath, collection);
+        var readCollection = KoreShapefileReader.Read(basePath);
 
         bool passed = readCollection.Features.Count == 1;
         if (passed)
@@ -429,12 +433,12 @@ public static class KoreTestShapefile
     {
         string basePath = Path.Combine(TestDir, "test_bool_attr");
 
-        var collection = new ShapefileFeatureCollection
+        var collection = new KoreShapefileFeatureCollection
         {
             GeometryType = ShapefileGeometryType.Point
         };
 
-        collection.Features.Add(new ShapefileFeature
+        collection.Features.Add(new KoreShapefileFeature
         {
             RecordNumber = 1,
             GeometryType = ShapefileGeometryType.Point,
@@ -442,8 +446,8 @@ public static class KoreTestShapefile
             Attributes = new Dictionary<string, object?> { { "active", true }, { "deleted", false } }
         });
 
-        ShapefileWriter.Write(basePath, collection);
-        var readCollection = ShapefileReader.Read(basePath);
+        KoreShapefileWriter.Write(basePath, collection);
+        var readCollection = KoreShapefileReader.Read(basePath);
 
         bool passed = readCollection.Features.Count == 1;
         if (passed)
@@ -462,12 +466,12 @@ public static class KoreTestShapefile
 
         var testDate = new DateTime(2024, 6, 15);
 
-        var collection = new ShapefileFeatureCollection
+        var collection = new KoreShapefileFeatureCollection
         {
             GeometryType = ShapefileGeometryType.Point
         };
 
-        collection.Features.Add(new ShapefileFeature
+        collection.Features.Add(new KoreShapefileFeature
         {
             RecordNumber = 1,
             GeometryType = ShapefileGeometryType.Point,
@@ -475,8 +479,8 @@ public static class KoreTestShapefile
             Attributes = new Dictionary<string, object?> { { "created", testDate } }
         });
 
-        ShapefileWriter.Write(basePath, collection);
-        var readCollection = ShapefileReader.Read(basePath);
+        KoreShapefileWriter.Write(basePath, collection);
+        var readCollection = KoreShapefileReader.Read(basePath);
 
         bool passed = readCollection.Features.Count == 1;
         if (passed)
@@ -493,12 +497,12 @@ public static class KoreTestShapefile
     {
         string basePath = Path.Combine(TestDir, "test_string_attr");
 
-        var collection = new ShapefileFeatureCollection
+        var collection = new KoreShapefileFeatureCollection
         {
             GeometryType = ShapefileGeometryType.Point
         };
 
-        collection.Features.Add(new ShapefileFeature
+        collection.Features.Add(new KoreShapefileFeature
         {
             RecordNumber = 1,
             GeometryType = ShapefileGeometryType.Point,
@@ -506,8 +510,8 @@ public static class KoreTestShapefile
             Attributes = new Dictionary<string, object?> { { "name", "Test Location" }, { "code", "ABC123" } }
         });
 
-        ShapefileWriter.Write(basePath, collection);
-        var readCollection = ShapefileReader.Read(basePath);
+        KoreShapefileWriter.Write(basePath, collection);
+        var readCollection = KoreShapefileReader.Read(basePath);
 
         bool passed = readCollection.Features.Count == 1;
         if (passed)
@@ -524,12 +528,12 @@ public static class KoreTestShapefile
     {
         string basePath = Path.Combine(TestDir, "test_mixed_attr");
 
-        var collection = new ShapefileFeatureCollection
+        var collection = new KoreShapefileFeatureCollection
         {
             GeometryType = ShapefileGeometryType.Point
         };
 
-        collection.Features.Add(new ShapefileFeature
+        collection.Features.Add(new KoreShapefileFeature
         {
             RecordNumber = 1,
             GeometryType = ShapefileGeometryType.Point,
@@ -545,7 +549,7 @@ public static class KoreTestShapefile
         });
 
         // Second feature with some missing attributes
-        collection.Features.Add(new ShapefileFeature
+        collection.Features.Add(new KoreShapefileFeature
         {
             RecordNumber = 2,
             GeometryType = ShapefileGeometryType.Point,
@@ -558,8 +562,8 @@ public static class KoreTestShapefile
             }
         });
 
-        ShapefileWriter.Write(basePath, collection);
-        var readCollection = ShapefileReader.Read(basePath);
+        KoreShapefileWriter.Write(basePath, collection);
+        var readCollection = KoreShapefileReader.Read(basePath);
 
         bool passed = readCollection.Features.Count == 2;
         if (passed)
@@ -586,14 +590,14 @@ public static class KoreTestShapefile
         string basePath = Path.Combine(TestDir, "test_corrupt");
 
         // First, create a valid shapefile with multiple features
-        var collection = new ShapefileFeatureCollection
+        var collection = new KoreShapefileFeatureCollection
         {
             GeometryType = ShapefileGeometryType.Point
         };
 
         for (int i = 0; i < 5; i++)
         {
-            collection.Features.Add(new ShapefileFeature
+            collection.Features.Add(new KoreShapefileFeature
             {
                 RecordNumber = i + 1,
                 GeometryType = ShapefileGeometryType.Point,
@@ -602,10 +606,10 @@ public static class KoreTestShapefile
             });
         }
 
-        ShapefileWriter.Write(basePath, collection);
+        KoreShapefileWriter.Write(basePath, collection);
 
         // Read the shapefile - should work normally first
-        var readCollection = ShapefileReader.Read(basePath);
+        var readCollection = KoreShapefileReader.Read(basePath);
 
         // Verify we can read it back successfully
         bool passed = readCollection.Features.Count == 5;
@@ -624,12 +628,12 @@ public static class KoreTestShapefile
         string basePath = Path.Combine(TestDir, "test_prj");
         string prjPath = basePath + ".prj";
 
-        var collection = new ShapefileFeatureCollection
+        var collection = new KoreShapefileFeatureCollection
         {
             GeometryType = ShapefileGeometryType.Point
         };
 
-        collection.Features.Add(new ShapefileFeature
+        collection.Features.Add(new KoreShapefileFeature
         {
             RecordNumber = 1,
             GeometryType = ShapefileGeometryType.Point,
@@ -637,7 +641,7 @@ public static class KoreTestShapefile
             Attributes = new Dictionary<string, object?>()
         });
 
-        ShapefileWriter.Write(basePath, collection);
+        KoreShapefileWriter.Write(basePath, collection);
 
         // Verify PRJ file exists and contains WGS84
         bool passed = File.Exists(prjPath);
@@ -648,5 +652,166 @@ public static class KoreTestShapefile
         }
 
         testLog.AddResult("Shapefile PRJ File Written with WGS84", passed);
+    }
+
+    // --------------------------------------------------------------------------------------------
+    // MARK: Visualization Test
+    // --------------------------------------------------------------------------------------------
+
+    // Helper: Convert Web Mercator (EPSG:3857) to WGS84 lat/lon
+    private static KoreLLPoint WebMercatorToLatLon(double x, double y)
+    {
+        const double R = 6378137.0; // Earth radius in meters (WGS84)
+
+        double lon = x / R * (180.0 / Math.PI);
+        double lat = Math.Atan(Math.Sinh(y / R)) * (180.0 / Math.PI);
+
+        return new KoreLLPoint { LatDegs = lat, LonDegs = lon };
+    }
+
+    private static void TestDrawStreets(KoreTestLog testLog)
+    {
+        string shapefilePath = KoreFileOps.JoinPaths(KoreTestCenter.TestPath, KoreFileOps.JoinPaths("SampleShapefile", "Streets"));
+        string outputPath = KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "streets_visualization.png");
+
+        // Read the shapefile
+        var collection = KoreShapefileReader.Read(shapefilePath);
+
+        testLog.AddComment($"ShapefileDrawTest: Loaded shapefile with {collection.Features.Count} features");
+        testLog.AddComment($"ShapefileDrawTest: Geometry type: {collection.GeometryType}");
+
+        // Log first feature details (raw coordinates before conversion)
+        if (collection.Features.Count > 0)
+        {
+            var firstFeature = collection.Features[0];
+            testLog.AddComment($"ShapefileDrawTest: First feature geometry type: {firstFeature.Geometry?.GetType().Name ?? "null"}");
+
+            if (firstFeature.Geometry is KoreGeoMultiLineString multiLine)
+            {
+                testLog.AddComment($"ShapefileDrawTest: First feature has {multiLine.LineStrings.Count} line strings");
+                if (multiLine.LineStrings.Count > 0)
+                {
+                    testLog.AddComment($"ShapefileDrawTest: First line string has {multiLine.LineStrings[0].Count} points");
+                    if (multiLine.LineStrings[0].Count > 0)
+                    {
+                        var firstPointRaw = multiLine.LineStrings[0][0];
+                        testLog.AddComment($"ShapefileDrawTest: First point (raw Web Mercator): X={firstPointRaw.LonDegs:F2}, Y={firstPointRaw.LatDegs:F2}");
+
+                        // Convert and show lat/lon
+                        var firstPointLatLon = WebMercatorToLatLon(firstPointRaw.LonDegs, firstPointRaw.LatDegs);
+                        testLog.AddComment($"ShapefileDrawTest: First point (converted): Lat={firstPointLatLon.LatDegs:F6}, Lon={firstPointLatLon.LonDegs:F6}");
+                    }
+                }
+            }
+        }
+
+        // Convert all coordinates from Web Mercator to WGS84 lat/lon
+        foreach (var feature in collection.Features)
+        {
+            if (feature.Geometry is KoreGeoMultiLineString multiLine)
+            {
+                foreach (var lineString in multiLine.LineStrings)
+                {
+                    for (int i = 0; i < lineString.Count; i++)
+                    {
+                        var mercatorPoint = lineString[i];
+                        lineString[i] = WebMercatorToLatLon(mercatorPoint.LonDegs, mercatorPoint.LatDegs);
+                    }
+                }
+            }
+        }
+
+        // Calculate bounds from all features
+        double minLat = double.MaxValue;
+        double maxLat = double.MinValue;
+        double minLon = double.MaxValue;
+        double maxLon = double.MinValue;
+
+        foreach (var feature in collection.Features)
+        {
+            if (feature.Geometry is KoreGeoMultiLineString multiLine)
+            {
+                foreach (var lineString in multiLine.LineStrings)
+                {
+                    foreach (var point in lineString)
+                    {
+                        minLat = Math.Min(minLat, point.LatDegs);
+                        maxLat = Math.Max(maxLat, point.LatDegs);
+                        minLon = Math.Min(minLon, point.LonDegs);
+                        maxLon = Math.Max(maxLon, point.LonDegs);
+                    }
+                }
+            }
+        }
+
+        // Text comment on the calculated bounds
+        testLog.AddComment($"ShapefileDrawTest: Calculated bounds - Lat: [{minLat}, {maxLat}], Lon: [{minLon}, {maxLon}]");
+
+        // Add small margin
+        double latMargin = (maxLat - minLat) * 0.05;
+        double lonMargin = (maxLon - minLon) * 0.05;
+        minLat -= latMargin;
+        maxLat += latMargin;
+        minLon -= lonMargin;
+        maxLon += lonMargin;
+
+        // Create world plotter with calculated bounds using degrees
+        var geoBounds = new KoreLLBox
+        {
+            MinLatDegs = minLat,
+            MaxLatDegs = maxLat,
+            MinLonDegs = minLon,
+            MaxLonDegs = maxLon
+        };
+        var worldPlotter = new KoreWorldPlotter(2000, 2000, geoBounds);
+
+        testLog.AddComment($"ShapefileDrawTest: Bounds: Lat [{geoBounds.MinLatDegs:F6}, {geoBounds.MaxLatDegs:F6}], Lon [{geoBounds.MinLonDegs:F6}, {geoBounds.MaxLonDegs:F6}]");
+        testLog.AddComment($"ShapefileDrawTest: Lat span: {geoBounds.DeltaLatDegs:F6}, Lon span: {geoBounds.DeltaLonDegs:F6}");
+
+        // Set drawing color for streets
+        var streetColor = new KoreColorRGB(100, 100, 255); // Blue for streets
+        worldPlotter.Plotter.DrawSettings.Color = KoreSkiaSharpConv.ToSKColor(streetColor);
+        worldPlotter.Plotter.DrawSettings.Paint.StrokeWidth = 1.5f;
+
+        // Draw all street features
+        int segmentCount = 0;
+        foreach (var feature in collection.Features)
+        {
+            if (feature.Geometry is KoreGeoMultiLineString multiLine)
+            {
+                foreach (var lineString in multiLine.LineStrings)
+                {
+                    // Draw each line segment
+                    for (int i = 0; i < lineString.Count - 1; i++)
+                    {
+                        var pixel1 = worldPlotter.LatLonToPixel(lineString[i]);
+                        var pixel2 = worldPlotter.LatLonToPixel(lineString[i + 1]);
+                        worldPlotter.Plotter.DrawLine(pixel1, pixel2);
+                        segmentCount++;
+                    }
+                }
+            }
+        }
+
+        testLog.AddComment($"ShapefileDrawTest: Drew {segmentCount} line segments");
+
+        // Log some sample pixel coordinates to verify conversion
+        if (collection.Features.Count > 0 && collection.Features[0].Geometry is KoreGeoMultiLineString sampleMultiLine)
+        {
+            if (sampleMultiLine.LineStrings.Count > 0 && sampleMultiLine.LineStrings[0].Count > 0)
+            {
+                var samplePoint = sampleMultiLine.LineStrings[0][0];
+                var samplePixel = worldPlotter.LatLonToPixel(samplePoint);
+                testLog.AddComment($"ShapefileDrawTest: Sample pixel: ({samplePixel.X:F2}, {samplePixel.Y:F2})");
+            }
+        }
+
+        // Save the image
+        worldPlotter.Save(outputPath);
+
+        // Test passes if we created the image
+        bool passed = File.Exists(outputPath);
+        testLog.AddResult("Shapefile Streets Visualization", passed,
+            passed ? $"Created visualization with {collection.Features.Count} features" : "Failed to create visualization");
     }
 }

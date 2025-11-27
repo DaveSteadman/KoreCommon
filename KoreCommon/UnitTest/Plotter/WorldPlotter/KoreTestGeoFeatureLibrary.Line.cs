@@ -37,10 +37,10 @@ public static partial class KoreTestGeoFeatureLibrary
 
             library.AddFeature(line);
 
-            string artefactsDir = Path.Combine(Directory.GetCurrentDirectory(), "UnitTestArtefacts");
+            string artefactsDir = KoreTestCenter.TestPath;
             Directory.CreateDirectory(artefactsDir);
 
-            string geoJsonPath = Path.Combine(artefactsDir, "geo_feature_line.json");
+            string geoJsonPath = KoreFileOps.JoinPaths(artefactsDir, "geo_feature_line.json");
             library.SaveToGeoJSON(geoJsonPath);
 
             if (!File.Exists(geoJsonPath))

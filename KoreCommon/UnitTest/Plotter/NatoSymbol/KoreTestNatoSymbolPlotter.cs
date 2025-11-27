@@ -41,11 +41,11 @@ public static class KoreTestNatoSymbolPlotter
             // diamondElement.Render(canvas.Canvas);
 
             // Check output directory
-            string artefactsDir = Path.Combine(Directory.GetCurrentDirectory(), "UnitTestArtefacts");
+            string artefactsDir = KoreTestCenter.TestPath;
             Directory.CreateDirectory(artefactsDir);
 
             // Save the file
-            canvas.SaveToPng(Path.Combine(artefactsDir, "octagon_layout_test.png"));
+            canvas.SaveToPng(KoreFileOps.JoinPaths(artefactsDir, "octagon_layout_test.png"));
             Console.WriteLine("   📁 Saved: GeneratedSymbols/octagon_layout_test.png");
         }
         catch (Exception ex)

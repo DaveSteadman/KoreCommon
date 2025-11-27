@@ -60,7 +60,7 @@ public static partial class KoreTestSkiaSharp
         DrawTriangleWithCircumcircle(imagePlotter, triangle4, "Thin Triangle", new KoreXYVector(550, 350));
 
         // Save the test image
-        string filePath = "UnitTestArtefacts/circumcircle_test.png";
+        string filePath = KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "circumcircle_test.png");
         imagePlotter.Save(filePath);
 
         testLog.AddResult("Circumcircle test", true, "Test completed - check " + filePath);

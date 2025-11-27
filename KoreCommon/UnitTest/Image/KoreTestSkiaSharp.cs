@@ -71,9 +71,9 @@ public static partial class KoreTestSkiaSharp
         imagePlotter.DrawTextAtPosition("Yet Another Line of Text", markPoint3, KoreXYRectPosition.Center, 20);
 
         // Save the image to a file
-        string filePath = "UnitTestArtefacts/testcard.png";
+        string filePath = KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "testcard.png");
         KoreFileOps.CreateDirectoryForFile(filePath);
-        
+
         imagePlotter.Save(filePath);
         testLog.AddComment("Test card image saved to " + filePath);
     }

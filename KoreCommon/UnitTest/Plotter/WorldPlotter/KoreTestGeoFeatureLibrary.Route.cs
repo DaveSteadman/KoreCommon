@@ -157,7 +157,7 @@ public static partial class KoreTestGeoFeatureLibrary
             ukMap.DrawPoint(controlPoint3, controlPointColor, controlPointSize);
 
             // Save the map
-            string outputPath = Path.Combine(Directory.GetCurrentDirectory(), "UnitTestArtefacts", "uk_multi_segment_route.png");
+            string outputPath = KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "uk_multi_segment_route.png");
             ukMap.Save(outputPath);
 
             testLog.AddComment($"Route has {route.Legs.Count} legs and {route.WaypointCount} waypoints");
@@ -254,7 +254,7 @@ public static partial class KoreTestGeoFeatureLibrary
             string exportedJson = route.ToGeoJSONKore(30);
 
             // Save to file
-            string outputPath = Path.Combine(Directory.GetCurrentDirectory(), "UnitTestArtefacts", "test_route.geojsonkore");
+            string outputPath = KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "test_route.geojsonkore");
             route.SaveToGeoJSONKore(outputPath, 30);
 
             testLog.AddComment($"Exported route with {route.Legs.Count} legs to GeoJSONKore");
@@ -495,7 +495,7 @@ public static partial class KoreTestGeoFeatureLibrary
             }
 
             // Save the map
-            string outputPath = Path.Combine(Directory.GetCurrentDirectory(), "UnitTestArtefacts", "uk_flexible_join_route.png");
+            string outputPath = KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "uk_flexible_join_route.png");
             ukMap.Save(outputPath);
 
             testLog.AddComment($"Route has {route.Legs.Count} legs ({route.WaypointCount} waypoints)");

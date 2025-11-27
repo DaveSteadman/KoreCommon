@@ -117,7 +117,7 @@ public static class KoreTestPlotter
             plotter.DrawTextAtPosition($"{KoreCentralTime.TimestampLocal}\nPlotter Test 1 // BL Origin", textPoint, KoreXYRectPosition.BottomLeft);
             plotter.DrawSettings.ResetToDefaults();
 
-            plotter.Save("UnitTestArtefacts/Plotter_Test.png");
+            plotter.Save(KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "Plotter_Test.png"));
         }
         catch (Exception e)
         {
@@ -236,7 +236,7 @@ public static class KoreTestPlotter
             plotter.DrawRect(outline2);
 
             // Final: Save plot:
-            plotter.Save("UnitTestArtefacts/Plotter_Test2.png");
+            plotter.Save(KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "Plotter_Test2.png"));
         }
         catch (Exception e)
         {

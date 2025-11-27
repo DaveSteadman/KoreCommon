@@ -36,7 +36,7 @@ public static class KoreTestWorldPlotter
         KoreWorldPlotterOps.DrawBorder(worldPlotter);
 
         // Draw all country outlines if available
-        string countriesPath = "UnitTestArtefacts/CountryOutline_All.geojson";
+        string countriesPath = KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "CountryOutline_All.geojson");
         if (System.IO.File.Exists(countriesPath))
         {
             try
@@ -120,8 +120,8 @@ public static class KoreTestWorldPlotter
         }
 
         // Save
-        worldPlotter.Save("UnitTestArtefacts/world_map_world.png");
-        testLog.AddComment($"World map with all {KorePositionLibrary.Positions.Count} positions saved to UnitTestArtefacts/world_map_world.png");
+        worldPlotter.Save(KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "world_map_world.png"));
+        testLog.AddComment($"World map with all {KorePositionLibrary.Positions.Count} positions saved to {KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "world_map_world.png")}");
         testLog.AddResult("World Map (All Positions)", true);
     }
 
@@ -209,8 +209,8 @@ public static class KoreTestWorldPlotter
         }
 
         // Save
-        europeMap.Save("UnitTestArtefacts/world_map_europe.png");
-        testLog.AddComment($"Regional Europe map with {positionCount} positions saved to UnitTestArtefacts/world_map_europe.png");
+        europeMap.Save(KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "world_map_europe.png"));
+        testLog.AddComment($"Regional Europe map with {positionCount} positions saved to {KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "world_map_europe.png")}");
         testLog.AddResult("Regional Map (Europe)", true);
     }
 
@@ -262,7 +262,7 @@ public static class KoreTestWorldPlotter
         var geoLibrary = new KoreGeoFeatureLibrary();
 
         // Load point features (airport)
-        string pointJsonPath = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "UnitTestArtefacts", "geo_feature_point.json");
+        string pointJsonPath = KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "geo_feature_point.json");
         if (System.IO.File.Exists(pointJsonPath))
         {
             try
@@ -288,7 +288,7 @@ public static class KoreTestWorldPlotter
         }
 
         // Load line features (routes)
-        string lineJsonPath = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "UnitTestArtefacts", "geo_feature_line.json");
+        string lineJsonPath = KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "geo_feature_line.json");
         if (System.IO.File.Exists(lineJsonPath))
         {
             try
@@ -315,7 +315,7 @@ public static class KoreTestWorldPlotter
         }
 
         // Load UK country outline (MultiPolygon with all islands)
-        string ukOutlinePath = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "UnitTestArtefacts", "CountryOutline_UK.geojson");
+        string ukOutlinePath = KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "CountryOutline_UK.geojson");
         if (System.IO.File.Exists(ukOutlinePath))
         {
             try
@@ -355,7 +355,7 @@ public static class KoreTestWorldPlotter
         }
 
         // Load polygon features (areas)
-        string polygonJsonPath = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "UnitTestArtefacts", "geo_feature_polygon.json");
+        string polygonJsonPath = KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "geo_feature_polygon.json");
         if (System.IO.File.Exists(polygonJsonPath))
         {
             try
@@ -392,7 +392,7 @@ public static class KoreTestWorldPlotter
         }
 
         // Load all airports and draw UK airports
-        string airportsPath = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "UnitTestArtefacts", "airport-codes.geojson");
+        string airportsPath = KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "airport-codes.geojson");
         if (System.IO.File.Exists(airportsPath))
         {
             try
@@ -453,8 +453,8 @@ public static class KoreTestWorldPlotter
             ukMap.DrawTextAtPosition("Belfast", KorePositionLibrary.GetLLPos("Belfast"), KoreXYRectPosition.BottomCenter, 14);
 
         // Save
-        ukMap.Save("UnitTestArtefacts/world_map_uk.png");
-        testLog.AddComment($"UK and Ireland map with {positionCount} positions saved to UnitTestArtefacts/world_map_uk.png");
+        ukMap.Save(KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "world_map_uk.png"));
+        testLog.AddComment($"UK and Ireland map with {positionCount} positions saved to {KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "world_map_uk.png")}");
         testLog.AddResult("Regional Map (UK & Ireland)", true);
     }
 
@@ -482,7 +482,7 @@ public static class KoreTestWorldPlotter
         KoreWorldPlotterOps.DrawBorder(ukMap);
 
         // Load UK country outline from MultiPolygon GeoJSON
-        string ukOutlinePath = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "UnitTestArtefacts", "CountryOutline_UK.geojson");
+        string ukOutlinePath = KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "CountryOutline_UK.geojson");
         if (System.IO.File.Exists(ukOutlinePath))
         {
             try
@@ -530,8 +530,8 @@ public static class KoreTestWorldPlotter
         }
 
         // Save
-        ukMap.Save("UnitTestArtefacts/uk_country_outline.png");
-        testLog.AddComment($"UK country outline map saved to UnitTestArtefacts/uk_country_outline.png");
+        ukMap.Save(KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "uk_country_outline.png"));
+        testLog.AddComment($"UK country outline map saved to {KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "uk_country_outline.png")}");
         testLog.AddResult("UK Country Outline", true);
     }
 
@@ -551,7 +551,7 @@ public static class KoreTestWorldPlotter
         KoreWorldPlotterOps.DrawBorder(worldMap);
 
         // Check if all countries file exists
-        string countriesPath = "UnitTestArtefacts/CountryOutline_All.geojson";
+        string countriesPath = KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "CountryOutline_All.geojson");
         if (System.IO.File.Exists(countriesPath))
         {
             try
@@ -586,8 +586,8 @@ public static class KoreTestWorldPlotter
                 testLog.AddComment($"Loaded and drew {polygonCount} country polygons from CountryOutline_All.geojson");
 
                 // Save
-                worldMap.Save("UnitTestArtefacts/world_map_all_countries.png");
-                testLog.AddComment($"World map with all countries saved to UnitTestArtefacts/world_map_all_countries.png");
+                worldMap.Save(KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "world_map_all_countries.png"));
+                testLog.AddComment($"World map with all countries saved to {KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "world_map_all_countries.png")}");
                 testLog.AddResult(testName, true);
             }
             catch (Exception ex)

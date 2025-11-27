@@ -10,6 +10,9 @@ namespace KoreCommon.UnitTest;
 
 public static class KoreTestCenter
 {
+    // Central path for all unit test output files
+    public static string TestPath => KoreFileOps.JoinPaths(Directory.GetCurrentDirectory(), "UnitTestArtefacts");
+
     public static KoreTestLog RunCoreTests()
     {
         KoreTestLog testLog = new KoreTestLog();
@@ -83,22 +86,19 @@ public static class KoreTestCenter
     {
         bool retval = false;
 
-        // Use a proper path - either absolute or relative with proper separators
-        // Option 1: Relative to current directory
-        string testDir = Path.Combine(Directory.GetCurrentDirectory(), "UnitTestArtefacts");
-        testLog.AddComment("Attempting to create directory at: " + testDir);
+        testLog.AddComment("Attempting to create directory at: " + TestPath);
 
-        KoreFileOps.CreateDirectory(testDir);
+        KoreFileOps.CreateDirectory(TestPath);
 
         // Verify the directory was actually created
-        if (Directory.Exists(testDir))
+        if (Directory.Exists(TestPath))
         {
-            testLog.AddComment("? Test directory successfully created at: " + testDir);
+            testLog.AddComment("? Test directory successfully created at: " + TestPath);
             retval = true;
         }
         else
         {
-            testLog.AddResult("Test Directory Creation", false, $"? Test directory was NOT created at: {testDir}");
+            testLog.AddResult("Test Directory Creation", false, $"? Test directory was NOT created at: {TestPath}");
         }
 
         return retval;

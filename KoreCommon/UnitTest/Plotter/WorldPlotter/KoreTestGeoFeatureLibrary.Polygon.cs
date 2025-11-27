@@ -75,10 +75,10 @@ public static partial class KoreTestGeoFeatureLibrary
 
             library.AddFeature(londonPolygon);
 
-            string artefactsDir = Path.Combine(Directory.GetCurrentDirectory(), "UnitTestArtefacts");
+            string artefactsDir = KoreTestCenter.TestPath;
             Directory.CreateDirectory(artefactsDir);
 
-            string geoJsonPath = Path.Combine(artefactsDir, "geo_feature_polygon.json");
+            string geoJsonPath = KoreFileOps.JoinPaths(artefactsDir, "geo_feature_polygon.json");
             library.SaveToGeoJSON(geoJsonPath);
 
             if (!File.Exists(geoJsonPath))

@@ -37,8 +37,8 @@ public static partial class KoreTestMiniMesh
         testLog.AddComment($"MTL Content: {mtlContent}");
 
         // Save OBJMtl content to file
-        File.WriteAllText("UnitTestArtefacts/MyMesh.obj", objContent);
-        File.WriteAllText("UnitTestArtefacts/MyMaterials.mtl", mtlContent);
+        File.WriteAllText(KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "MyMesh.obj"), objContent);
+        File.WriteAllText(KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "MyMaterials.mtl"), mtlContent);
 
     }
 
@@ -71,10 +71,10 @@ public static partial class KoreTestMiniMesh
 
         // Save both to OBJ/MTL for visual comparison
         var (basicObjContent, basicMtlContent) = KoreMiniMeshIO.ToObjMtl(basicSphere, "BasicSphere", "BasicSphereMaterials");
-        File.WriteAllText("UnitTestArtefacts/BasicSphere.obj", basicObjContent);
-        File.WriteAllText("UnitTestArtefacts/BasicSphereMaterials.mtl", basicMtlContent);
+        File.WriteAllText(KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "BasicSphere.obj"), basicObjContent);
+        File.WriteAllText(KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "BasicSphereMaterials.mtl"), basicMtlContent);
 
-        testLog.AddComment("Sphere comparison completed - check UnitTestArtefacts/BasicSphere.obj vs OptimizedSphere.obj");
+        testLog.AddComment($"Sphere comparison completed - check {KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "BasicSphere.obj")} vs OptimizedSphere.obj");
 
     }
 
@@ -92,7 +92,7 @@ public static partial class KoreTestMiniMesh
 
         KoreMiniMesh cylinderMesh = KoreMiniMeshPrimitives.CreateCylinder(
             p1, p2, radius, radius, sides, true, material, lineColor);
-        
+
         testLog.AddComment($"Cylinder Vertices: {cylinderMesh.Vertices.Count}");
         testLog.AddComment($"Cylinder Groups: {cylinderMesh.Groups.Count}");
         testLog.AddComment($"Cylinder Materials: {cylinderMesh.Materials.Count}");
@@ -102,17 +102,17 @@ public static partial class KoreTestMiniMesh
         // Test JSON serialization
         string json = KoreMiniMeshIO.ToJson(cylinderMesh);
         testLog.AddComment($"Cylinder JSON length: {json.Length}");
-        
+
         var loadedCylinder = KoreMiniMeshIO.FromJson(json);
         testLog.AddResult("Cylinder JSON roundtrip vertices", loadedCylinder.Vertices.Count == cylinderMesh.Vertices.Count);
         testLog.AddResult("Cylinder JSON roundtrip groups", loadedCylinder.Groups.Count == cylinderMesh.Groups.Count);
 
         // Save to OBJ/MTL for visual verification
         var (objContent, mtlContent) = KoreMiniMeshIO.ToObjMtl(cylinderMesh, "TestCylinder", "CylinderMaterials");
-        File.WriteAllText("UnitTestArtefacts/TestCylinder.obj", objContent);
-        File.WriteAllText("UnitTestArtefacts/CylinderMaterials.mtl", mtlContent);
-        
-        testLog.AddComment("Cylinder test completed - check UnitTestArtefacts/TestCylinder.obj");
+        File.WriteAllText(KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "TestCylinder.obj"), objContent);
+        File.WriteAllText(KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "CylinderMaterials.mtl"), mtlContent);
+
+        testLog.AddComment($"Cylinder test completed - check {KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "TestCylinder.obj")}");
 
     }
 
@@ -129,22 +129,22 @@ public static partial class KoreTestMiniMesh
 
         var pyramidMesh = KoreMiniMeshPrimitives.CreatePyramid(
             pApex, pBaseCenter, baseReference, width, height, true,
-            KoreMiniMeshMaterialPalette.Find("MattGreen"), 
+            KoreMiniMeshMaterialPalette.Find("MattGreen"),
             new KoreColorRGB(0, 0, 255));
 
         // Verify basic structure
         testLog.AddComment($"Pyramid created with {pyramidMesh.Vertices.Count} vertices and {pyramidMesh.Triangles.Count} triangles");
-        
+
         // Test JSON serialization
         string json = KoreMiniMeshIO.ToJson(pyramidMesh);
         testLog.AddResult("JSON serialization", !string.IsNullOrEmpty(json));
-        
+
         // Test OBJ/MTL export
         var (objContent, mtlContent) = KoreMiniMeshIO.ToObjMtl(pyramidMesh, "TestPyramid", "PyramidMaterials");
-        File.WriteAllText("UnitTestArtefacts/TestPyramid.obj", objContent);
-        File.WriteAllText("UnitTestArtefacts/PyramidMaterials.mtl", mtlContent);
-        
-        testLog.AddComment("Pyramid test completed - check UnitTestArtefacts/TestPyramid.obj");
+        File.WriteAllText(KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "TestPyramid.obj"), objContent);
+        File.WriteAllText(KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "PyramidMaterials.mtl"), mtlContent);
+
+        testLog.AddComment($"Pyramid test completed - check {KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "TestPyramid.obj")}");
     }
 
 }

@@ -18,7 +18,7 @@ public static partial class KoreTestSkiaSharp
     // KoreTestSkiaSharp.TestPlane
     private static void TestImage(KoreTestLog testLog)
     {
-        string imagePath = "UnitTestArtefacts/TestImage_Input.png";
+        string imagePath = KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "TestImage_Input.png");
 
         // check the file exists
         if (!File.Exists(imagePath))
@@ -40,7 +40,7 @@ public static partial class KoreTestSkiaSharp
         KoreSkiaSharpBitmapOps.ApplyColorListToBitmap(image, colorList);
 
         // Save the modified image
-        string outputPath = "UnitTestArtefacts/TestImage_Output.png";
+        string outputPath = KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "TestImage_Output.png");
         KoreSkiaSharpBitmapOps.SaveBitmapAsPng(image, outputPath);
         testLog.AddComment("Test image saved to " + outputPath);
     }

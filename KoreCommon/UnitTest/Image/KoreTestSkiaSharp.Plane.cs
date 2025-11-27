@@ -34,7 +34,7 @@ public static partial class KoreTestSkiaSharp
             new KoreXYZVector(0, 1, 0)      // Y-axis (world Y)
         );
 
-        DrawPlaneWithCircle(imagePlotter, flatPlane, "0° Plane (XY)", 
+        DrawPlaneWithCircle(imagePlotter, flatPlane, "0° Plane (XY)",
             new KoreXYVector(200, 200), new KoreXYVector(120, 120), 150);
 
         // Test Case 2: 30 degree plane (tilted around X-axis)
@@ -45,7 +45,7 @@ public static partial class KoreTestSkiaSharp
             new KoreXYZVector(0, Math.Cos(angle30), -Math.Sin(angle30))   // Y-axis rotated accordingly
         );
 
-        DrawPlaneWithCircle(imagePlotter, plane30, "30° Plane (tilted around X-axis)", 
+        DrawPlaneWithCircle(imagePlotter, plane30, "30° Plane (tilted around X-axis)",
             new KoreXYVector(600, 200), new KoreXYVector(520, 120), 150);
 
         // Test Case 3: 45 degree plane (tilted around X-axis)
@@ -56,7 +56,7 @@ public static partial class KoreTestSkiaSharp
             new KoreXYZVector(0, Math.Cos(angle45), -Math.Sin(angle45))   // Y-axis rotated accordingly
         );
 
-        DrawPlaneWithCircle(imagePlotter, plane45, "45° Plane (tilted around X-axis)", 
+        DrawPlaneWithCircle(imagePlotter, plane45, "45° Plane (tilted around X-axis)",
             new KoreXYVector(1000, 200), new KoreXYVector(920, 120), 150);
 
         // Test Case 4: 60 degree plane (tilted around Y-axis)
@@ -67,7 +67,7 @@ public static partial class KoreTestSkiaSharp
             new KoreXYZVector(0, 1, 0)                                     // Y-axis stays as world Y
         );
 
-        DrawPlaneWithCircle(imagePlotter, plane60, "60° Plane (tilted around Y-axis)", 
+        DrawPlaneWithCircle(imagePlotter, plane60, "60° Plane (tilted around Y-axis)",
             new KoreXYVector(200, 600), new KoreXYVector(120, 520), 150);
 
         // Test Case 5: 90 degree plane (YZ plane)
@@ -77,7 +77,7 @@ public static partial class KoreTestSkiaSharp
             new KoreXYZVector(0, 1, 0)      // Y-axis (world Y)
         );
 
-        DrawPlaneWithCircle(imagePlotter, plane90, "90° Plane (YZ)", 
+        DrawPlaneWithCircle(imagePlotter, plane90, "90° Plane (YZ)",
             new KoreXYVector(600, 600), new KoreXYVector(520, 520), 150);
 
         // Test Case 6: Complex plane (tilted around both X and Y axes)
@@ -87,18 +87,18 @@ public static partial class KoreTestSkiaSharp
             new KoreXYZVector(0, 0.5, 0.5)                     // Y-axis (world Y)
         );
 
-        DrawPlaneWithCircle(imagePlotter, planeComplex, "Complex Plane", 
+        DrawPlaneWithCircle(imagePlotter, planeComplex, "Complex Plane",
             new KoreXYVector(1000, 600), new KoreXYVector(920, 520), 150);
 
         // Save the test image
-        string filePath = "UnitTestArtefacts/plane_test.png";
+        string filePath = KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "plane_test.png");
         imagePlotter.Save(filePath);
 
         testLog.AddResult("Plane test", true, "Test completed - check " + filePath);
     }
 
     // Helper method to draw a circle on a 3D plane projected to 2D
-    private static void DrawPlaneWithCircle(KoreSkiaSharpPlotter plotter, KoreXYZPlane plane, string label, 
+    private static void DrawPlaneWithCircle(KoreSkiaSharpPlotter plotter, KoreXYZPlane plane, string label,
         KoreXYVector screenCenter, KoreXYVector labelPos, double radius)
     {
         const int segments = 32; // Number of points around the circle
@@ -164,11 +164,11 @@ public static partial class KoreTestSkiaSharp
         // Get 3D points for main axes using pure math class
         var xAxis3D = plane.Project2DTo3D(new KoreXYVector(axisLength, 0));
         var yAxis3D = plane.Project2DTo3D(new KoreXYVector(0, axisLength));
-        
+
         // Project to screen coordinates (visualization layer)
         var xAxisScreen = ProjectWorldToScreen(xAxis3D, screenCenter);
         var yAxisScreen = ProjectWorldToScreen(yAxis3D, screenCenter);
-        
+
         // Draw X axis (red) - 0 degrees
         plotter.DrawSettings.Color = SKColors.Red;
         plotter.DrawSettings.LineWidth = 2;
@@ -183,11 +183,11 @@ public static partial class KoreTestSkiaSharp
         // 30 degree line (orange)
         var angle30 = Math.PI / 6; // 30 degrees
         var axis30_3D = plane.Project2DTo3D(new KoreXYVector(
-            axisLength * Math.Cos(angle30), 
+            axisLength * Math.Cos(angle30),
             axisLength * Math.Sin(angle30)
         ));
         var axis30Screen = ProjectWorldToScreen(axis30_3D, screenCenter);
-        
+
         plotter.DrawSettings.Color = SKColors.Orange;
         plotter.DrawSettings.LineWidth = 1;
         plotter.DrawLine(screenCenter, axis30Screen);
@@ -195,11 +195,11 @@ public static partial class KoreTestSkiaSharp
         // 60 degree line (purple)
         var angle60 = Math.PI / 3; // 60 degrees
         var axis60_3D = plane.Project2DTo3D(new KoreXYVector(
-            axisLength * Math.Cos(angle60), 
+            axisLength * Math.Cos(angle60),
             axisLength * Math.Sin(angle60)
         ));
         var axis60Screen = ProjectWorldToScreen(axis60_3D, screenCenter);
-        
+
         plotter.DrawSettings.Color = SKColors.Purple;
         plotter.DrawSettings.LineWidth = 1;
         plotter.DrawLine(screenCenter, axis60Screen);
@@ -207,13 +207,13 @@ public static partial class KoreTestSkiaSharp
         // Add axis labels
         plotter.DrawSettings.Color = SKColors.Red;
         plotter.DrawText("X (0°)", xAxisScreen.Offset(5, 0), 12);
-        
+
         plotter.DrawSettings.Color = SKColors.Orange;
         plotter.DrawText("30°", axis30Screen.Offset(5, 0), 10);
-        
+
         plotter.DrawSettings.Color = SKColors.Purple;
         plotter.DrawText("60°", axis60Screen.Offset(5, 0), 10);
-        
+
         plotter.DrawSettings.Color = SKColors.Green;
         plotter.DrawText("Y (90°)", yAxisScreen.Offset(5, 0), 12);
     }
@@ -226,10 +226,10 @@ public static partial class KoreTestSkiaSharp
         // - 3D +X maps to screen +X (right-positive) - FIXED: was going left, now goes right
         // - 3D +Y maps to screen -Y (up-positive, compensating for screen Y-down convention)
         // - 3D +Z is ignored (orthographic projection)
-        
+
         // Add slight perspective effect by scaling based on Z depth
         double scale = 1.0 / (1.0 + worldPoint.Z * 0.001);
-        
+
         return new KoreXYVector(
             screenCenter.X - worldPoint.X * scale,   // FIXED: negate X to make +X go right instead of left
             screenCenter.Y - worldPoint.Y * scale    // +Y goes up (flip Y for screen coordinates)

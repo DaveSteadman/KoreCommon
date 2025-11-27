@@ -197,8 +197,8 @@ public static partial class KoreTestMeshUvOps
         var mesh = CreateOilBarrelWithUV(16, 1.0, 3.0);
 
         // Save UV layout images
-        string debugPath = "UnitTestArtefacts/oil_barrel_uv_debug.png";
-        string cleanPath = "UnitTestArtefacts/oil_barrel_uv_clean.png";
+        string debugPath = KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "oil_barrel_uv_debug.png");
+        string cleanPath = KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "oil_barrel_uv_clean.png");
 
         KoreFileOps.CreateDirectoryForFile(debugPath);
         KoreMeshDataUvOps.SaveUVLayout(mesh, debugPath, 2048, true, true);
@@ -225,8 +225,8 @@ public static partial class KoreTestMeshUvOps
 
         // Export OBJ/MTL files
         var (objContent, mtlContent) = KoreMeshDataIO.ToObjMtl(mesh, "TestOilBarrel", "TestOilBarrelMats");
-        File.WriteAllText("UnitTestArtefacts/TestOilBarrel.obj", objContent);
-        File.WriteAllText("UnitTestArtefacts/TestOilBarrelMats.mtl", mtlContent);
+        File.WriteAllText(KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "TestOilBarrel.obj"), objContent);
+        File.WriteAllText(KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "TestOilBarrelMats.mtl"), mtlContent);
         testLog.AddComment("OBJ/MTL files created for oil barrel UV layout with UV texture assignment");
 
         // Export glTF file
@@ -242,7 +242,7 @@ public static partial class KoreTestMeshUvOps
         // }
 
         // Export the JSON representation
-        string jsonPath = "UnitTestArtefacts/TestOilBarrel.json";
+        string jsonPath = KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "TestOilBarrel.json");
         KoreFileOps.CreateDirectoryForFile(jsonPath);
         File.WriteAllText(jsonPath, KoreMeshDataIO.ToJson(mesh));
 
