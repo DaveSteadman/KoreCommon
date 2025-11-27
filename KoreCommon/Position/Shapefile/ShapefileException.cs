@@ -6,9 +6,7 @@ using System;
 
 namespace KoreCommon;
 
-/// <summary>
-/// Exception thrown when a Shapefile cannot be read or written.
-/// </summary>
+// Exception thrown when a Shapefile cannot be read or written.
 public class ShapefileException : Exception
 {
     public ShapefileException(string message) : base(message) { }

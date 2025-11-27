@@ -4,44 +4,30 @@
 
 namespace KoreCommon;
 
-/// <summary>
-/// Represents a field (column) descriptor in a DBF file.
-/// </summary>
+// Represents a field (column) descriptor in a DBF file.
 public class DbfFieldDescriptor
 {
-    /// <summary>
-    /// Field name (up to 11 characters in DBF format).
-    /// </summary>
+    // Field name (up to 11 characters in DBF format).
     public string Name { get; set; } = string.Empty;
 
-    /// <summary>
-    /// DBF field type character:
-    /// C = Character (string)
-    /// N = Numeric
-    /// F = Float
-    /// L = Logical (boolean)
-    /// D = Date
-    /// </summary>
+    // DBF field type character:
+    // C = Character (string)
+    // N = Numeric
+    // F = Float
+    // L = Logical (boolean)
+    // D = Date
     public char FieldType { get; set; }
 
-    /// <summary>
-    /// Total field length in bytes.
-    /// </summary>
+    // Total field length in bytes.
     public int Length { get; set; }
 
-    /// <summary>
-    /// Decimal count for numeric fields.
-    /// </summary>
+    // Decimal count for numeric fields.
     public int DecimalCount { get; set; }
 
-    /// <summary>
-    /// Work area ID (reserved, usually 0).
-    /// </summary>
+    // Work area ID (reserved, usually 0).
     public byte WorkAreaId { get; set; }
 
-    /// <summary>
-    /// Gets the .NET type that corresponds to this DBF field type.
-    /// </summary>
+    // Gets the .NET type that corresponds to this DBF field type.
     public System.Type GetClrType()
     {
         return FieldType switch
@@ -55,9 +41,7 @@ public class DbfFieldDescriptor
         };
     }
 
-    /// <summary>
-    /// Infers the DBF field type from a .NET type.
-    /// </summary>
+    // Infers the DBF field type from a .NET type.
     public static DbfFieldDescriptor FromClrType(string name, System.Type type, int maxLength = 254)
     {
         var descriptor = new DbfFieldDescriptor { Name = TruncateName(name) };
@@ -96,9 +80,7 @@ public class DbfFieldDescriptor
         return descriptor;
     }
 
-    /// <summary>
-    /// Truncates a field name to the DBF maximum of 11 characters.
-    /// </summary>
+    // Truncates a field name to the DBF maximum of 11 characters.
     private static string TruncateName(string name)
     {
         if (string.IsNullOrEmpty(name))

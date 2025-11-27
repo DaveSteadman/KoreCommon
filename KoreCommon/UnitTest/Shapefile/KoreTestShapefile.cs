@@ -7,9 +7,7 @@ using KoreCommon;
 
 namespace KoreCommon.UnitTest;
 
-/// <summary>
-/// Unit tests for Shapefile reading and writing functionality.
-/// </summary>
+// Unit tests for Shapefile reading and writing functionality.
 public static class KoreTestShapefile
 {
     private static string TestDir = string.Empty;
@@ -63,9 +61,7 @@ public static class KoreTestShapefile
         }
     }
 
-    /// <summary>
-    /// Runs a test safely, catching any exceptions and logging them.
-    /// </summary>
+    // Runs a test safely, catching any exceptions and logging them.
     private static void RunSafeTest(KoreTestLog testLog, string testName, Action<KoreTestLog> testAction)
     {
         try

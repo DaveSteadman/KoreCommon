@@ -4,9 +4,7 @@
 
 namespace KoreCommon;
 
-/// <summary>
-/// ESRI Shapefile geometry types as defined in the Shapefile specification.
-/// </summary>
+// ESRI Shapefile geometry types as defined in the Shapefile specification.
 public enum ShapefileGeometryType
 {
     Null = 0,

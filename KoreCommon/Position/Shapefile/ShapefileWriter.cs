@@ -9,24 +9,18 @@ using System.Text;
 
 namespace KoreCommon;
 
-/// <summary>
-/// Writes ESRI Shapefiles (.shp, .shx, .dbf, .prj) from a ShapefileFeatureCollection.
-/// </summary>
+// Writes ESRI Shapefiles (.shp, .shx, .dbf, .prj) from a ShapefileFeatureCollection.
 public static class ShapefileWriter
 {
     private const int ShapefileFileCode = 9994;
     private const int ShapefileVersion = 1000;
 
-    /// <summary>
-    /// WGS84 projection definition in WKT format.
-    /// </summary>
+    // WGS84 projection definition in WKT format.
     private const string Wgs84Prj = @"GEOGCS[""GCS_WGS_1984"",DATUM[""D_WGS_1984"",SPHEROID[""WGS_1984"",6378137.0,298.257223563]],PRIMEM[""Greenwich"",0.0],UNIT[""Degree"",0.0174532925199433]]";
 
-    /// <summary>
-    /// Writes a ShapefileFeatureCollection to the given path.
-    /// </summary>
-    /// <param name="path">Path to the .shp file or base path without extension.</param>
-    /// <param name="collection">The feature collection to write.</param>
+    // Writes a ShapefileFeatureCollection to the given path.
+    // path: Path to the .shp file or base path without extension.
+    // collection: The feature collection to write.
     public static void Write(string path, ShapefileFeatureCollection collection)
     {
         if (string.IsNullOrWhiteSpace(path))
@@ -63,9 +57,7 @@ public static class ShapefileWriter
         WritePrj(prjPath);
     }
 
-    /// <summary>
-    /// Infers DBF field descriptors from the attributes of all features.
-    /// </summary>
+    // Infers DBF field descriptors from the attributes of all features.
     private static List<DbfFieldDescriptor> InferFieldDescriptors(List<ShapefileFeature> features)
     {
         var fieldTypes = new Dictionary<string, Type>();
@@ -128,9 +120,7 @@ public static class ShapefileWriter
                type == typeof(decimal);
     }
 
-    /// <summary>
-    /// Calculates the bounding box from all features.
-    /// </summary>
+    // Calculates the bounding box from all features.
     private static KoreLLBox CalculateBoundingBox(List<ShapefileFeature> features)
     {
         double minX = double.MaxValue, minY = double.MaxValue;
@@ -162,9 +152,7 @@ public static class ShapefileWriter
         };
     }
 
-    /// <summary>
-    /// Gets all points from a geometry.
-    /// </summary>
+    // Gets all points from a geometry.
     private static List<KoreLLPoint> GetAllPoints(KoreGeoFeature? geometry)
     {
         var points = new List<KoreLLPoint>();
@@ -204,9 +192,7 @@ public static class ShapefileWriter
         return points;
     }
 
-    /// <summary>
-    /// Writes the SHP and SHX files.
-    /// </summary>
+    // Writes the SHP and SHX files.
     private static void WriteShpAndShx(string shpPath, string shxPath, ShapefileFeatureCollection collection, KoreLLBox? bbox)
     {
         using var shpStream = new MemoryStream();
@@ -246,9 +232,7 @@ public static class ShapefileWriter
         File.WriteAllBytes(shxPath, shxStream.ToArray());
     }
 
-    /// <summary>
-    /// Writes the SHP file header.
-    /// </summary>
+    // Writes the SHP file header.
     private static void WriteShpHeader(MemoryStream stream, int fileLength, ShapefileGeometryType shapeType, KoreLLBox? bbox)
     {
         stream.Position = 0;
@@ -285,9 +269,7 @@ public static class ShapefileWriter
         writer.Write(0.0); // mMax
     }
 
-    /// <summary>
-    /// Writes a single SHP record and returns the content length in 16-bit words.
-    /// </summary>
+    // Writes a single SHP record and returns the content length in 16-bit words.
     private static int WriteShpRecord(BinaryWriter writer, ShapefileFeature feature, int recordNumber)
     {
         long contentStart = writer.BaseStream.Position + 8; // After header
@@ -336,9 +318,7 @@ public static class ShapefileWriter
         return contentLength;
     }
 
-    /// <summary>
-    /// Writes a Point geometry.
-    /// </summary>
+    // Writes a Point geometry.
     private static void WritePointGeometry(BinaryWriter writer, KoreGeoFeature? geometry)
     {
         if (geometry is KoreGeoPoint point)
@@ -353,9 +333,7 @@ public static class ShapefileWriter
         }
     }
 
-    /// <summary>
-    /// Writes a MultiPoint geometry.
-    /// </summary>
+    // Writes a MultiPoint geometry.
     private static void WriteMultiPointGeometry(BinaryWriter writer, KoreGeoFeature? geometry)
     {
         var points = new List<KoreLLPoint>();
@@ -401,9 +379,7 @@ public static class ShapefileWriter
         }
     }
 
-    /// <summary>
-    /// Writes a PolyLine geometry.
-    /// </summary>
+    // Writes a PolyLine geometry.
     private static void WritePolyLineGeometry(BinaryWriter writer, KoreGeoFeature? geometry)
     {
         var parts = new List<List<KoreLLPoint>>();
@@ -420,9 +396,7 @@ public static class ShapefileWriter
         WritePartsGeometry(writer, parts);
     }
 
-    /// <summary>
-    /// Writes a Polygon geometry.
-    /// </summary>
+    // Writes a Polygon geometry.
     private static void WritePolygonGeometry(BinaryWriter writer, KoreGeoFeature? geometry)
     {
         var parts = new List<List<KoreLLPoint>>();
@@ -458,9 +432,7 @@ public static class ShapefileWriter
         WritePartsGeometry(writer, parts);
     }
 
-    /// <summary>
-    /// Writes geometry with parts (used by PolyLine and Polygon).
-    /// </summary>
+    // Writes geometry with parts (used by PolyLine and Polygon).
     private static void WritePartsGeometry(BinaryWriter writer, List<List<KoreLLPoint>> parts)
     {
         // Calculate bounding box and total points
@@ -514,9 +486,7 @@ public static class ShapefileWriter
         }
     }
 
-    /// <summary>
-    /// Ensures a ring is clockwise (for outer rings in Shapefile format).
-    /// </summary>
+    // Ensures a ring is clockwise (for outer rings in Shapefile format).
     private static List<KoreLLPoint> EnsureClockwise(List<KoreLLPoint> ring)
     {
         if (ring.Count < 3)
@@ -532,9 +502,7 @@ public static class ShapefileWriter
         return new List<KoreLLPoint>(ring);
     }
 
-    /// <summary>
-    /// Ensures a ring is counter-clockwise (for holes in Shapefile format).
-    /// </summary>
+    // Ensures a ring is counter-clockwise (for holes in Shapefile format).
     private static List<KoreLLPoint> EnsureCounterClockwise(List<KoreLLPoint> ring)
     {
         if (ring.Count < 3)
@@ -550,10 +518,8 @@ public static class ShapefileWriter
         return new List<KoreLLPoint>(ring);
     }
 
-    /// <summary>
-    /// Calculates the signed area of a ring.
-    /// Positive = counter-clockwise, Negative = clockwise
-    /// </summary>
+    // Calculates the signed area of a ring.
+    // Positive = counter-clockwise, Negative = clockwise
     private static double CalculateSignedArea(List<KoreLLPoint> ring)
     {
         if (ring.Count < 3)
@@ -569,9 +535,7 @@ public static class ShapefileWriter
         return area / 2.0;
     }
 
-    /// <summary>
-    /// Writes the DBF file.
-    /// </summary>
+    // Writes the DBF file.
     private static void WriteDbf(string dbfPath, List<ShapefileFeature> features, List<DbfFieldDescriptor> fields)
     {
         using var stream = new FileStream(dbfPath, FileMode.Create, FileAccess.Write);
@@ -656,9 +620,7 @@ public static class ShapefileWriter
         writer.Write((byte)0x1A);
     }
 
-    /// <summary>
-    /// Formats an attribute value for DBF storage.
-    /// </summary>
+    // Formats an attribute value for DBF storage.
     private static string FormatDbfValue(object? value, DbfFieldDescriptor field)
     {
         if (value == null)
@@ -693,9 +655,7 @@ public static class ShapefileWriter
         }
     }
 
-    /// <summary>
-    /// Formats an attribute value as a string for length calculation.
-    /// </summary>
+    // Formats an attribute value as a string for length calculation.
     private static string FormatAttributeValue(object value)
     {
         if (value is DateTime dt)
@@ -707,17 +667,13 @@ public static class ShapefileWriter
         return value?.ToString() ?? string.Empty;
     }
 
-    /// <summary>
-    /// Writes the PRJ file with WGS84 definition.
-    /// </summary>
+    // Writes the PRJ file with WGS84 definition.
     private static void WritePrj(string prjPath)
     {
         File.WriteAllText(prjPath, Wgs84Prj);
     }
 
-    /// <summary>
-    /// Writes a big-endian 32-bit integer.
-    /// </summary>
+    // Writes a big-endian 32-bit integer.
     private static void WriteBigEndianInt32(BinaryWriter writer, int value)
     {
         byte[] bytes = BitConverter.GetBytes(value);

@@ -6,47 +6,31 @@ using System.Collections.Generic;
 
 namespace KoreCommon;
 
-/// <summary>
-/// Represents a collection of features from a Shapefile.
-/// Corresponds to the contents of a Shapefile layer (.shp, .shx, .dbf, .prj).
-/// </summary>
+// Represents a collection of features from a Shapefile.
+// Corresponds to the contents of a Shapefile layer (.shp, .shx, .dbf, .prj).
 public class ShapefileFeatureCollection
 {
-    /// <summary>
-    /// The geometry type for all features in this collection.
-    /// Shapefiles require all features to have the same geometry type.
-    /// </summary>
+    // The geometry type for all features in this collection.
+    // Shapefiles require all features to have the same geometry type.
     public ShapefileGeometryType GeometryType { get; set; }
 
-    /// <summary>
-    /// The list of features in this collection.
-    /// </summary>
+    // The list of features in this collection.
     public List<ShapefileFeature> Features { get; set; } = new List<ShapefileFeature>();
 
-    /// <summary>
-    /// Bounding box encompassing all features in the collection.
-    /// </summary>
+    // Bounding box encompassing all features in the collection.
     public KoreLLBox? BoundingBox { get; set; }
 
-    /// <summary>
-    /// The projection definition (contents of the .prj file), if available.
-    /// </summary>
+    // The projection definition (contents of the .prj file), if available.
     public string? ProjectionWkt { get; set; }
 
-    /// <summary>
-    /// Field definitions from the DBF file.
-    /// </summary>
+    // Field definitions from the DBF file.
     public List<DbfFieldDescriptor> FieldDescriptors { get; set; } = new List<DbfFieldDescriptor>();
 
-    /// <summary>
-    /// Warnings collected during import (e.g., skipped records, projection mismatch).
-    /// </summary>
+    // Warnings collected during import (e.g., skipped records, projection mismatch).
     public List<string> Warnings { get; set; } = new List<string>();
 
-    /// <summary>
-    /// Converts this ShapefileFeatureCollection to a KoreGeoFeatureCollection
-    /// for interoperability with the existing GeoJSON infrastructure.
-    /// </summary>
+    // Converts this ShapefileFeatureCollection to a KoreGeoFeatureCollection
+    // for interoperability with the existing GeoJSON infrastructure.
     public KoreGeoFeatureCollection ToGeoFeatureCollection()
     {
         var result = new KoreGeoFeatureCollection
@@ -73,9 +57,7 @@ public class ShapefileFeatureCollection
         return result;
     }
 
-    /// <summary>
-    /// Creates a ShapefileFeatureCollection from a KoreGeoFeatureCollection.
-    /// </summary>
+    // Creates a ShapefileFeatureCollection from a KoreGeoFeatureCollection.
     public static ShapefileFeatureCollection FromGeoFeatureCollection(KoreGeoFeatureCollection geoCollection, ShapefileGeometryType geometryType)
     {
         var result = new ShapefileFeatureCollection
