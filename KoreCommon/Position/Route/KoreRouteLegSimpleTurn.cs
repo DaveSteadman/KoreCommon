@@ -2,7 +2,8 @@
 
 using System;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 // Simple turn leg following a circular arc defined by a start point,
 // a turn centre point and an angular change.

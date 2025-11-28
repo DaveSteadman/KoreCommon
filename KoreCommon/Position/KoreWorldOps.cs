@@ -3,7 +3,8 @@
 
 using System;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 
 public static class KoreWorldOps

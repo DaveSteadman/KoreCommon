@@ -5,7 +5,8 @@
 using System;
 using System.Collections.Generic;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 // --------------------------------------------------------------------------------------------
 // MARK: Route (Collection of Legs)

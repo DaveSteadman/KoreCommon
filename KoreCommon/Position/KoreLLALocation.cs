@@ -3,7 +3,8 @@
 using System;
 using System.Collections.Generic;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 
 // KoreLLALocation: A class that encapsulates the idea of a location with latitude, longitude, and altitude, but without

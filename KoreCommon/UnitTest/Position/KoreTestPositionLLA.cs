@@ -3,6 +3,7 @@
 using System;
 
 using KoreCommon;
+using KoreGIS;
 namespace KoreCommon.UnitTest;
 
 

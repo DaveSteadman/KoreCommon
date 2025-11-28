@@ -2,7 +2,8 @@
 
 using System;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 // Abstract base class for route legs. Provides common properties and helper
 // functions that can be used by all leg types.

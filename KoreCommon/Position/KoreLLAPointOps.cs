@@ -3,7 +3,8 @@
 using System;
 using System.Collections.Generic;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 
 // KoreLLAPointOps: A static class to hold operations on KoreLLAPoint objects that are not part of its

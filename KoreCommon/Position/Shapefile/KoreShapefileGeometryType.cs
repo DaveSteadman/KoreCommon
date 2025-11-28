@@ -2,7 +2,8 @@
 
 #nullable enable
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 // ESRI Shapefile geometry types as defined in the Shapefile specification.
 public enum ShapefileGeometryType

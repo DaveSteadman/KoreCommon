@@ -8,7 +8,8 @@ using System.Globalization;
 using System.IO;
 using System.Text.Json;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 // Library for managing and querying geographic features
 // Provides storage, retrieval, and spatial filtering of geo features

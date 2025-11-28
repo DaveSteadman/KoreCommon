@@ -5,7 +5,8 @@
 using System;
 using System.IO;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 // Partial class for reading PRJ (projection) files
 public static partial class KoreShapefileReader

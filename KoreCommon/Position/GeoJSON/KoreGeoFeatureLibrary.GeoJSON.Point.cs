@@ -6,7 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 // GeoJSON Point feature import/export for KoreGeoFeatureLibrary
 public partial class KoreGeoFeatureLibrary

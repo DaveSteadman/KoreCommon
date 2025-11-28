@@ -5,7 +5,8 @@
 using System;
 using System.Collections.Generic;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 // Operations for editing and querying KoreGeoRoute objects
 public static class KoreGeoRouteOps

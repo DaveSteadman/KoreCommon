@@ -4,7 +4,8 @@
 
 using System.Collections.Generic;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 // Represents a single feature in a Shapefile, containing geometry and attributes.
 // Maps to the existing KoreGeoFeature types for geometry representation.

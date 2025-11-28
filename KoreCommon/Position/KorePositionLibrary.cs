@@ -2,7 +2,8 @@
 
 using System.Collections.Generic;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 // Usage: 
 // - KoreLLPoint  myPoint = KorePositionLibrary.Positions["London"];

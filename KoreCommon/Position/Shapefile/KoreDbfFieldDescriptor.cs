@@ -2,7 +2,8 @@
 
 #nullable enable
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 // Represents a field (column) descriptor in a DBF file.
 public class KoreDbfFieldDescriptor

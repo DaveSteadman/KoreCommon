@@ -4,7 +4,8 @@
 
 using System.Collections.Generic;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 // Base class for all geographic features
 public abstract class KoreGeoFeature

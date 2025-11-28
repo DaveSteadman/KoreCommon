@@ -2,7 +2,8 @@
 
 #nullable enable
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 // A geographic circle defined by center point and radius
 public class KoreGeoCircle : KoreGeoFeature

@@ -4,7 +4,8 @@
 
 using System;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 // Exception thrown when a Shapefile cannot be read or written.
 public class KoreShapefileException : Exception

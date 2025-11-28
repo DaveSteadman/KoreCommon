@@ -4,7 +4,8 @@
 
 using System.Collections.Generic;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 // A collection of geographic polygons
 public class KoreGeoMultiPolygon : KoreGeoFeature

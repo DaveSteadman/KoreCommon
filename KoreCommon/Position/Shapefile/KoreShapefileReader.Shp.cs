@@ -6,7 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 // Partial class for reading SHP (geometry) files
 public static partial class KoreShapefileReader

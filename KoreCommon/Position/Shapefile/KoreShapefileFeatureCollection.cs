@@ -4,7 +4,8 @@
 
 using System.Collections.Generic;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 // Represents a collection of features from a Shapefile.
 // Corresponds to the contents of a Shapefile layer (.shp, .shx, .dbf, .prj).

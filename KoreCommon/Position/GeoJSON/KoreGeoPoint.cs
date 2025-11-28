@@ -2,7 +2,8 @@
 
 #nullable enable
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 // A geographic point feature
 public class KoreGeoPoint : KoreGeoFeature

@@ -7,7 +7,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 /// GeoJSONKore extensions for KoreGeoRoute
 /// Provides serialization to/from JSON in a format compatible with GeoJSON

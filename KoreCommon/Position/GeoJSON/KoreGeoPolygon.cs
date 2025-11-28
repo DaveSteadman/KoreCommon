@@ -4,7 +4,8 @@
 
 using System.Collections.Generic;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 // A geographic polygon with optional holes
 public class KoreGeoPolygon : KoreGeoFeature

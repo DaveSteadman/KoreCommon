@@ -4,7 +4,8 @@ using System;
 using System.Collections.Generic;
 
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 
 

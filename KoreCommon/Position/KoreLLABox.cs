@@ -2,7 +2,8 @@
 
 using System;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 
 // KoreLLABox: Class to represent a 3D box, curving to a spherical surface. Deals with points in the

@@ -7,7 +7,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 // Partial class for reading DBF (attribute) files
 public static partial class KoreShapefileReader

@@ -4,7 +4,8 @@
 
 using System.Collections.Generic;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 // A geographic line string (sequence of connected points)
 public class KoreGeoLineString : KoreGeoFeature

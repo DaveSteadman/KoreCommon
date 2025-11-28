@@ -3,7 +3,8 @@
 using System;
 using System.Collections.Generic;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 // A common class that represents a route. Each leg on the route could be from a separate
 // class, so we will use common interface for each, but their implementation will be different.

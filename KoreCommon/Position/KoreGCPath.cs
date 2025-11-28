@@ -2,7 +2,8 @@
 
 using System;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 
 // GC = Great Circle

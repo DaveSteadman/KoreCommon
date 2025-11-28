@@ -3,7 +3,8 @@
 using System;
 using System.Collections.Generic;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 
 // KoreLLBox: Class to represent a 3D box, curving to a spherical surface. Deals with points

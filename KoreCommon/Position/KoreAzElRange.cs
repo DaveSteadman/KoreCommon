@@ -2,7 +2,8 @@
 
 using System;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 
 // KoreAzElRange: Class represents a straight line (no earth curvature) between two points.

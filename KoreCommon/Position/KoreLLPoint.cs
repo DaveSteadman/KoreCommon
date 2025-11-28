@@ -2,7 +2,8 @@
 
 using System;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 
 // The struct KoreLLPoint stores Lat Long values from a bottom-left origin, which is useful for map tiles.

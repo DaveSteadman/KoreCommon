@@ -6,7 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 // Library for managing and querying geographic features
 // Provides storage, retrieval, and spatial filtering of geo features

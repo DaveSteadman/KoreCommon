@@ -4,7 +4,8 @@
 
 using System;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 public class KoreRouteLegLine : IKoreRouteLeg
 {

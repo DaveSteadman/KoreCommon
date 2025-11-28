@@ -4,7 +4,8 @@
 
 using System.IO;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 // Partial class for writing PRJ (projection) files
 public static partial class KoreShapefileWriter

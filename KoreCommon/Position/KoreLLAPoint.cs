@@ -3,7 +3,8 @@
 using System;
 using System.Collections.Generic;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 
 // The struct KoreLLAPoint stores a Lat Long Altitude (LLA) position and calculates various new positions, angles and offsets related to it.

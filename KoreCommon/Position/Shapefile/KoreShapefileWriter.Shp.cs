@@ -7,7 +7,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 // Partial class for writing SHP (geometry) and SHX (index) files
 public static partial class KoreShapefileWriter

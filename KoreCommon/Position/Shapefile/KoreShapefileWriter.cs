@@ -6,7 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace KoreCommon;
+using KoreCommon;
+namespace KoreGIS;
 
 // Writes ESRI Shapefiles (.shp, .shx, .dbf, .prj) from a ShapefileFeatureCollection.
 // File-specific handling is in partial class files:

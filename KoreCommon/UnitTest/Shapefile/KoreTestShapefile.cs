@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using KoreCommon;
 using KoreCommon.SkiaSharp;
+using KoreGIS;
 
 namespace KoreCommon.UnitTest;
 
