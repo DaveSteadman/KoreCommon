@@ -7,12 +7,16 @@ namespace KoreGIS;
 
 public static class KoreGISHub
 {
-    private static readonly object SyncLock          = new object();
-    private static          bool   _isInitialized;
+    private static readonly object SyncLock = new object();
+    private static bool _isInitialized;
 
     // Directories and paths
-    private static          string _mapRootDirectory = string.Empty;
-    private static          string _elevationDataDirectory = string.Empty;
+    private static string _mapRootDirectory = string.Empty;
+    private static string _elevationDataDirectory = string.Empty;
+
+    // Patch and Tile Elevation systems
+    // Access: KoreGISHub.EleManager
+    public static KoreElevationManager EleManager = new KoreElevationManager();
 
     // --------------------------------------------------------------------------------------------
 
