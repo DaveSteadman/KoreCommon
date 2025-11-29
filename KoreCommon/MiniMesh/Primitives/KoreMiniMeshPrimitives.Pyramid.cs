@@ -10,18 +10,16 @@ namespace KoreCommon;
 
 public static partial class KoreMiniMeshPrimitives
 {
-    /// <summary>
-    /// Create a pyramid mesh for KoreMiniMesh with explicit base orientation control
-    /// </summary>
-    /// <param name="pApex">Apex point of the pyramid</param>
-    /// <param name="pBaseCenter">Center point of the base</param>
-    /// <param name="baseReferenceDirection">Reference direction to orient the base (will be projected onto base plane)</param>
-    /// <param name="width">Width of the base (perpendicular to reference direction)</param>
-    /// <param name="height">Height of the base (along reference direction)</param>
-    /// <param name="baseClosed">Whether to create the base face</param>
-    /// <param name="material">Material for the pyramid surface</param>
-    /// <param name="lineCol">Color for wireframe lines</param>
-    /// <returns>KoreMiniMesh pyramid</returns>
+    // Create a pyramid mesh for KoreMiniMesh with explicit base orientation control
+    // pApex: Apex point of the pyramid
+    // pBaseCenter: Center point of the base
+    // baseReferenceDirection: Reference direction to orient the base (projected onto base plane)
+    // width: Base width perpendicular to reference direction
+    // height: Base height along reference direction
+    // baseClosed: Whether to create the base face
+    // material: Material for the pyramid surface
+    // lineCol: Color for wireframe lines
+    // returns: KoreMiniMesh pyramid
     public static KoreMiniMesh CreatePyramid(
         KoreXYZVector pApex,
         KoreXYZVector pBaseCenter,
@@ -114,17 +112,15 @@ public static partial class KoreMiniMeshPrimitives
         return mesh;
     }
 
-    /// <summary>
-    /// Create a pyramid with automatic reference direction selection
-    /// </summary>
-    /// <param name="pApex">Apex point of the pyramid</param>
-    /// <param name="pBaseCenter">Center point of the base</param>
-    /// <param name="width">Width of the base</param>
-    /// <param name="height">Height of the base</param>
-    /// <param name="baseClosed">Whether to create the base face</param>
-    /// <param name="material">Material for the pyramid surface</param>
-    /// <param name="lineCol">Color for wireframe lines</param>
-    /// <returns>KoreMiniMesh pyramid</returns>
+    // Create a pyramid with automatic reference direction selection
+    // pApex: Apex point of the pyramid
+    // pBaseCenter: Center point of the base
+    // width: Width of the base
+    // height: Height of the base
+    // baseClosed: Whether to create the base face
+    // material: Material for the pyramid surface
+    // lineCol: Color for wireframe lines
+    // returns: KoreMiniMesh pyramid
     public static KoreMiniMesh CreatePyramidAuto(
         KoreXYZVector pApex,
         KoreXYZVector pBaseCenter,
@@ -136,24 +132,22 @@ public static partial class KoreMiniMeshPrimitives
     {
         // Calculate pyramid axis
         KoreXYZVector axis = (pApex - pBaseCenter).Normalize();
-        
+
         // Use ArbitraryPerpendicular to get a consistent reference direction
         KoreXYZVector baseReference = axis.ArbitraryPerpendicular();
-        
+
         return CreatePyramid(pApex, pBaseCenter, baseReference, width, height, baseClosed, material, lineCol);
     }
 
-    /// <summary>
-    /// Create a circular pyramid mesh for KoreMiniMesh
-    /// </summary>
-    /// <param name="pApex">Apex point of the pyramid</param>
-    /// <param name="pBaseCenter">Center point of the base</param>
-    /// <param name="baseRadius">Radius of the base circle</param>
-    /// <param name="sides">Number of sides for the base (3=triangle, 4=square, etc.)</param>
-    /// <param name="baseClosed">Whether to create the base face</param>
-    /// <param name="material">Material for the pyramid surface</param>
-    /// <param name="lineCol">Color for wireframe lines</param>
-    /// <returns>KoreMiniMesh pyramid</returns>
+    // Create a circular pyramid mesh for KoreMiniMesh
+    // pApex: Apex point of the pyramid
+    // pBaseCenter: Center point of the base
+    // baseRadius: Radius of the base circle
+    // sides: Number of sides for the base (3=triangle, 4=square, etc.)
+    // baseClosed: Whether to create the base face
+    // material: Material for the pyramid surface
+    // lineCol: Color for wireframe lines
+    // returns: KoreMiniMesh pyramid
     public static KoreMiniMesh CreateCircularPyramid(
         KoreXYZVector pApex,
         KoreXYZVector pBaseCenter,
@@ -164,7 +158,7 @@ public static partial class KoreMiniMeshPrimitives
         KoreColorRGB lineCol)
     {
         if (sides < 3) throw new ArgumentException("Pyramid must have at least 3 sides");
-        
+
         var mesh = new KoreMiniMesh();
 
         // Add material and line color
@@ -228,17 +222,15 @@ public static partial class KoreMiniMeshPrimitives
         return mesh;
     }
 
-    /// <summary>
-    /// Create a simple pyramid with default parameters
-    /// </summary>
-    /// <param name="center">Center point of the base</param>
-    /// <param name="axis">Axis direction from base to apex (will be normalized)</param>
-    /// <param name="height">Height of the pyramid</param>
-    /// <param name="width">Width of the base</param>
-    /// <param name="depth">Depth of the base</param>
-    /// <param name="material">Material for the pyramid surface</param>
-    /// <param name="lineCol">Color for wireframe lines</param>
-    /// <returns>KoreMiniMesh pyramid</returns>
+    // Create a simple pyramid with default parameters
+    // center: Center point of the base
+    // axis: Axis direction from base to apex (normalized)
+    // height: Height of the pyramid
+    // width: Width of the base
+    // depth: Depth of the base
+    // material: Material for the pyramid surface
+    // lineCol: Color for wireframe lines
+    // returns: KoreMiniMesh pyramid
     public static KoreMiniMesh Pyramid(
         KoreXYZVector center,
         KoreXYZVector axis,
@@ -251,7 +243,7 @@ public static partial class KoreMiniMeshPrimitives
         axis = axis.Normalize();
         KoreXYZVector pBaseCenter = center;
         KoreXYZVector pApex = center + axis * height;
-        
+
         return CreatePyramidAuto(pApex, pBaseCenter, width, depth, true, material, lineCol);
     }
 }

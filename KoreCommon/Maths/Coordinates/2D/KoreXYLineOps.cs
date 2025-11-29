@@ -70,9 +70,9 @@ public static class KoreXYLineOps
 
     // Find the intersection point between two lines, which could be null.
 
-    /// Returns true if the two line segments (l1, l2) properly cross or overlap,
-    /// excluding the trivial case of exactly coincident endpoints.
-    /// Uses a small tolerance to guard against floating-point issues.
+    // Returns true if the two line segments (l1, l2) properly cross or overlap,
+    // excluding the trivial case of exactly coincident endpoints.
+    // Uses a small tolerance to guard against floating-point issues.
     public static bool DoesIntersect(KoreXYLine l1, KoreXYLine l2, double tol = 1e-9)
     {
         // 1) Unpack coordinates

@@ -17,10 +17,10 @@ namespace KoreGIS;
 // A route leg represents a segment of a path that can be drawn or traversed
 public abstract class KoreGeoRouteLeg : KoreGeoFeature
 {
-    public KoreLLPoint  StartPoint { get; set; }
-    public KoreLLPoint  EndPoint { get; set; }
-    public double       LineWidth { get; set; } = 1.0;
-    public KoreColorRGB Color { get; set; } = KoreColorRGB.Black;
+    public KoreLLPoint  StartPoint  { get; set; }
+    public KoreLLPoint  EndPoint    { get; set; }
+    public double       LineWidth   { get; set; } = 1.0;
+    public KoreColorRGB Color       { get; set; } = KoreColorRGB.Black;
     public KoreLLBox?   BoundingBox { get; protected set; }
 
     // Generate points along the route leg for rendering

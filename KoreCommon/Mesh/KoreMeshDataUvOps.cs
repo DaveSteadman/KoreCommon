@@ -16,15 +16,13 @@ public static class KoreMeshDataUvOps
     // MARK: UV Visualization
     // --------------------------------------------------------------------------------------------
 
-    /// <summary>
-    /// Creates a visual representation of UV coordinates from mesh data
-    /// </summary>
-    /// <param name="mesh">Mesh containing UV data</param>
-    /// <param name="imageSize">Output image dimensions (square)</param>
-    /// <param name="showPointNumbers">Whether to draw vertex IDs next to points</param>
-    /// <param name="showTriangles">Whether to draw triangle wireframes</param>
-    /// <param name="backgroundColor">Background color for the image</param>
-    /// <returns>SkiaSharp plotter with UV layout drawn</returns>
+    // Creates a visual representation of UV coordinates from mesh data
+    // mesh: Mesh containing UV data
+    // imageSize: Output image dimensions (square)
+    // showPointNumbers: Whether to draw vertex IDs next to points
+    // showTriangles: Whether to draw triangle wireframes
+    // backgroundColor: Background color for the image
+    // returns: SkiaSharp plotter with UV layout drawn
     public static KoreSkiaSharpPlotter CreateUVLayout(
         KoreMeshData mesh,
         int imageSize = 1024,

@@ -18,12 +18,12 @@ public static partial class KoreTestMeshUvOps
         TestOilBarrelUVLayout(testLog);
     }
 
-    /// Creates a cube with UV layout like an unfolded dice
-    /// Layout:
-    ///     [2]
-    /// [4] [1] [3] [6]
-    ///     [5]
-    /// Where numbers represent the dice faces
+    // Creates a cube with UV layout like an unfolded dice
+    // Layout:
+    //     [2]
+    // [4] [1] [3] [6]
+    //     [5]
+    // Where numbers represent the dice faces
     private static void TestDiceCubeUVLayout(KoreTestLog testLog)
     {
         var mesh = CreateDiceCube();
@@ -79,8 +79,8 @@ public static partial class KoreTestMeshUvOps
         testLog.AddResult("Simple quad UV layout", true, $"Created simple quad with full UV coverage");
     }
 
-    /// Assigns the UV layout image as texture to all materials in the mesh.
-    /// This allows visual verification of UV mapping when the OBJ is opened in Blender.
+    // Assigns the UV layout image as texture to all materials in the mesh.
+    // This allows visual verification of UV mapping when the OBJ is opened in Blender.
     // private static void AssignUVLayoutAsTexture(KoreMeshData mesh, string uvImageFilename)
     // {
     //     // Update existing materials or create default material if none exist

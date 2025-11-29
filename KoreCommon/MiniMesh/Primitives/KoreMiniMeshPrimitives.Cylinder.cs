@@ -10,32 +10,30 @@ namespace KoreCommon;
 
 public static partial class KoreMiniMeshPrimitives
 {
-    /// <summary>
-    /// Create a cylinder mesh for KoreMiniMesh
-    /// </summary>
-    /// <param name="p1">Bottom center point</param>
-    /// <param name="p2">Top center point</param>
-    /// <param name="p1radius">Radius at bottom (p1)</param>
-    /// <param name="p2radius">Radius at top (p2)</param>
-    /// <param name="sides">Number of sides around the cylinder</param>
-    /// <param name="endsClosed">Whether to create end cap faces</param>
-    /// <param name="material">Material for the cylinder surface</param>
-    /// <param name="lineCol">Color for wireframe lines</param>
-    /// <returns>KoreMiniMesh cylinder</returns>
-    /// 
+    // Create a cylinder mesh for KoreMiniMesh
+    // p1: Bottom center point
+    // p2: Top center point
+    // p1radius: Radius at bottom (p1)
+    // p2radius: Radius at top (p2)
+    // sides: Number of sides around the cylinder
+    // endsClosed: Whether to create end cap faces
+    // material: Material for the cylinder surface
+    // lineCol: Color for wireframe lines
+    // returns: KoreMiniMesh cylinder
+
     // Usage: KoreMiniMesh cyl1 = KoreMiniMeshPrimitives.CreateCylinder(p1, p2, p1radius, p2radius, sides, endsClosed, material, lineCol);
     public static KoreMiniMesh CreateCylinder(
-        KoreXYZVector p1, 
-        KoreXYZVector p2, 
-        double p1radius, 
-        double p2radius, 
-        int sides, 
+        KoreXYZVector p1,
+        KoreXYZVector p2,
+        double p1radius,
+        double p2radius,
+        int sides,
         bool endsClosed,
-        KoreMiniMeshMaterial material, 
+        KoreMiniMeshMaterial material,
         KoreColorRGB lineCol)
     {
         if (sides < 3) throw new ArgumentException("Cylinder must have at least 3 sides");
-        
+
         var mesh = new KoreMiniMesh();
 
         // Add material and line color
@@ -69,7 +67,7 @@ public static partial class KoreMiniMeshPrimitives
             int p1Center = mesh.AddVertex(p1);
             allTriangles.AddRange(KoreMiniMeshOps.AddFan(mesh, p1Center, p1Circle, true));
 
-            // Top cap (p2) - wind outward (normal pointing up the axis)  
+            // Top cap (p2) - wind outward (normal pointing up the axis)
             int p2Center = mesh.AddVertex(p2);
             allTriangles.AddRange(KoreMiniMeshOps.AddFan(mesh, p2Center, p2Circle, false));
         }
@@ -107,17 +105,15 @@ public static partial class KoreMiniMeshPrimitives
         return mesh;
     }
 
-    /// <summary>
-    /// Create a simple cylinder with default parameters
-    /// </summary>
-    /// <param name="center">Center point of the cylinder</param>
-    /// <param name="axis">Axis direction (will be normalized)</param>
-    /// <param name="height">Height of the cylinder</param>
-    /// <param name="radius">Radius of the cylinder</param>
-    /// <param name="sides">Number of sides around the cylinder</param>
-    /// <param name="material">Material for the cylinder surface</param>
-    /// <param name="lineCol">Color for wireframe lines</param>
-    /// <returns>KoreMiniMesh cylinder</returns>
+    // Create a simple cylinder with default parameters
+    // center: Center point of the cylinder
+    // axis: Axis direction (normalized)
+    // height: Height of the cylinder
+    // radius: Radius shared by both ends
+    // sides: Number of sides around the cylinder
+    // material: Material for the cylinder surface
+    // lineCol: Color for wireframe lines
+    // returns: KoreMiniMesh cylinder
     public static KoreMiniMesh Cylinder(
         KoreXYZVector center,
         KoreXYZVector axis,
@@ -130,7 +126,7 @@ public static partial class KoreMiniMeshPrimitives
         axis = axis.Normalize();
         KoreXYZVector p1 = center - axis * (height * 0.5);
         KoreXYZVector p2 = center + axis * (height * 0.5);
-        
+
         return CreateCylinder(p1, p2, radius, radius, sides, true, material, lineCol);
     }
 }

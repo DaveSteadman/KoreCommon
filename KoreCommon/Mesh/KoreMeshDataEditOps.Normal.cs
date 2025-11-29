@@ -8,8 +8,8 @@ using System.Linq;
 
 namespace KoreCommon;
 
-/// Static validity and cleanup operations for KoreMeshData
-/// Contains methods for mesh validation, cleanup, and population of missing data
+// Static validity and cleanup operations for KoreMeshData
+// Contains methods for mesh validation, cleanup, and population of missing data
 public static partial class KoreMeshDataEditOps
 {
     // Remove normals that don't have supporting vertex IDs

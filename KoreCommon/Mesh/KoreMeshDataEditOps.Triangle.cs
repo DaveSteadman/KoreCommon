@@ -8,8 +8,8 @@ using System.Linq;
 
 namespace KoreCommon;
 
-/// Static validity and cleanup operations for KoreMeshData
-/// Contains methods for mesh validation, cleanup, and population of missing data
+// Static validity and cleanup operations for KoreMeshData
+// Contains methods for mesh validation, cleanup, and population of missing data
 public static partial class KoreMeshDataEditOps
 {
     // --------------------------------------------------------------------------------------------
@@ -120,7 +120,7 @@ public static partial class KoreMeshDataEditOps
         mesh.Triangles[triId] = new KoreMeshTriangle(newA, newB, newC);
     }
 
-    /// Finds vertices of a triangle that are shared with other triangles
+    // Finds vertices of a triangle that are shared with other triangles
     private static HashSet<int> FindSharedVertices(KoreMeshData mesh, int targetTriangleId)
     {
         if (!mesh.Triangles.ContainsKey(targetTriangleId))

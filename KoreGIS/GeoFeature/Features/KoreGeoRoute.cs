@@ -17,9 +17,9 @@ namespace KoreGIS;
 // Each leg can be a different type (straight, great circle, bezier, flexible join)
 public class KoreGeoRoute : KoreGeoFeature
 {
-    public List<KoreGeoRouteLeg> Legs { get; set; } = new List<KoreGeoRouteLeg>();
-    public double                LineWidth { get; set; } = 1.0;
-    public KoreColorRGB          Color { get; set; } = KoreColorRGB.Black;
+    public List<KoreGeoRouteLeg> Legs        { get; set; } = new List<KoreGeoRouteLeg>();
+    public double                LineWidth   { get; set; } = 1.0;
+    public KoreColorRGB          Color       { get; set; } = KoreColorRGB.Black;
     public KoreLLBox?            BoundingBox { get; private set; }
 
     // Generate all points for the entire route

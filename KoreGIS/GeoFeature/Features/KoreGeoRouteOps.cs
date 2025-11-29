@@ -16,12 +16,9 @@ public static class KoreGeoRouteOps
     // MARK: Waypoint Access
     // --------------------------------------------------------------------------------------------
 
-    /// <summary>
-    /// Get all waypoints from a route
-    /// Waypoints are the connection points between legs (start of first leg + end of each leg)
-    /// </summary>
-    /// <param name="route">The route to extract waypoints from</param>
-    /// <returns>List of waypoints in order</returns>
+    // Get all waypoints from a route, covering the first leg start and the end of every leg after that
+    // route: Route to extract waypoints from
+    // returns: List of waypoints in order
     public static List<KoreLLPoint> GetWaypoints(this KoreGeoRoute route)
     {
         var waypoints = new List<KoreLLPoint>();
@@ -41,12 +38,10 @@ public static class KoreGeoRouteOps
         return waypoints;
     }
 
-    /// <summary>
-    /// Get a specific waypoint by index
-    /// </summary>
-    /// <param name="route">The route</param>
-    /// <param name="waypointIndex">Zero-based waypoint index (0 = start of first leg)</param>
-    /// <returns>The waypoint at the specified index</returns>
+    // Get a specific waypoint by index
+    // route: Route being queried
+    // waypointIndex: Zero-based waypoint index (0 = start of first leg)
+    // returns: Waypoint at the specified index
     public static KoreLLPoint GetWaypoint(this KoreGeoRoute route, int waypointIndex)
     {
         if (route.Legs.Count == 0)
@@ -69,15 +64,10 @@ public static class KoreGeoRouteOps
     // MARK: Waypoint Editing
     // --------------------------------------------------------------------------------------------
 
-    /// <summary>
-    /// Set a waypoint to a new position
-    /// This updates the endpoint of the previous leg and startpoint of the next leg
-    /// For waypoint 0, only updates the start of the first leg
-    /// For the last waypoint, only updates the end of the last leg
-    /// </summary>
-    /// <param name="route">The route to modify</param>
-    /// <param name="waypointIndex">Zero-based waypoint index</param>
-    /// <param name="newPosition">The new position for the waypoint</param>
+    // Set a waypoint to a new position, updating the surrounding legs appropriately
+    // route: Route to modify
+    // waypointIndex: Zero-based waypoint index
+    // newPosition: New position for the waypoint
     public static void SetWaypoint(this KoreGeoRoute route, int waypointIndex, KoreLLPoint newPosition)
     {
         if (route.Legs.Count == 0)
@@ -158,12 +148,9 @@ public static class KoreGeoRouteOps
         route.CalcBoundingBox();
     }
 
-    /// <summary>
-    /// Set all waypoints at once
-    /// Number of waypoints must match the route's waypoint count
-    /// </summary>
-    /// <param name="route">The route to modify</param>
-    /// <param name="waypoints">The new waypoint positions</param>
+    // Set all waypoints at once; list must match the route's waypoint count
+    // route: Route to modify
+    // waypoints: New waypoint positions
     public static void SetWaypoints(this KoreGeoRoute route, List<KoreLLPoint> waypoints)
     {
         if (route.Legs.Count == 0)
@@ -185,12 +172,10 @@ public static class KoreGeoRouteOps
     // MARK: Waypoint Info
     // --------------------------------------------------------------------------------------------
 
-    /// <summary>
-    /// Get information about which legs are connected to a waypoint
-    /// </summary>
-    /// <param name="route">The route</param>
-    /// <param name="waypointIndex">Zero-based waypoint index</param>
-    /// <returns>Tuple of (previous leg index or -1, next leg index or -1)</returns>
+    // Get information about which legs are connected to a waypoint
+    // route: Route being queried
+    // waypointIndex: Zero-based waypoint index
+    // returns: Tuple of (previous leg index or -1, next leg index or -1)
     public static (int prevLegIndex, int nextLegIndex) GetWaypointConnections(this KoreGeoRoute route, int waypointIndex)
     {
         if (route.Legs.Count == 0)
@@ -211,13 +196,10 @@ public static class KoreGeoRouteOps
         return (waypointIndex - 1, waypointIndex);
     }
 
-    /// <summary>
-    /// Check if moving a waypoint will affect FlexibleJoin legs
-    /// Returns the indices of any FlexibleJoin legs that will need recalculation
-    /// </summary>
-    /// <param name="route">The route</param>
-    /// <param name="waypointIndex">Zero-based waypoint index</param>
-    /// <returns>List of leg indices that are FlexibleJoin and will be affected</returns>
+    // Check if moving a waypoint will affect FlexibleJoin legs and return affected leg indices
+    // route: Route to inspect
+    // waypointIndex: Zero-based waypoint index
+    // returns: List of FlexibleJoin leg indices impacted by the waypoint
     public static List<int> GetAffectedFlexibleJoins(this KoreGeoRoute route, int waypointIndex)
     {
         var affected = new List<int>();

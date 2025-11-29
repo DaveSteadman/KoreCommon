@@ -10,16 +10,16 @@ namespace KoreCommon.UnitTest;
 
 public static partial class KoreTestMeshUvOps
 {
-    /// Creates an oil barrel mesh with proper UV mapping for texture application.
-    /// UV Layout:
-    /// - Top circle: Center at (0.25, 0.75) with 0.20 radius
-    /// - Bottom circle: Center at (0.75, 0.75) with 0.20 radius
-    /// - Cylinder sides: Rectangle in lower half (0.0-1.0, 0.0-0.5)
+    // Creates an oil barrel mesh with proper UV mapping for texture application.
+    // UV Layout:
+    // - Top circle: Center at (0.25, 0.75) with 0.20 radius
+    // - Bottom circle: Center at (0.75, 0.75) with 0.20 radius
+    // - Cylinder sides: Rectangle in lower half (0.0-1.0, 0.0-0.5)
 
-    /// <param name="segments">Number of segments around the cylinder (default 16)</param>
-    /// <param name="radius">Radius of the barrel (default 1.0)</param>
-    /// <param name="height">Height of the barrel (default 2.0)</param>
-    /// <returns>KoreMeshData representing the oil barrel</returns>
+    // segments: Number of segments around the cylinder (default 16)
+    // radius: Radius of the barrel (default 1.0)
+    // height: Height of the barrel (default 2.0)
+    // returns: KoreMeshData representing the oil barrel
     public static KoreMeshData CreateOilBarrelWithUV(int segments = 16, double radius = 1.0, double height = 3.0)
     {
         var mesh = new KoreMeshData();

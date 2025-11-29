@@ -8,15 +8,15 @@ using System.Linq;
 
 namespace KoreCommon;
 
-/// Static validity and cleanup operations for KoreMeshData
-/// Contains methods for mesh validation, cleanup, and population of missing data/// </summary>
+// Static validity and cleanup operations for KoreMeshData
+// Contains methods for mesh validation, cleanup, and population of missing data
 public static partial class KoreMeshDataEditOps
 {
     // --------------------------------------------------------------------------------------------
     // MARK: UVs
     // --------------------------------------------------------------------------------------------
 
-    /// Remove UVs that don't have supporting vertex IDs
+    // Remove UVs that don't have supporting vertex IDs
     public static void RemoveBrokenUVs(KoreMeshData mesh)
     {
         var invalidUVIds = mesh.UVs.Keys.Where(id => !mesh.Vertices.ContainsKey(id)).ToList();
@@ -26,7 +26,7 @@ public static partial class KoreMeshDataEditOps
         }
     }
 
-    /// Create missing UVs for vertices
+    // Create missing UVs for vertices
     public static void CreateMissingUVs(KoreMeshData mesh, KoreXYVector? defaultUV = null)
     {
         KoreXYVector uv = defaultUV ?? new KoreXYVector(0, 0);

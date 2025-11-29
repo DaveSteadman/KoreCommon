@@ -4,5 +4,5 @@ namespace KoreCommon;
 
 public static class KoreCommonConst
 {
-    public static string Version { get; } = "2025-08-16 // Build v0001 // Label 0.1";
+    public static string Version { get; } = "2025-11-29 // Build v0002 // Label 0.2";
 }

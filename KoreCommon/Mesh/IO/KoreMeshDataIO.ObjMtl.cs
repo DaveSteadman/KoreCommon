@@ -20,13 +20,11 @@ public static partial class KoreMeshDataIO
     // MARK: OBJ Export
     // --------------------------------------------------------------------------------------------
 
-    /// <summary>
-    /// Export KoreMeshData to OBJ format string
-    /// </summary>
-    /// <param name="mesh">The mesh data to export</param>
-    /// <param name="objectName">Name for the object in the OBJ file</param>
-    /// <param name="mtlFileName">Name of the MTL file (without extension)</param>
-    /// <returns>OBJ file content as string</returns>
+    // Export KoreMeshData to OBJ format string
+    // mesh: Mesh data to export
+    // objectName: Name for the object in the OBJ file
+    // mtlFileName: Name of the MTL file (without extension)
+    // returns: OBJ file content as string
 
     // Usage: KoreMeshDataIO.ToObj(meshData, "MyMesh", "MyMeshMaterial");
 
@@ -221,9 +219,9 @@ public static partial class KoreMeshDataIO
     // MARK: MTL Export
     // --------------------------------------------------------------------------------------------
 
-    /// Export materials to MTL format string
-    /// <param name="mesh">The mesh data containing materials</param>
-    /// <returns>MTL file content as string</returns>
+    // Export materials to MTL format string
+    // mesh: Mesh data containing materials
+    // returns: MTL file content as string
     public static string ToMtl(KoreMeshData mesh)
     {
         var sb = new StringBuilder();
@@ -299,12 +297,10 @@ public static partial class KoreMeshDataIO
     // MARK: OBJ Import
     // --------------------------------------------------------------------------------------------
 
-    /// <summary>
-    /// Import KoreMeshData from OBJ format string
-    /// </summary>
-    /// <param name="objContent">OBJ file content</param>
-    /// <param name="mtlContent">Optional MTL file content for materials</param>
-    /// <returns>Imported mesh data</returns>
+    // Import KoreMeshData from OBJ format string
+    // objContent: OBJ file content
+    // mtlContent: Optional MTL file content for materials
+    // returns: Imported mesh data
     public static KoreMeshData FromObj(string objContent, string? mtlContent = null)
     {
         var mesh = new KoreMeshData();
@@ -726,12 +722,10 @@ public static partial class KoreMeshDataIO
     // MARK: Convenience Methods
     // --------------------------------------------------------------------------------------------
 
-    /// <summary>
-    /// Import mesh from both OBJ and MTL format strings
-    /// </summary>
-    /// <param name="objContent">OBJ file content</param>
-    /// <param name="mtlContent">MTL file content</param>
-    /// <returns>Imported mesh data</returns>
+    // Import mesh from both OBJ and MTL format strings
+    // objContent: OBJ file content
+    // mtlContent: MTL file content
+    // returns: Imported mesh data
     public static KoreMeshData FromObjMtl(string objContent, string mtlContent)
     {
         return FromObj(objContent, mtlContent);

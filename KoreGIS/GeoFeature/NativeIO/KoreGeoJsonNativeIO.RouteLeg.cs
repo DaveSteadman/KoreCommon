@@ -11,17 +11,17 @@ using KoreCommon;
 
 namespace KoreGIS;
 
-/// GeoJSONKore extensions for KoreGeoRoute
-/// Provides serialization to/from JSON in a format compatible with GeoJSON
-/// Extended with Kore-specific properties for curved route legs
+// GeoJSONKore extensions for KoreGeoRoute
+// Provides serialization to/from JSON in a format compatible with GeoJSON
+// Extended with Kore-specific properties for curved route legs
 public static class KoreGeoRouteGeoJSONKore
 {
     // --------------------------------------------------------------------------------------------
     // MARK: Export to GeoJSONKore
     // --------------------------------------------------------------------------------------------
 
-    /// Export a route to GeoJSONKore format
-    /// Creates a FeatureCollection with LineString geometries and Kore-specific properties
+    // Export a route to GeoJSONKore format
+    // Creates a FeatureCollection with LineString geometries and Kore-specific properties
     public static string ToGeoJSONKore(this KoreGeoRoute route, int pointsPerLeg = 50)
     {
         var features = new List<object>();
@@ -166,7 +166,7 @@ public static class KoreGeoRouteGeoJSONKore
         return JsonSerializer.Serialize(featureCollection, options);
     }
 
-    /// Save a route to a GeoJSONKore file
+    // Save a route to a GeoJSONKore file
     public static void SaveToGeoJSONKore(this KoreGeoRoute route, string filePath, int pointsPerLeg = 50)
     {
         if (string.IsNullOrWhiteSpace(filePath))
@@ -180,8 +180,8 @@ public static class KoreGeoRouteGeoJSONKore
     // MARK: Import from GeoJSONKore
     // --------------------------------------------------------------------------------------------
 
-    /// Import a route from GeoJSONKore format
-    /// Reconstructs curved legs from stored metadata
+    // Import a route from GeoJSONKore format
+    // Reconstructs curved legs from stored metadata
     public static KoreGeoRoute FromGeoJSONKore(string geoJsonKoreString)
     {
         if (string.IsNullOrWhiteSpace(geoJsonKoreString))
@@ -404,7 +404,7 @@ public static class KoreGeoRouteGeoJSONKore
         return route;
     }
 
-    /// Load a route from a GeoJSONKore file
+    // Load a route from a GeoJSONKore file
     public static KoreGeoRoute LoadFromGeoJSONKore(string filePath)
     {
         if (string.IsNullOrWhiteSpace(filePath))
