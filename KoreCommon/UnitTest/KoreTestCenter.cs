@@ -13,14 +13,15 @@ public static class KoreTestCenter
     // Central path for all unit test output files
     public static string TestPath => KoreFileOps.JoinPaths(Directory.GetCurrentDirectory(), "UnitTestArtefacts");
 
-    public static KoreTestLog RunCoreTests()
+    public static void RunTests(KoreTestLog testLog)
     {
-        KoreTestLog testLog = new KoreTestLog();
-
         try
         {
             if (!EnsureTestDirectory(testLog))
-                return testLog;
+            {
+                testLog.AddResult("Test Centre Run", false, "Failed to create test directory.");
+                return;
+            }
 
             // Test Core maths and data structures
             KoreTestMath.RunTests(testLog);
@@ -30,14 +31,6 @@ public static class KoreTestCenter
             KoreTestList1D.RunTests(testLog);
             KoreTestList2D.RunTests(testLog);
             KoreTestStringDictionary.RunTests(testLog);
-
-            // Test geographic and position classes
-            KoreTestPosition.RunTests(testLog);
-            KoreTestPositionLLA.RunTests(testLog);
-            KoreTestRoute.RunTests(testLog);
-
-            // Shapefile tests (run early since they don't depend on other tests)
-            KoreTestShapefile.RunTests(testLog);
 
             // Graphics: Mesh and color tests
             KoreTestColor.RunTests(testLog);
@@ -51,23 +44,19 @@ public static class KoreTestCenter
             // SkiaSharp Plotter tests
             KoreTestPlotter.RunTests(testLog);
             KoreTestSkiaSharp.RunTests(testLog);
-            KoreTestWorldPlotter.RunTests(testLog);
             KoreTestNatoSymbolPlotter.RunTests(testLog);
         }
         catch (Exception)
         {
             testLog.AddResult("Test Centre Run", false, "Exception");
         }
-
-        return testLog;
     }
 
     // --------------------------------------------------------------------------------------------
 
     // Usage: KoreTestCenter.RunAdHocTests()
-    public static KoreTestLog RunAdHocTests(KoreTestLog testLog)
+    public static void RunAdHocTests(KoreTestLog testLog)
     {
-
         try
         {
             KoreTestXYZVector.TestArbitraryPerpendicular(testLog);
@@ -76,13 +65,13 @@ public static class KoreTestCenter
         {
             testLog.AddResult("Test Centre Run", false, "Exception");
         }
-
-        return testLog;
     }
 
     // --------------------------------------------------------------------------------------------
 
-    private static bool EnsureTestDirectory(KoreTestLog testLog)
+    // Called from the higher level namespace Unit Test Centers to ensure the test directory exists
+    // Usage: bool success = KoreTestCenter.EnsureTestDirectory(testLog);
+    public static bool EnsureTestDirectory(KoreTestLog testLog)
     {
         bool retval = false;
 

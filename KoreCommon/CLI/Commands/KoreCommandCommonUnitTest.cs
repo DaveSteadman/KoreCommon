@@ -28,7 +28,8 @@ public class KoreCommandCommonUnitTest : KoreCommand
         // Actually perform the rename
         try
         {
-            KoreTestLog testLog = KoreTestCenter.RunCoreTests();
+            KoreTestLog testLog = new KoreTestLog();
+            KoreTestCenter.RunTests(testLog);
 
             string fullReport = testLog.FullReport();
             string failReport = testLog.FailReport();

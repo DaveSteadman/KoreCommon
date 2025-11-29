@@ -15,36 +15,35 @@ using System;
 
 // dotnet remove package System.Data.SQLite
 
-
 using KoreCommon;
 using KoreCommon.UnitTest;
-
+using KoreGIS.UnitTest;
 
 class Program
 {
-
     static void Main()
     {
         // Uncomment to run the bulk rename (use with caution!)
         // RenameKoreToKoreInFiles(".");
-        KoreTestLog testres = KoreTestCenter.RunCoreTests();
+        KoreTestLog testLog = new KoreTestLog();
+        KoreTestCenter.RunTests(testLog);
+        KoreGISTestCenter.RunTests(testLog);
 
         // Adhoc tests - a function designed to be reworked to consider issues-of-the-day
         //KoreTestLog testres = KoreTestCenter.RunAdHocTests();
 
         // Get the test reports
         // Add default statements if no tests passed or failed
-        string fullReport = testres.FullReport();
-        string failReport = testres.FailReport();
+        string fullReport = testLog.FullReport();
+        string failReport = testLog.FailReport();
 
         Console.WriteLine("------------------------------------------------------------------------");
-        if (testres.OverallPass())
+        if (testLog.OverallPass())
             Console.WriteLine(fullReport);
         else
             Console.WriteLine(fullReport);
         Console.WriteLine("------------------------------------------------------------------------");
-        Console.WriteLine(testres.OneLineReport());
+        Console.WriteLine(testLog.OneLineReport());
         Console.WriteLine("------------------------------------------------------------------------");
-
     }
 }
