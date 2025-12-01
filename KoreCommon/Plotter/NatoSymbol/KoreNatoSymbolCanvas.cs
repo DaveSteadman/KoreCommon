@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+
 using SkiaSharp;
 
 namespace KoreCommon.Plotter.NatoSymbolGen;

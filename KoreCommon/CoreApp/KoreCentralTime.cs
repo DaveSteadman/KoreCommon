@@ -48,4 +48,11 @@ public static class KoreCentralTime
         }
         return false;
     }
+
+    // Purpose: Bumps the time forward to start a new interval.
+    // Usage: KoreCentralTime.ResetTimer(ref UITimer, UITimerInterval);
+    public static void ResetTimer(ref float timer, float interval)
+    {
+        timer = KoreCentralTime.RuntimeSecs + interval;
+    }
 }

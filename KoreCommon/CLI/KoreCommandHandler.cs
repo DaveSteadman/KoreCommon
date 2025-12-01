@@ -39,9 +39,6 @@ public class KoreCommandHandler
     public KoreCommandHandler()
     {
         running = false;
-
-        // Register command handlers
-        InitializeCommands();
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -88,20 +85,7 @@ public class KoreCommandHandler
         KoreCentralLog.AddEntry($"Command {command.SignatureString} added.");
     }
 
-
-    private void InitializeCommands()
-    {
-        // Register commands and their handlers here
-        KoreCentralLog.AddEntry("KoreCommandHandler: Initializing commands...");
-
-        // General app control commands
-        AddCommandHandler(new KoreCommandFileRename());
-        AddCommandHandler(new KoreCommandCommonUnitTest());
-        AddCommandHandler(new KoreCommandPause());
-    }
-
     // ---------------------------------------------------------------------------------------------
-
 
     private void ConsoleLoop()
     {
@@ -118,6 +102,8 @@ public class KoreCommandHandler
         }
         KoreCentralLog.AddEntry("Console thread exiting...");
     }
+
+    // ---------------------------------------------------------------------------------------------
 
     private void ProcessCommand()
     {
@@ -152,6 +138,8 @@ public class KoreCommandHandler
                 OutputQueue.AddString($"Command Not Found.");
         }
     }
+
+    // ---------------------------------------------------------------------------------------------
 
     public (bool, string) RunSingleCommand(string commandLine)
     {
