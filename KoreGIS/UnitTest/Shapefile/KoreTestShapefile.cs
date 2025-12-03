@@ -10,6 +10,8 @@ using KoreCommon.UnitTest;
 using KoreGIS;
 namespace KoreGIS.UnitTest;
 
+#nullable enable
+
 // Unit tests for Shapefile reading and writing functionality.
 public static class KoreTestShapefile
 {

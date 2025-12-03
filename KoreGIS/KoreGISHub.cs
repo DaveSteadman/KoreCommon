@@ -14,9 +14,15 @@ public static class KoreGISHub
     private static string _mapRootDirectory = string.Empty;
     private static string _elevationDataDirectory = string.Empty;
 
+    // --------------------------------------------------------------------------------------------
+
     // Patch and Tile Elevation systems
     // Access: KoreGISHub.EleManager
     public static KoreElevationManager EleManager = new KoreElevationManager();
+
+    // Terrain Image Manager
+    // Access: KoreGISHub.ImageManager
+    public static KoreTerrainImageManager ImageManager = new KoreTerrainImageManager();
 
     // --------------------------------------------------------------------------------------------
 

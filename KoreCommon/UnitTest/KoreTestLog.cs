@@ -20,14 +20,12 @@ public enum KoreTestLogResult { Pass, Fail, Untested }
 
 // ------------------------------------------------------------------------
 
-
 public struct KoreTestLogEntry
 {
     public string Name;
     public KoreTestLogEntryType EntryType;
     public KoreTestLogResult Result;
     public string Comment;
-
 }
 
 public class KoreTestLog
