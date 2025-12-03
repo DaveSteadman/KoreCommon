@@ -80,6 +80,7 @@ public static class KoreTestEmojiUtil
         testLog.AddResult("Prefix(null, Check) returns '✅'", EmojiUtil.Prefix(null!, EmojiDescriptor.Check) == "✅");
         testLog.AddResult("Prefix('', Check) returns '✅'", EmojiUtil.Prefix("", EmojiDescriptor.Check) == "✅");
         testLog.AddResult("Prefix('Message', None) returns 'Message'", EmojiUtil.Prefix("Message", EmojiDescriptor.None) == "Message");
+        testLog.AddResult("Prefix('Test', Check, null) returns '✅Test'", EmojiUtil.Prefix("Test", EmojiDescriptor.Check, null!) == "✅Test");
     }
 
     private static void TestSuffix(KoreTestLog testLog)
@@ -99,5 +100,6 @@ public static class KoreTestEmojiUtil
         testLog.AddResult("Suffix(null, Heart) returns '❤️'", EmojiUtil.Suffix(null!, EmojiDescriptor.Heart) == "❤️");
         testLog.AddResult("Suffix('', Heart) returns '❤️'", EmojiUtil.Suffix("", EmojiDescriptor.Heart) == "❤️");
         testLog.AddResult("Suffix('Message', None) returns 'Message'", EmojiUtil.Suffix("Message", EmojiDescriptor.None) == "Message");
+        testLog.AddResult("Suffix('Test', Heart, null) returns 'Test❤️'", EmojiUtil.Suffix("Test", EmojiDescriptor.Heart, null!) == "Test❤️");
     }
 }

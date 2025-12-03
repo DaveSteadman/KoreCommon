@@ -93,7 +93,7 @@ public static class EmojiUtil
         if (string.IsNullOrEmpty(message))
             return e;
 
-        return e + separator + message;
+        return e + (separator ?? string.Empty) + message;
     }
 
     public static string Suffix(string message, EmojiDescriptor emoji, string separator = " ")
@@ -105,6 +105,6 @@ public static class EmojiUtil
         if (string.IsNullOrEmpty(message))
             return e;
 
-        return message + separator + e;
+        return message + (separator ?? string.Empty) + e;
     }
 }
