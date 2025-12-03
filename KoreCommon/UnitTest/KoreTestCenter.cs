@@ -32,6 +32,9 @@ public static class KoreTestCenter
             KoreTestList2D.RunTests(testLog);
             KoreTestStringDictionary.RunTests(testLog);
 
+            // Utility tests
+            KoreTestEmojiUtil.RunTests(testLog);
+
             // Graphics: Mesh and color tests
             KoreTestColor.RunTests(testLog);
             KoreTestMesh.RunTests(testLog);
