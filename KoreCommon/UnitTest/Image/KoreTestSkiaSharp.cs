@@ -26,10 +26,12 @@ public static partial class KoreTestSkiaSharp
     private static void TestBasicImage(KoreTestLog testLog)
     {
         // Create a new image with a testcard pattern
-        var imagePlotter = new KoreSkiaSharpPlotter(1000, 1000);
+        int imageWidth = 350;
+        int imageHeight = 200;
+        var imagePlotter = new KoreSkiaSharpPlotter(imageWidth, imageHeight);
 
         // Draw a boundary
-        KoreXYRect boundsRect = new KoreXYRect(0, 0, 1000, 1000);
+        KoreXYRect boundsRect = new KoreXYRect(0, 0, imageWidth, imageHeight);
         KoreXYRect boundsRectInset = boundsRect.Inset(5);
 
         SKPaint fillPaint = new SKPaint
@@ -37,41 +39,53 @@ public static partial class KoreTestSkiaSharp
             Style = SKPaintStyle.Stroke,
             StrokeWidth = 1,
             Color = SKColors.Black,
-            IsAntialias = false // Match the line's anti-aliasing setting
+            IsAntialias = false
         };
         imagePlotter.DrawRect(boundsRectInset, fillPaint);
 
-        // Test Lines - Various line widths and colors
-        int xStart = 10;
-        int yStart = 10;
-        int yEnd = 100;
+        // Test all nine text positions with labels, boxes, and anchor points
+        imagePlotter.DrawSettings.TextSize = 16f;
+        imagePlotter.DrawSettings.Paint.StrokeWidth = 1;
 
-        KoreXYVector startPnt = new KoreXYVector(xStart, yStart);
-        KoreXYVector endPnt = new KoreXYVector(xStart, yEnd);
+        int marginEdge = 20;
+        KoreNumeric1DArray<int> posX = new (new int[] { marginEdge, imageWidth / 2, imageWidth - marginEdge });
+        KoreNumeric1DArray<int> posY = new (new int[] { marginEdge, imageHeight / 2, imageHeight - marginEdge });
 
-        imagePlotter.DrawSettings.LineWidth = 1;
-        imagePlotter.DrawSettings.Color = SKColors.Black;
-        imagePlotter.DrawSettings.IsAntialias = false; // Disable anti-aliasing for crisp 1px lines
-        imagePlotter.DrawLine(startPnt, endPnt);
+        // Define positions spread across the image
+        (KoreXYVector pos, KoreXYRectPosition anchor, string label)[] testPositions = new[]
+        {
+            (new KoreXYVector(posX[0], posY[0]),  KoreXYRectPosition.TopLeft,      "TopLeft"),
+            (new KoreXYVector(posX[1], posY[0]),  KoreXYRectPosition.TopCenter,    "TopCenter"),
+            (new KoreXYVector(posX[2], posY[0]),  KoreXYRectPosition.TopRight,     "TopRight"),
+            (new KoreXYVector(posX[0], posY[1]),  KoreXYRectPosition.LeftCenter,   "LeftCenter"),
+            (new KoreXYVector(posX[1], posY[1]),  KoreXYRectPosition.Center,       "Center"),
+            (new KoreXYVector(posX[2], posY[1]),  KoreXYRectPosition.RightCenter,  "RightCenter"),
+            (new KoreXYVector(posX[0], posY[2]),  KoreXYRectPosition.BottomLeft,   "BottomLeft"),
+            (new KoreXYVector(posX[1], posY[2]),  KoreXYRectPosition.BottomCenter, "BottomCenter"),
+            (new KoreXYVector(posX[2], posY[2]),  KoreXYRectPosition.BottomRight,  "BottomRight")
+        };
 
-        // Draw text in a specific box
-        imagePlotter.DrawSettings.Color = SKColors.Red;
-        KoreXYVector markPoint = new KoreXYVector(100, 50);
-        imagePlotter.DrawPointAsCross(markPoint, 5);
-        KoreXYVector markPoint2 = new KoreXYVector(markPoint.X, markPoint.Y + 30); // Move down for the next text
-        imagePlotter.DrawPointAsCross(markPoint2, 5);
-        KoreXYVector markPoint3 = new KoreXYVector(markPoint2.X, markPoint2.Y + 30); // Move down for the next text
-        imagePlotter.DrawPointAsCross(markPoint3, 5);
+        foreach (var (pos, anchor, label) in testPositions)
+        {
+            // Draw the anchor point in red
+            imagePlotter.DrawSettings.Color = SKColors.Red;
+            imagePlotter.DrawPointAsCross(pos, 5);
 
-        imagePlotter.DrawSettings.Color = SKColors.Black;
-        string testText = "Test Text";
-        imagePlotter.DrawText(testText, markPoint, 20);
-        imagePlotter.DrawTextCentered("Another Line of Text", markPoint2, 20);
+            // Draw the text at the position with the specified anchor
+            imagePlotter.DrawSettings.Color = SKColors.Black;
+            imagePlotter.DrawTextAtPosition(label, pos, anchor, 16);
 
-        imagePlotter.DrawTextAtPosition("Yet Another Line of Text", markPoint3, KoreXYRectPosition.Center, 20);
+            // Get the text bounds and draw a box around it in blue
+            SKRect textBounds = imagePlotter.RectForTextAtPosition(label, pos, anchor, 16);
+            imagePlotter.DrawSettings.Color = SKColors.Blue;
+            imagePlotter.DrawSettings.Paint.Style = SKPaintStyle.Stroke;
+            KoreXYRect textRect = new KoreXYRect(textBounds.Left, textBounds.Top, textBounds.Right, textBounds.Bottom);
+            imagePlotter.DrawRect(textRect);
+            imagePlotter.DrawSettings.Paint.Style = SKPaintStyle.Fill;
+        }
 
         // Save the image to a file
-        string filePath = KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "testcard.png");
+        string filePath = KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "Plotter_textpos.png");
         KoreFileOps.CreateDirectoryForFile(filePath);
 
         imagePlotter.Save(filePath);

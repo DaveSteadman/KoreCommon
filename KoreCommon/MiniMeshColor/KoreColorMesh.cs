@@ -10,7 +10,8 @@ namespace KoreCommon;
 // KoreMiniMesh: A minimalist mesh definition, stripping away textures and UVs to favour exclusively colored materials.
 // - Normals are calculated on the fly for a triangle surface.
 // - The roughness and metallic properties are determined by the platform specific renderer/shader.
-//   Its expected to be quite standard for terrain or simple object rendering.
+// - Its expected to be quite standard for terrain or simple object rendering.
+// - The material shader is expected to use vertex colors for rendering.
 
 // COORDINATE SYSTEM SPECIFICATION:
 // - X+: Right, Y+: Up, Z-: Forward (Godot native)
@@ -28,6 +29,4 @@ public partial class KoreColorMesh
     public int NextVertexId   = 0;
     public int NextTriangleId = 0;
 }
-
-
 

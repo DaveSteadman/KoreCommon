@@ -198,6 +198,83 @@ public partial class KoreSkiaSharpPlotter
     }
 
     // --------------------------------------------------------------------------------------------
+    // MARK: Gradient
+    // --------------------------------------------------------------------------------------------
+
+    public void DrawCircularGradientInPolygon(KoreXYPolygon polygon, KoreXYVector center, float radius, SKColor innerColor, SKColor outerColor)
+    {
+        SKPoint[] skPoints = new SKPoint[polygon.Vertices.Count];
+        for (int i = 0; i < polygon.Vertices.Count; i++)
+        {
+            skPoints[i] = KoreSkiaSharpConv.ToSKPoint(polygon.Vertices[i]);
+        }
+
+        SKPoint skCenter = KoreSkiaSharpConv.ToSKPoint(center);
+        DrawCircularGradientInPolygon(skPoints, skCenter, radius, innerColor, outerColor);
+    }
+
+    public void DrawColorRangeGradientInPolygon(
+        KoreXYPolygon polygon, KoreXYVector center,
+        float radius, KoreColorRange colorRange)
+    {
+        SKPoint[] skPoints = new SKPoint[polygon.Vertices.Count];
+        for (int i = 0; i < polygon.Vertices.Count; i++)
+        {
+            skPoints[i] = KoreSkiaSharpConv.ToSKPoint(polygon.Vertices[i]);
+        }
+
+        SKPoint skCenter = KoreSkiaSharpConv.ToSKPoint(center);
+
+        using var path = new SKPath();
+
+        if (skPoints.Length > 0)
+        {
+            path.MoveTo(skPoints[0]);
+            for (int i = 1; i < skPoints.Length; i++)
+            {
+                path.LineTo(skPoints[i]);
+            }
+            path.Close();
+        }
+
+        canvas.Save();
+        canvas.ClipPath(path);
+
+        // Sample the color range to create gradient stops
+        // Use a reasonable number of samples for smooth gradients
+        int sampleCount = 32;
+        SKColor[] colors = new SKColor[sampleCount];
+        float[] positions = new float[sampleCount];
+
+        for (int i = 0; i < sampleCount; i++)
+        {
+            float fraction = i / (float)(sampleCount - 1);
+            positions[i] = fraction;
+            KoreColorRGB koreColor = colorRange.GetColor(fraction);
+            colors[i] = KoreSkiaSharpConv.ToSKColor(koreColor);
+        }
+
+        using var shader = SKShader.CreateRadialGradient(
+            skCenter,
+            radius,
+            colors,
+            positions,
+            SKShaderTileMode.Clamp
+        );
+
+        using var paint = new SKPaint
+        {
+            Shader = shader,
+            IsAntialias = true
+        };
+
+        canvas.DrawCircle(skCenter, radius, paint);
+        canvas.Restore();
+    }
+
+    // --------------------------------------------------------------------------------------------
+    // MARK: Export
+    // --------------------------------------------------------------------------------------------
 
     // Gets the PNG byte array from the plotter's current canvas
     public byte[] GetPngBytes()

@@ -15,6 +15,7 @@ public static class KoreTestPlotter
     {
         RunTest_BLPlot(testLog);
         RunTest_AnglePlot(testLog);
+        RunTest_CircularGradient(testLog);
     }
 
     public static void RunTest_BLPlot(KoreTestLog testLog)
@@ -241,6 +242,104 @@ public static class KoreTestPlotter
         catch (Exception e)
         {
             testLog.AddResult("KoreTestPlotter Exception", false, e.Message);
+        }
+    }
+
+    public static void RunTest_CircularGradient(KoreTestLog testLog)
+    {
+        try
+        {
+            KoreSkiaSharpPlotter plotter = new(800, 500);
+
+            // Fill background with white
+            // plotter.DrawSettings.Color = SKColors.White;
+            // plotter.DrawSettings.Paint.Style = SKPaintStyle.Fill;
+            // plotter.FillRect(new KoreXYRect(0, 0, 800, 500));
+            // plotter.DrawSettings.ResetToDefaults();
+
+            // Create a red to blue gradient centered at centre-left (x=200, y=250)
+            KoreXYVector gradientCenter = new(200, 250);
+            float gradientRadius = 300;
+
+            plotter.DrawCircularGradient(gradientCenter, gradientRadius, SKColors.Red, SKColors.Blue);
+
+            // Draw a small marker at the gradient center for reference
+            plotter.DrawSettings.Color = SKColors.Black;
+            plotter.DrawSettings.Paint.StrokeWidth = 2;
+            plotter.DrawPoint(gradientCenter);
+
+            // Create a 5-point star polygon on the right side
+            KoreXYVector starCenter = new(600, 250);
+            float outerRadius = 120;
+            float innerRadius = 50;
+            List<KoreXYVector> starPoints = new();
+
+            for (int i = 0; i < 10; i++)
+            {
+                double angle = (i * Math.PI / 5.0) - (Math.PI / 2.0); // Start from top
+                float radius = (i % 2 == 0) ? outerRadius : innerRadius;
+                float x = (float)starCenter.X + (float)(radius * Math.Cos(angle));
+                float y = (float)starCenter.Y + (float)(radius * Math.Sin(angle));
+                starPoints.Add(new KoreXYVector(x, y));
+            }
+
+            KoreXYPolygon starPolygon = new(starPoints);
+
+            // Draw gradient within the star
+            plotter.DrawCircularGradientInPolygon(starPolygon, starCenter, 150, SKColors.Yellow, SKColors.Purple);
+
+            // Draw star outline for visibility
+            plotter.DrawSettings.Color = SKColors.Black;
+            plotter.DrawSettings.Paint.StrokeWidth = 2;
+            plotter.DrawSettings.Paint.Style = SKPaintStyle.Stroke;
+            plotter.DrawSettings.Paint.StrokeCap = SKStrokeCap.Round;
+            plotter.DrawSettings.Paint.StrokeJoin = SKStrokeJoin.Round;
+            for (int i = 0; i < starPoints.Count; i++)
+            {
+                plotter.DrawLine(starPoints[i], starPoints[(i + 1) % starPoints.Count]);
+            }
+
+            // Create another 5-point star with multi-color gradient (bottom center)
+            KoreXYVector star2Center = new(400, 380);
+            float outerRadius2 = 90;
+            float innerRadius2 = 45;
+            float drawRadius = (outerRadius2 * 2) + 10;
+            List<KoreXYVector> star2Points = new();
+
+            for (int i = 0; i < 10; i++)
+            {
+                double angle = (i * Math.PI / 5.0) - (Math.PI / 2.0); // Start from top
+                float radius = (i % 2 == 0) ? outerRadius2 : innerRadius2;
+                float x = (float)star2Center.X + (float)(radius * Math.Cos(angle));
+                float y = (float)star2Center.Y + (float)(radius * Math.Sin(angle));
+                star2Points.Add(new KoreXYVector(x, y));
+            }
+
+            KoreXYPolygon star2Polygon = new(star2Points);
+            KoreColorRange colorRange = KoreColorRange.BlueGreenYellowOrangeRed();
+
+            // Draw multi-color gradient within the star
+            plotter.DrawColorRangeGradientInPolygon(star2Polygon, star2Polygon.Vertices[0], drawRadius, colorRange);
+
+            // Draw star2 outline for visibility
+            plotter.DrawSettings.Color = SKColors.Black;
+            plotter.DrawSettings.Paint.StrokeWidth = 4;
+            plotter.DrawSettings.Paint.Style = SKPaintStyle.Stroke;
+            plotter.DrawSettings.Paint.StrokeCap = SKStrokeCap.Round;
+            plotter.DrawSettings.Paint.StrokeJoin = SKStrokeJoin.Round;
+            for (int i = 0; i < star2Points.Count; i++)
+            {
+                plotter.DrawLine(star2Points[i], star2Points[(i + 1) % star2Points.Count]);
+            }
+
+            // Save the test image
+            plotter.Save(KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "Plotter_CircularGradient.png"));
+
+            testLog.AddResult("Circular Gradient Test", true, "Created 800x500 gradient image");
+        }
+        catch (Exception e)
+        {
+            testLog.AddResult("Circular Gradient Test", false, e.Message);
         }
     }
 }
