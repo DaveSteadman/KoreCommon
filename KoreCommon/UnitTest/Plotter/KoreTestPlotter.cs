@@ -16,6 +16,7 @@ public static class KoreTestPlotter
         RunTest_BLPlot(testLog);
         RunTest_AnglePlot(testLog);
         RunTest_CircularGradient(testLog);
+        RunTest_ClippingRegions(testLog);
     }
 
     public static void RunTest_BLPlot(KoreTestLog testLog)
@@ -340,6 +341,79 @@ public static class KoreTestPlotter
         catch (Exception e)
         {
             testLog.AddResult("Circular Gradient Test", false, e.Message);
+        }
+    }
+
+    public static void RunTest_ClippingRegions(KoreTestLog testLog)
+    {
+        try
+        {
+            KoreSkiaSharpPlotter plotter = new(800, 600);
+
+            // Test 1: Simple clip with ApplyClipRect
+            plotter.DrawSettings.Color = SKColors.Red;
+            plotter.DrawSettings.Paint.StrokeWidth = 3;
+            
+            // Draw a large rectangle without clipping
+            plotter.DrawRect(new SKRect(50, 50, 750, 550), plotter.DrawSettings.Paint);
+
+            // Apply a clip region
+            plotter.ApplyClipRect(new SKRect(100, 100, 400, 300), true);
+            
+            // Draw a blue rectangle that should be clipped
+            plotter.DrawSettings.Color = SKColors.Blue;
+            plotter.DrawSettings.Paint.Style = SKPaintStyle.Fill;
+            plotter.DrawRect(new SKRect(150, 150, 700, 500), plotter.DrawSettings.Paint);
+            
+            // Clear the simple clip
+            plotter.ClearClip();
+            
+            // Test 2: Nested clipping with PushClipRect/PopClip
+            plotter.DrawSettings.Color = SKColors.Green;
+            plotter.DrawSettings.Paint.Style = SKPaintStyle.Stroke;
+            
+            // Push first clip region
+            plotter.PushClipRect(new SKRect(450, 50, 750, 250), true);
+            plotter.DrawSettings.Paint.Style = SKPaintStyle.Fill;
+            plotter.DrawRect(new SKRect(400, 0, 800, 300), plotter.DrawSettings.Paint);
+            
+            // Push second clip region (nested)
+            plotter.PushClipRect(new SKRect(500, 100, 700, 200), true);
+            plotter.DrawSettings.Color = SKColors.Yellow;
+            plotter.DrawRect(new SKRect(450, 50, 750, 250), plotter.DrawSettings.Paint);
+            
+            // Pop one clip
+            plotter.PopClip();
+            plotter.DrawSettings.Color = SKColors.Magenta;
+            plotter.DrawSettings.Paint.Style = SKPaintStyle.Stroke;
+            plotter.DrawSettings.Paint.StrokeWidth = 2;
+            plotter.DrawRect(new SKRect(460, 60, 740, 240), plotter.DrawSettings.Paint);
+            
+            // Pop second clip
+            plotter.PopClip();
+            
+            // Test 3: ClearAllClips
+            plotter.PushClipRect(new SKRect(100, 350, 700, 550), true);
+            plotter.PushClipRect(new SKRect(150, 400, 650, 500), true);
+            plotter.DrawSettings.Color = SKColors.Cyan;
+            plotter.DrawSettings.Paint.Style = SKPaintStyle.Fill;
+            plotter.DrawRect(new SKRect(0, 300, 800, 600), plotter.DrawSettings.Paint);
+            
+            // Clear all clips at once
+            plotter.ClearAllClips();
+            
+            // Draw outline box to verify no clipping is active
+            plotter.DrawSettings.Color = SKColors.Black;
+            plotter.DrawSettings.Paint.Style = SKPaintStyle.Stroke;
+            plotter.DrawSettings.Paint.StrokeWidth = 1;
+            plotter.DrawRect(new SKRect(5, 5, 795, 595), plotter.DrawSettings.Paint);
+            
+            plotter.Save(KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "Plotter_ClippingTest.png"));
+            testLog.AddResult("Clipping Regions Test", true, "Created clipping test with nested regions");
+        }
+        catch (Exception e)
+        {
+            testLog.AddResult("Clipping Regions Test", false, e.Message);
         }
     }
 }
