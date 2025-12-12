@@ -409,6 +409,8 @@ public static class KoreTestPlotter
             plotter.DrawRect(new SKRect(5, 5, 795, 595), plotter.DrawSettings.Paint);
             
             plotter.Save(KoreFileOps.JoinPaths(KoreTestCenter.TestPath, "Plotter_ClippingTest.png"));
+            plotter.Dispose();
+            
             testLog.AddResult("Clipping Regions Test", true, "Created clipping test with nested regions");
         }
         catch (Exception e)
