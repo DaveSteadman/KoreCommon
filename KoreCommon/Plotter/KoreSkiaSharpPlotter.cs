@@ -15,6 +15,8 @@ public partial class KoreSkiaSharpPlotter
 {
     private SKBitmap canvasBitmap;
     private SKCanvas canvas;
+    private int clipDepth;
+    private bool hasSimpleClip;
     public KoreSkiaSharpPlotterDrawSettings DrawSettings = new();
 
     //public SKPaint Paint = new();
@@ -46,6 +48,60 @@ public partial class KoreSkiaSharpPlotter
     public void Clear(SKColor color)
     {
         canvas.Clear(color);
+    }
+
+    // --------------------------------------------------------------------------------------------
+    // MARK: Clipping
+    // --------------------------------------------------------------------------------------------
+
+    public void PushClipRect(SKRect clipRect, bool antialias = true)
+    {
+        canvas.Save();
+        canvas.ClipRect(clipRect, SKClipOperation.Intersect, antialias);
+        clipDepth++;
+    }
+
+    public void PopClip()
+    {
+        if (clipDepth <= 0)
+            return;
+
+        canvas.Restore();
+        clipDepth--;
+    }
+
+    public void ApplyClipRect(SKRect clipRect, bool antialias = true)
+    {
+        if (hasSimpleClip)
+            ClearClip();
+
+        PushClipRect(clipRect, antialias);
+        hasSimpleClip = true;
+    }
+
+    public void ClearClip()
+    {
+        if (!hasSimpleClip)
+            return;
+
+        PopClip();
+        hasSimpleClip = false;
+    }
+
+    public void ClearAllClips()
+    {
+        try
+        {
+            while (clipDepth > 0)
+            {
+                canvas.Restore();
+                clipDepth--;
+            }
+        }
+        finally
+        {
+            hasSimpleClip = false;
+        }
     }
 
     // --------------------------------------------------------------------------------------------
