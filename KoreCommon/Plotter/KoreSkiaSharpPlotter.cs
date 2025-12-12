@@ -90,13 +90,18 @@ public partial class KoreSkiaSharpPlotter
 
     public void ClearAllClips()
     {
-        while (clipDepth > 0)
+        try
         {
-            canvas.Restore();
-            clipDepth--;
+            while (clipDepth > 0)
+            {
+                canvas.Restore();
+                clipDepth--;
+            }
         }
-
-        hasSimpleClip = false;
+        finally
+        {
+            hasSimpleClip = false;
+        }
     }
 
     // --------------------------------------------------------------------------------------------
