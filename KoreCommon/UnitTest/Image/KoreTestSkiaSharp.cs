@@ -36,9 +36,9 @@ public static partial class KoreTestSkiaSharp
 
         SKPaint fillPaint = new SKPaint
         {
-            Style = SKPaintStyle.Stroke,
+            Style       = SKPaintStyle.Stroke,
             StrokeWidth = 1,
-            Color = SKColors.Black,
+            Color       = SKColors.Black,
             IsAntialias = false
         };
         imagePlotter.DrawRect(boundsRectInset, fillPaint);

@@ -2,13 +2,13 @@
 
 using System;
 
-// Environment Creation:
+// --- Environment Creation: ---
 // dotnet new console -n UnitTest
 // dotnet add package Microsoft.Data.Sqlite
 // dotnet add package SkiaSharp
 // dotnet new console
 
-// Environment update:
+// --- Environment update: ---
 // dotnet workload list
 // dotnet list package --outdated
 // dotnet workload update
@@ -37,13 +37,14 @@ class Program
         string fullReport = testLog.FullReport();
         string failReport = testLog.FailReport();
 
-        Console.WriteLine("------------------------------------------------------------------------");
+        string separator = new string('-', 80);
+        Console.WriteLine(separator);
         if (testLog.OverallPass())
             Console.WriteLine(fullReport);
         else
             Console.WriteLine(fullReport);
-        Console.WriteLine("------------------------------------------------------------------------");
+        Console.WriteLine(separator);
         Console.WriteLine(testLog.OneLineReport());
-        Console.WriteLine("------------------------------------------------------------------------");
+        Console.WriteLine(separator);
     }
 }
