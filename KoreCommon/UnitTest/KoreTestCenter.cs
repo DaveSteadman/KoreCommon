@@ -44,6 +44,7 @@ public static class KoreTestCenter
             // SkiaSharp Plotter tests
             KoreTestPlotter.RunTests(testLog);
             KoreTestSkiaSharp.RunTests(testLog);
+            KoreTestPlotterK74.RunAllTests(testLog);
         }
         catch (Exception)
         {

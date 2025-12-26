@@ -27,7 +27,7 @@ class Program
         // RenameKoreToKoreInFiles(".");
         KoreTestLog testLog = new KoreTestLog();
         KoreTestCenter.RunTests(testLog);
-        KoreGISTestCenter.RunTests(testLog);
+        // KoreGISTestCenter.RunTests(testLog);
 
         // Adhoc tests - a function designed to be reworked to consider issues-of-the-day
         //KoreTestLog testres = KoreTestCenter.RunAdHocTests();

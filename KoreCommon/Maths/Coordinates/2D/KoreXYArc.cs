@@ -13,8 +13,8 @@ namespace KoreCommon;
 
 public struct KoreXYArc
 {
-    public KoreXYVector Center { get; }
-    public double Radius { get; }
+    public KoreXYVector Center   { get; }
+    public double Radius         { get; }
     public double StartAngleRads { get; }
     public double DeltaAngleRads { get; }
 
@@ -22,21 +22,20 @@ public struct KoreXYArc
     // Read only / derived attributes
     // --------------------------------------------------------------------------------------------
 
-    public double EndAngleRads { get { return StartAngleRads + DeltaAngleRads; } }
+    public double EndAngleRads       { get { return StartAngleRads + DeltaAngleRads; } }
 
-    public double Diameter { get { return 2 * Radius; } }
-    public double AngleSpanRads { get { return KoreValueUtils.AngleDiffRads(StartAngleRads, EndAngleRads); } }
-    public double LengthCurved { get { return Radius * AngleSpanRads; } }
+    public double Diameter           { get { return 2 * Radius; } }
+    public double LengthCurved       { get { return Radius * DeltaAngleRads; } }
     public double LengthStraightLine { get { return Math.Sqrt(Diameter * Diameter + LengthCurved * LengthCurved); } }
 
-    public KoreXYVector StartPoint { get { return KoreXYVectorOps.OffsetPolar(Center, Radius, StartAngleRads); } }
-    public KoreXYVector EndPoint { get { return KoreXYVectorOps.OffsetPolar(Center, Radius, EndAngleRads); } }
+    public KoreXYVector StartPoint   { get { return KoreXYVectorOps.OffsetPolar(Center, Radius, StartAngleRads); } }
+    public KoreXYVector EndPoint     { get { return KoreXYVectorOps.OffsetPolar(Center, Radius, EndAngleRads); } }
 
-    public double StartAngleDegs { get { return KoreValueUtils.RadsToDegs(StartAngleRads); } }
-    public double EndAngleDegs { get { return KoreValueUtils.RadsToDegs(EndAngleRads); } }
-    public double AngleSpanDegs { get { return KoreValueUtils.RadsToDegs(AngleSpanRads); } }
+    public double StartAngleDegs     { get { return KoreValueUtils.RadsToDegs(StartAngleRads); } }
+    public double EndAngleDegs       { get { return KoreValueUtils.RadsToDegs(EndAngleRads); } }
+    public double DeltaAngleDegs     { get { return KoreValueUtils.RadsToDegs(DeltaAngleRads); } }
 
-    public KoreXYCircle Circle { get { return new KoreXYCircle(Center, Radius); } }
+    public KoreXYCircle Circle       { get { return new KoreXYCircle(Center, Radius); } }
 
     // --------------------------------------------------------------------------------------------
     // Constructor

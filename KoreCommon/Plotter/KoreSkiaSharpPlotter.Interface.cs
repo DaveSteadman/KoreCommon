@@ -67,6 +67,65 @@ public partial class KoreSkiaSharpPlotter
         DrawLine(arcbox.EndInnerOuterLine);
     }
 
+    public void DrawArcBoxFilled(KoreXYAnnularSector arcbox, SKColor fillColor)
+    {
+        using var path = new SKPath();
+
+        float startAngleDegs = (float)arcbox.OuterArc.StartAngleDegs;
+        float sweepAngleDegs = (float)arcbox.OuterArc.DeltaAngleDegs;
+        float endAngleDegs = startAngleDegs + sweepAngleDegs;
+
+        // Calculate start point on outer arc
+        float startAngleRads = (float)arcbox.OuterArc.StartAngleRads;
+        float outerStartX = (float)(arcbox.OuterArc.Center.X + arcbox.OuterArc.Radius * Math.Cos(startAngleRads));
+        float outerStartY = (float)(arcbox.OuterArc.Center.Y + arcbox.OuterArc.Radius * Math.Sin(startAngleRads));
+
+        // Start at outer arc beginning
+        path.MoveTo(outerStartX, outerStartY);
+
+        // Outer arc
+        SKRect outerRect = new SKRect(
+            (float)(arcbox.OuterArc.Center.X - arcbox.OuterArc.Radius),
+            (float)(arcbox.OuterArc.Center.Y - arcbox.OuterArc.Radius),
+            (float)(arcbox.OuterArc.Center.X + arcbox.OuterArc.Radius),
+            (float)(arcbox.OuterArc.Center.Y + arcbox.OuterArc.Radius)
+        );
+        path.ArcTo(outerRect, startAngleDegs, sweepAngleDegs, false);
+
+        // Line to inner arc end point
+        float endAngleRads = (float)(arcbox.InnerArc.StartAngleRads + arcbox.InnerArc.DeltaAngleRads);
+        float innerEndX = (float)(arcbox.InnerArc.Center.X + arcbox.InnerArc.Radius * Math.Cos(endAngleRads));
+        float innerEndY = (float)(arcbox.InnerArc.Center.Y + arcbox.InnerArc.Radius * Math.Sin(endAngleRads));
+        path.LineTo(innerEndX, innerEndY);
+
+        // Inner arc (reverse direction) - use inner arc's angles
+        float innerStartAngleDegs = (float)arcbox.InnerArc.StartAngleDegs;
+        float innerSweepAngleDegs = (float)arcbox.InnerArc.DeltaAngleDegs;
+        float innerEndAngleDegs = innerStartAngleDegs + innerSweepAngleDegs;
+        
+        SKRect innerRect = new SKRect(
+            (float)(arcbox.InnerArc.Center.X - arcbox.InnerArc.Radius),
+            (float)(arcbox.InnerArc.Center.Y - arcbox.InnerArc.Radius),
+            (float)(arcbox.InnerArc.Center.X + arcbox.InnerArc.Radius),
+            (float)(arcbox.InnerArc.Center.Y + arcbox.InnerArc.Radius)
+        );
+        path.ArcTo(innerRect, innerEndAngleDegs, -innerSweepAngleDegs, false);
+
+        path.Close();
+
+        // Create a dedicated paint object for this draw operation
+        using var fillPaint = new SKPaint
+        {
+            Style = SKPaintStyle.Fill,
+            IsAntialias = true,
+            Color = fillColor
+        };
+
+        System.Console.WriteLine($"DrawArcBoxFilled: fillColor=({fillColor.Red},{fillColor.Green},{fillColor.Blue},{fillColor.Alpha}), outer[{startAngleDegs:F1}, {sweepAngleDegs:F1}], inner[{innerStartAngleDegs:F1}, {innerSweepAngleDegs:F1}]");
+
+        canvas.DrawPath(path, fillPaint);
+    }
+
     // --------------------------------------------------------------------------------------------
     // MARK: Line
     // --------------------------------------------------------------------------------------------

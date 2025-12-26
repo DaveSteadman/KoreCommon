@@ -13,7 +13,7 @@ public struct KoreNumericAngle<T> where T : INumber<T>
 
     // --------------------------------------------------------------------------------------------
 
-    public static T DegsToRads(T deg) => deg * Pi / OneEighty;
+    public static T DegsToRads(T deg) => deg * Pi / OneEighty; // Usage: double rads = KoreNumericAngle<double>.DegsToRads(degs);
     public static T RadsToDegs(T rad) => rad * OneEighty / Pi;
 
     // --------------------------------------------------------------------------------------------

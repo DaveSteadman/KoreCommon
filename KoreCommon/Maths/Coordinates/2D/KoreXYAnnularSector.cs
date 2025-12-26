@@ -12,9 +12,9 @@ namespace KoreCommon;
 
 public struct KoreXYAnnularSector
 {
-    public KoreXYVector Center { get; }
-    public double InnerRadius { get; }
-    public double OuterRadius { get; }
+    public KoreXYVector Center   { get; }
+    public double InnerRadius    { get; }
+    public double OuterRadius    { get; }
     public double StartAngleRads { get; }
     public double DeltaAngleRads { get; }
 
@@ -22,28 +22,25 @@ public struct KoreXYAnnularSector
     // Read only / derived attributes (increasing complexity order)
     // --------------------------------------------------------------------------------------------
 
-    public double EndAngleRads { get { return StartAngleRads + DeltaAngleRads; } }
+    public double EndAngleRads   { get { return StartAngleRads + DeltaAngleRads; } }
 
     public double StartAngleDegs { get { return KoreValueUtils.RadsToDegs(StartAngleRads); } }
     public double DeltaAngleDegs { get { return KoreValueUtils.RadsToDegs(DeltaAngleRads); } }
-    public double EndAngleDegs { get { return KoreValueUtils.RadsToDegs(EndAngleRads); } }
-
-    public double AngleSpanRads { get { return KoreValueUtils.AngleDiffRads(StartAngleRads, EndAngleRads); } }
-    public double AngleSpanDegs { get { return KoreValueUtils.RadsToDegs(AngleSpanRads); } }
+    public double EndAngleDegs   { get { return KoreValueUtils.RadsToDegs(EndAngleRads); } }
 
     public KoreXYVector StartInnerPoint { get { return KoreXYVectorOps.OffsetPolar(Center, InnerRadius, StartAngleRads); } }
-    public KoreXYVector EndInnerPoint { get { return KoreXYVectorOps.OffsetPolar(Center, InnerRadius, EndAngleRads); } }
+    public KoreXYVector EndInnerPoint   { get { return KoreXYVectorOps.OffsetPolar(Center, InnerRadius, EndAngleRads); } }
     public KoreXYVector StartOuterPoint { get { return KoreXYVectorOps.OffsetPolar(Center, OuterRadius, StartAngleRads); } }
-    public KoreXYVector EndOuterPoint { get { return KoreXYVectorOps.OffsetPolar(Center, OuterRadius, EndAngleRads); } }
+    public KoreXYVector EndOuterPoint   { get { return KoreXYVectorOps.OffsetPolar(Center, OuterRadius, EndAngleRads); } }
 
     public KoreXYLine StartInnerOuterLine { get { return new KoreXYLine(StartInnerPoint, StartOuterPoint); } }
-    public KoreXYLine EndInnerOuterLine { get { return new KoreXYLine(EndInnerPoint, EndOuterPoint); } }
+    public KoreXYLine EndInnerOuterLine   { get { return new KoreXYLine(EndInnerPoint, EndOuterPoint); } }
 
     public KoreXYCircle InnerCircle { get { return new KoreXYCircle(Center, InnerRadius); } }
     public KoreXYCircle OuterCircle { get { return new KoreXYCircle(Center, OuterRadius); } }
 
-    public KoreXYArc InnerArc { get { return new KoreXYArc(Center, InnerRadius, StartAngleRads, EndAngleRads); } }
-    public KoreXYArc OuterArc { get { return new KoreXYArc(Center, OuterRadius, StartAngleRads, EndAngleRads); } }
+    public KoreXYArc InnerArc { get { return new KoreXYArc(Center, InnerRadius, StartAngleRads, DeltaAngleRads); } }
+    public KoreXYArc OuterArc { get { return new KoreXYArc(Center, OuterRadius, StartAngleRads, DeltaAngleRads); } }
 
     // --------------------------------------------------------------------------------------------
     // Constructor
@@ -55,18 +52,18 @@ public struct KoreXYAnnularSector
         if (innerRadius > outerRadius)
             (innerRadius, outerRadius) = (outerRadius, innerRadius);
 
-        Center = center;
-        InnerRadius = innerRadius;
-        OuterRadius = outerRadius;
+        Center         = center;
+        InnerRadius    = innerRadius;
+        OuterRadius    = outerRadius;
         StartAngleRads = startAngleRads;
         DeltaAngleRads = deltaAngleRads;
     }
 
     public KoreXYAnnularSector(KoreXYAnnularSector arc)
     {
-        Center = arc.Center;
-        InnerRadius = arc.InnerRadius;
-        OuterRadius = arc.OuterRadius;
+        Center         = arc.Center;
+        InnerRadius    = arc.InnerRadius;
+        OuterRadius    = arc.OuterRadius;
         StartAngleRads = arc.StartAngleRads;
         DeltaAngleRads = arc.DeltaAngleRads;
     }

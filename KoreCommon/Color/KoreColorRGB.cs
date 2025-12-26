@@ -15,10 +15,29 @@ public struct KoreColorRGB : IEquatable<KoreColorRGB>
     public byte B { get; set; }
     public byte A { get; set; }
 
-    public float Rf => KoreColorIO.ByteToFloat(R);
-    public float Gf => KoreColorIO.ByteToFloat(G);
-    public float Bf => KoreColorIO.ByteToFloat(B);
-    public float Af => KoreColorIO.ByteToFloat(A);
+    public float Rf
+    {
+        get => KoreColorIO.ByteToFloat(R);
+        set => R = KoreColorIO.FloatToByte(value);
+    }
+
+    public float Gf
+    {
+        get => KoreColorIO.ByteToFloat(G);
+        set => G = KoreColorIO.FloatToByte(value);
+    }
+
+    public float Bf
+    {
+        get => KoreColorIO.ByteToFloat(B);
+        set => B = KoreColorIO.FloatToByte(value);
+    }
+
+    public float Af
+    {
+        get => KoreColorIO.ByteToFloat(A);
+        set => A = KoreColorIO.FloatToByte(value);
+    }
 
     public bool IsTransparent => (A < KoreColorIO.MaxByte);
 

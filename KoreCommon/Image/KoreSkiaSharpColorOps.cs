@@ -14,6 +14,7 @@ public static class KoreSkiaSharpColorOps
     // MARK: To SKColor
     // --------------------------------------------------------------------------------------------
 
+    // Usage: KoreSkiaSharpColorOps.ColorFromKoreColor(koreColor);
     public static SKColor ColorFromKoreColor(KoreColorRGB color)
     {
         // Convert KoreColor to SKColor

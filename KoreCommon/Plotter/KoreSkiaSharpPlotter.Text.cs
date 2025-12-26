@@ -174,4 +174,30 @@ public partial class KoreSkiaSharpPlotter
         canvas.DrawText(text, drawPosition.X, drawPosition.Y, font, textPaint);
     }
 
+    // --------------------------------------------------------------------------------------------
+    // MARK: Font
+    // --------------------------------------------------------------------------------------------
+
+    // Load a font from a file path
+    public SKTypeface LoadFontFromFile(string fontFilePath)
+    {
+        if (!File.Exists(fontFilePath))
+            throw new FileNotFoundException("Font file not found.", fontFilePath);
+
+        return SKTypeface.FromFile(fontFilePath);
+    }
+
+    // Create a font with specified size from a typeface
+    // Note: - SKFont is lightweight; dispose after use
+    //       - Font size unit is in pixels
+    public SKFont CreateFont(SKTypeface typeface, float fontSizePixels)
+    {
+        return new SKFont(typeface, fontSizePixels);
+    }
+
+    // Delete a font (requires explicit disposal in SkiaSharp)
+    public void DeleteFont(SKFont font)
+    {
+        font.Dispose();
+    }
 }

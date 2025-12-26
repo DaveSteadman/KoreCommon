@@ -263,6 +263,45 @@ public partial class KoreSkiaSharpPlotter
     public SKCanvas GetCanvas() => canvas;
 
     // --------------------------------------------------------------------------------------------
+    // MARK: Clip to Rect
+    // --------------------------------------------------------------------------------------------
+
+    public void ClipToRect(SKRect rect)
+    {
+        canvas.ClipRect(rect);
+    }
+
+    // Save the current canvas state (including clip region) onto a stack
+    // Use this before setting a new clip region that you want to restore later
+    public int SaveClipState()
+    {
+        return canvas.Save();
+    }
+
+    // Restore the canvas state (including clip region) from the stack
+    // This clears/removes the most recent clip region
+    public void RestoreClipState()
+    {
+        canvas.Restore();
+    }
+
+    // Convenience method: Save state, then set a clip region
+    // Returns the save count for tracking nested clips
+    public int SaveAndClipToRect(SKRect rect)
+    {
+        int saveCount = canvas.Save();
+        canvas.ClipRect(rect);
+        return saveCount;
+    }
+
+    // Clear all clip regions by restoring to the initial state
+    public void ClearAllClips()
+    {
+        canvas.RestoreToCount(0);
+    }
+
+
+    // --------------------------------------------------------------------------------------------
     // MARK: Dispose
     // --------------------------------------------------------------------------------------------
 
