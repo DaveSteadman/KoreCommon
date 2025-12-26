@@ -115,6 +115,8 @@ public static class KoreColorPalette
         { "MutedBronze", new KoreColorRGB(179, 128,  77) }
     };
 
+    // Looks for the named string in the palette, returns DefaultColor if not found
+    // Usage: KoreColorRGB col = KoreColorPalette.Find("Cyan");
     public static KoreColorRGB Find(string name)
     {
         // Case-insensitive search through the colors dictionary

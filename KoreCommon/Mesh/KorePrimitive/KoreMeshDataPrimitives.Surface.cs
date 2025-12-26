@@ -28,12 +28,12 @@ public static partial class KoreMeshDataPrimitives
     //
     // USAGE:
     // var vertices = new KoreXYZVector[width, height];
-    // // Populate vertices where [0,0] is top-left corner
+    // Populate vertices where [0,0] is top-left corner
     // var surfaceMesh = KoreMeshDataPrimitives.Surface(vertices, KoreUVBox.Full);
-    // </summary>
-    // <param name="vertices">2D array of vertices where [0,0] is top-left corner</param>
-    // <param name="uvBox">UV mapping coordinates for the surface</param>
-    // <returns>KoreMeshData representing the surface with proper CW triangle winding</returns>
+
+    // vertices: 2D array of vertices where [0,0] is top-left corner
+    // uvBox: UV mapping coordinates for the surface
+    // returns: KoreMeshData representing the surface with proper CW triangle winding
 
     public static KoreMeshData Surface(KoreXYZVector[,] vertices, KoreUVBox uvBox)
     {

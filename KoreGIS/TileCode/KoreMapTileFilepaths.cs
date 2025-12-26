@@ -60,6 +60,20 @@ public class KoreMapTileFilepaths
         WebpFileExists  = parentFilepaths.WebpFileExists;
     }
 
+    public void Init()
+    {
+        EleFileExists = false;
+        EleArrFileExists = false;
+        MeshFileExists = false;
+        ImageFileExists = false;
+        WebpFileExists = false;
+
+        EleFilepath    = "";
+        EleArrFilepath = "";
+        MeshFilepath   = "";
+        ImageFilepath  = "";
+        WebpFilepath   = "";
+    }
 }
 
 

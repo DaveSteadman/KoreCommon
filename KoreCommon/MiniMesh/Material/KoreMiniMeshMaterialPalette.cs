@@ -78,7 +78,7 @@ public static class KoreMiniMeshMaterialPalette
         new ("Glass", new KoreColorRGB(250, 250, 250, 100), 0.0f, 0.0f),
         new ("SmokedGlass", new KoreColorRGB(90, 90, 90, 200), 0.5f, 0.8f),
         new ("BlueGlass", new KoreColorRGB(51, 102, 204, 102), 0.0f, 0.0f),
-        new ("GreenGlass", new KoreColorRGB(51, 204, 102, 102), 0.0f, 0.0f),
+        new ("GreenGlass", new KoreColorRGB(51, 204, 102, 102), 0.1f, 0.5f),
         new ("Water", new KoreColorRGB(0, 102, 204, 179), 0.0f, 0.0f),
         new ("Ice", new KoreColorRGB(230, 242, 255, 204), 0.0f, 0.0f),
 
@@ -108,7 +108,7 @@ public static class KoreMiniMeshMaterialPalette
     // --------------------------------------------------------------------------------------------
 
     // Find material by name, returns MattWhite if not found
-    // Usage: KoreMiniMeshMaterial mat = KoreMiniMeshMaterialPalette.Find("MattDarkGreen");
+    // Usage: KoreMiniMeshMaterial mat = KoreMiniMeshMaterialPalette.Find("SmokedGlass");
     public static KoreMiniMeshMaterial Find(string name)
     {
         foreach (var material in MaterialsList)
