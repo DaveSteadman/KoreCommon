@@ -176,7 +176,11 @@ public class KoreTestLog
         {
             if (entry.EntryType == KoreTestLogEntryType.Test && entry.Result == KoreTestLogResult.Fail)
             {
-                sb.AppendLine($"TEST: FAIL // {entry.Name} // {entry.Comment}");
+                string resultSymbol = KoreEmojiSymbolOps.GetSymbol(KoreEmojiType.TrafficLightRed);
+                string resultStr = ResultToString(entry.Result);
+                string comment = string.IsNullOrEmpty(entry.Comment) ? "" : $" // {entry.Comment}";
+
+                sb.AppendLine($"{resultSymbol} TEST: {resultStr} // {entry.Name}{comment}");
             }
         }
         return sb.ToString();

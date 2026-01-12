@@ -26,7 +26,7 @@ public partial class KoreNumeric2DArray<T> where T : struct, INumber<T>
         KoreNumeric1DArray<T> rowData = new KoreNumeric1DArray<T>(Width);
         for (int x = 0; x < Width; x++)
         {
-            rowData[x] = Data[x, row];
+            rowData[x] = Data[row, x];
         }
         return rowData;
     }
@@ -40,7 +40,7 @@ public partial class KoreNumeric2DArray<T> where T : struct, INumber<T>
 
         for (int x = 0; x < Width; x++)
         {
-            Data[x, row] = values[x];
+            Data[row, x] = values[x];
         }
     }
 
@@ -56,7 +56,7 @@ public partial class KoreNumeric2DArray<T> where T : struct, INumber<T>
         KoreNumeric1DArray<T> colData = new KoreNumeric1DArray<T>(Height);
         for (int y = 0; y < Height; y++)
         {
-            colData[y] = Data[col, y];
+            colData[y] = Data[y, col];
         }
         return colData;
     }
@@ -70,7 +70,7 @@ public partial class KoreNumeric2DArray<T> where T : struct, INumber<T>
 
         for (int y = 0; y < Height; y++)
         {
-            Data[col, y] = values[y];
+            Data[y, col] = values[y];
         }
     }
 
@@ -88,25 +88,25 @@ public partial class KoreNumeric2DArray<T> where T : struct, INumber<T>
             case Edge.Top:
                 edgeArray = new KoreNumeric1DArray<T>(Width);
                 for (int x = 0; x < Width; x++)
-                    edgeArray[x] = Data[x, 0];
+                    edgeArray[x] = Data[0, x];
                 break;
 
             case Edge.Bottom:
                 edgeArray = new KoreNumeric1DArray<T>(Width);
                 for (int x = 0; x < Width; x++)
-                    edgeArray[x] = Data[x, Height - 1];
+                    edgeArray[x] = Data[Height - 1, x];
                 break;
 
             case Edge.Left:
                 edgeArray = new KoreNumeric1DArray<T>(Height);
                 for (int y = 0; y < Height; y++)
-                    edgeArray[y] = Data[0, y];
+                    edgeArray[y] = Data[y, 0];
                 break;
 
             case Edge.Right:
                 edgeArray = new KoreNumeric1DArray<T>(Height);
                 for (int y = 0; y < Height; y++)
-                    edgeArray[y] = Data[Width - 1, y];
+                    edgeArray[y] = Data[y, Width - 1];
                 break;
 
             default:
@@ -124,7 +124,7 @@ public partial class KoreNumeric2DArray<T> where T : struct, INumber<T>
                     throw new ArgumentException("Length of edgeArray must be equal to Width of the array.", nameof(edgeArray));
 
                 for (int x = 0; x < Width; x++)
-                    Data[x, 0] = edgeArray[x];
+                    Data[0, x] = edgeArray[x];
                 break;
 
             case Edge.Bottom:
@@ -132,7 +132,7 @@ public partial class KoreNumeric2DArray<T> where T : struct, INumber<T>
                     throw new ArgumentException("Length of edgeArray must be equal to Width of the array.", nameof(edgeArray));
 
                 for (int x = 0; x < Width; x++)
-                    Data[x, Height - 1] = edgeArray[x];
+                    Data[Height - 1, x] = edgeArray[x];
                 break;
 
             case Edge.Left:
@@ -140,7 +140,7 @@ public partial class KoreNumeric2DArray<T> where T : struct, INumber<T>
                     throw new ArgumentException("Length of edgeArray must be equal to Height of the array.", nameof(edgeArray));
 
                 for (int y = 0; y < Height; y++)
-                    Data[0, y] = edgeArray[y];
+                    Data[y, 0] = edgeArray[y];
                 break;
 
             case Edge.Right:
@@ -148,7 +148,7 @@ public partial class KoreNumeric2DArray<T> where T : struct, INumber<T>
                     throw new ArgumentException("Length of edgeArray must be equal to Height of the array.", nameof(edgeArray));
 
                 for (int y = 0; y < Height; y++)
-                    Data[Width - 1, y] = edgeArray[y];
+                    Data[y, Width - 1] = edgeArray[y];
                 break;
 
             default:

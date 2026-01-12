@@ -17,6 +17,7 @@ public static class KoreTestMath
             TestValueUtilsFloat(testLog);
             TestFloat1DArray_Basics(testLog);
             TestNumberRange(testLog);
+            TestScaleToRange(testLog);
         }
         catch (Exception ex)
         {
@@ -138,7 +139,6 @@ public static class KoreTestMath
 
     private static void TestNumberRange(KoreTestLog testLog)
     {
-
         {
             List<double> testList = KoreValueUtils.CreateRangeList(10, -3, +3);
 
@@ -146,6 +146,50 @@ public static class KoreTestMath
             string csvStr = string.Join(", ", testList.Select(x => x.ToString("F3")));
             testLog.AddComment($"Number Range: {csvStr}");
         }
+    }
+
+    private static void TestScaleToRange(KoreTestLog testLog)
+    {
+        {
+            double startVal = 5.0;
+            double startRangeMin = 0.0;
+            double startRangeMax = 10.0;
+
+            double targetVal = 150.0;
+            double targetRangeMin = 100.0;
+            double targetRangeMax = 200.0;
+
+            double scaledVal = KoreNumericUtils.ScaleToRange(startVal, startRangeMin, startRangeMax, targetRangeMin, targetRangeMax);
+            testLog.AddResult("ScaleToRange", KoreValueUtils.EqualsWithinTolerance(scaledVal, targetVal), "Simple halfway 1");
+        }
+
+        {
+            double startVal = 0.0;
+            double startRangeMin = -10.0;
+            double startRangeMax = 10.0;
+
+            double targetVal = 150.0;
+            double targetRangeMin = 100.0;
+            double targetRangeMax = 200.0;
+
+            double scaledVal = KoreNumericUtils.ScaleToRange(startVal, startRangeMin, startRangeMax, targetRangeMin, targetRangeMax);
+            testLog.AddResult("ScaleToRange", KoreValueUtils.EqualsWithinTolerance(scaledVal, targetVal), "Simple halfway 2");
+        }
+
+        {
+            double startVal = 45.0;
+            double startRangeMax = 90.0;
+            double startRangeMin = -90.0;
+
+            double targetVal = 0.25;
+            double targetRangeMax = 0.0;
+            double targetRangeMin = 1.0;
+
+            double scaledVal = KoreNumericUtils.ScaleToUncheckedRange(startVal, startRangeMin, startRangeMax, targetRangeMin, targetRangeMax);
+            testLog.AddResult("ScaleToUncheckedRange", KoreValueUtils.EqualsWithinTolerance(scaledVal, targetVal), "ScaleToUncheckedRange Flipped Range");
+        }
 
     }
 }
+
+

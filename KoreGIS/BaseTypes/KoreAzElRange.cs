@@ -67,6 +67,13 @@ public struct KoreAzElRange
         ElRads = Math.Asin(heightM / RangeM);
     }
 
+    public KoreAzElRange(KoreAzEl angles, double rangeM)
+    {
+        this.RangeM = rangeM;
+        this.AzRads = angles.AzRads;
+        this.ElRads = angles.ElRads;
+    }
+
     // Static property for a zero offset
     public static KoreAzElRange Zero
     {

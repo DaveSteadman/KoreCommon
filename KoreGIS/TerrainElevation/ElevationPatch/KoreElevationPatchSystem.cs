@@ -167,7 +167,7 @@ public class KoreElevationPatchSystem
             for (int j = 0; j < lonArray.Length; j++)
             {
                 KoreLLPoint newPoint = new KoreLLPoint() { LatDegs = latArray[i], LonDegs = lonArray[j] };
-                newTile.ElevationData[j, i] = ElevationAtPos(newPoint);
+                newTile.ElevationData[i, j] = ElevationAtPos(newPoint);
             }
         }
         return newTile;

@@ -21,7 +21,7 @@ public enum UVCorner
 
 // DESIGN: Four explicit corner points define any quadrilateral UV region
 // - Corner0: Typically "top-left" but can be any orientation
-// - Corner1: Typically "top-right" 
+// - Corner1: Typically "top-right"
 // - Corner2: Typically "bottom-right"
 // - Corner3: Typically "bottom-left"
 // - Fractional coordinates (u,v) use bilinear interpolation across the quad
@@ -30,7 +30,7 @@ public struct KoreUVBox
 {
     // Four corners defining the UV quadrilateral
     public KoreXYVector Corner0; // Typically top-left
-    public KoreXYVector Corner1; // Typically top-right  
+    public KoreXYVector Corner1; // Typically top-right
     public KoreXYVector Corner2; // Typically bottom-right
     public KoreXYVector Corner3; // Typically bottom-left
 
@@ -73,24 +73,24 @@ public struct KoreUVBox
     // --------------------------------------------------------------------------------------------
 
     // Range properties (for backward compatibility with axis-aligned rectangles)
-    public KoreNumericRange<double> UVRangeX 
-    { 
-        get 
-        { 
+    public KoreNumericRange<double> UVRangeX
+    {
+        get
+        {
             double minX = KoreValueUtils.Min3(KoreValueUtils.Min3(Corner0.X, Corner1.X, Corner2.X), Corner3.X, Corner0.X);
             double maxX = KoreValueUtils.Max3(KoreValueUtils.Max3(Corner0.X, Corner1.X, Corner2.X), Corner3.X, Corner0.X);
-            return new KoreNumericRange<double>(minX, maxX); 
-        } 
+            return new KoreNumericRange<double>(minX, maxX);
+        }
     }
 
-    public KoreNumericRange<double> UVRangeY 
-    { 
-        get 
+    public KoreNumericRange<double> UVRangeY
+    {
+        get
     {
             double minY = KoreValueUtils.Min3(KoreValueUtils.Min3(Corner0.Y, Corner1.Y, Corner2.Y), Corner3.Y, Corner0.Y);
             double maxY = KoreValueUtils.Max3(KoreValueUtils.Max3(Corner0.Y, Corner1.Y, Corner2.Y), Corner3.Y, Corner0.Y);
-            return new KoreNumericRange<double>(minY, maxY); 
-        } 
+            return new KoreNumericRange<double>(minY, maxY);
+        }
     }
 
     // --------------------------------------------------------------------------------------------
@@ -110,12 +110,12 @@ public struct KoreUVBox
         double topX = KoreValueUtils.Interpolate(Corner0.X, Corner1.X, uFraction);
         double topY = KoreValueUtils.Interpolate(Corner0.Y, Corner1.Y, uFraction);
         KoreXYVector topEdge = new KoreXYVector(topX, topY);
-        
-        // Then interpolate along bottom edge (Corner3 to Corner2)  
+
+        // Then interpolate along bottom edge (Corner3 to Corner2)
         double bottomX = KoreValueUtils.Interpolate(Corner3.X, Corner2.X, uFraction);
         double bottomY = KoreValueUtils.Interpolate(Corner3.Y, Corner2.Y, uFraction);
         KoreXYVector bottomEdge = new KoreXYVector(bottomX, bottomY);
-        
+
         // Finally interpolate between the two edge points
         double finalX = KoreValueUtils.Interpolate(topEdge.X, bottomEdge.X, vFraction);
         double finalY = KoreValueUtils.Interpolate(topEdge.Y, bottomEdge.Y, vFraction);
@@ -151,22 +151,22 @@ public struct KoreUVBox
 
     // Get a 2D grid of UV coordinates based on the dimensions of a destination point grid
     // Quick UV generation method.
-    // Top 
+    // Top
 
     // Usage: KoreXYVector[,] uvGrid = uvBox.GetUVGrid(10, 10);
 
     public KoreXYVector[,] GetUVGrid(int horizSize, int vertSize)
     {
-        var uvGrid = new KoreXYVector[horizSize, vertSize];
+        var uvGrid = new KoreXYVector[vertSize, horizSize];
 
         // Get 2 1D arrays to define the values in the range
         // Note: ListForRange should handle reversed ranges correctly (e.g., from 1.0 to 0.0)
         KoreNumeric1DArray<double> uRange = KoreNumeric1DArrayOps<double>.ListForRange(TopLeft.X, BottomRight.X, horizSize);
         KoreNumeric1DArray<double> vRange = KoreNumeric1DArrayOps<double>.ListForRange(TopLeft.Y, BottomRight.Y, vertSize);
 
-        for (int x = 0; x < horizSize; x++)
+        for (int y = 0; y < vertSize; y++)
         {
-            for (int y = 0; y < vertSize; y++)
+            for (int x = 0; x < horizSize; x++)
             {
                 uvGrid[x, y] = new KoreXYVector(uRange[x], vRange[y]);
             }

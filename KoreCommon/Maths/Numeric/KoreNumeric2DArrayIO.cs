@@ -23,7 +23,7 @@ public static class KoreNumeric2DArrayIO<T> where T : struct, INumber<T>
         {
             for (int j = 0; j < array.Width; j++)
             {
-                csvBuilder.Append(ConvertToString(array[j, i], format));
+                csvBuilder.Append(ConvertToString(array[i, j], format));
                 if (j < array.Width - 1)
                     csvBuilder.Append(", ");
             }
@@ -37,14 +37,14 @@ public static class KoreNumeric2DArrayIO<T> where T : struct, INumber<T>
         string[] lines = csvString.Trim().Split('\n');
         int rows = lines.Length;
         int cols = lines[0].Split(',').Length;
-        KoreNumeric2DArray<T> array = new KoreNumeric2DArray<T>(cols, rows);
+        KoreNumeric2DArray<T> array = new KoreNumeric2DArray<T>(rows, cols);
 
         for (int i = 0; i < rows; i++)
         {
             string[] values = lines[i].Split(',');
             for (int j = 0; j < cols; j++)
             {
-                array[j, i] = ConvertFromString(values[j].Trim());
+                array[i, j] = ConvertFromString(values[j].Trim());
             }
         }
 
@@ -75,14 +75,14 @@ public static class KoreNumeric2DArrayIO<T> where T : struct, INumber<T>
     {
         using (BinaryWriter writer = new BinaryWriter(File.Open(filePath, FileMode.Create)))
         {
-            writer.Write(array.Width);
             writer.Write(array.Height);
+            writer.Write(array.Width);
 
             for (int j = 0; j < array.Height; j++)
             {
                 for (int i = 0; i < array.Width; i++)
                 {
-                    WriteValue(writer, array[i, j]);
+                    WriteValue(writer, array[j, i]);
                 }
             }
         }
@@ -92,15 +92,15 @@ public static class KoreNumeric2DArrayIO<T> where T : struct, INumber<T>
     {
         using (BinaryReader reader = new BinaryReader(File.Open(filePath, FileMode.Open)))
         {
-            int width = reader.ReadInt32();
             int height = reader.ReadInt32();
-            KoreNumeric2DArray<T> array = new KoreNumeric2DArray<T>(width, height);
+            int width  = reader.ReadInt32();
+            KoreNumeric2DArray<T> array = new KoreNumeric2DArray<T>(height, width);
 
             for (int j = 0; j < height; j++)
             {
                 for (int i = 0; i < width; i++)
                 {
-                    array[i, j] = ReadValue(reader);
+                    array[j, i] = ReadValue(reader);
                 }
             }
 

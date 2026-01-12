@@ -39,7 +39,7 @@ public struct KoreXYVector
 
     // Zero default constructor
     public static KoreXYVector Zero => new KoreXYVector(0, 0);
-    public static KoreXYVector One => new KoreXYVector(1, 1);
+    public static KoreXYVector One  => new KoreXYVector(1, 1);
 
     // --------------------------------------------------------------------------------------------
     // MARK: Public methods

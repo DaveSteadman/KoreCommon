@@ -52,6 +52,8 @@ public class KoreMapTileFilepaths
         WebpFileExists   = File.Exists(WebpFilepath);
     }
 
+    public KoreMapTileFilepaths() { Init(); }
+
     public void InheritImageFilepaths(KoreMapTileFilepaths parentFilepaths)
     {
         ImageFilepath   = parentFilepaths.ImageFilepath;

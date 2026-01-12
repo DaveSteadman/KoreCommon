@@ -42,7 +42,7 @@ class Program
         if (testLog.OverallPass())
             Console.WriteLine(fullReport);
         else
-            Console.WriteLine(fullReport);
+            Console.WriteLine(failReport);
         Console.WriteLine(separator);
         Console.WriteLine(testLog.OneLineReport());
         Console.WriteLine(separator);

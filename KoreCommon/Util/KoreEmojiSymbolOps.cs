@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 namespace KoreCommon;
 
+#nullable enable
+
 // Example Usage:
 // string successSymbol = KoreEmojiSymbolOps.GetSymbol(KoreEmojiType.Success);
 
@@ -133,12 +135,12 @@ public static class KoreEmojiSymbolOps
     };
 
     // Get the UTF-8 character for a given status symbol
-    // Usage: string symbol = KoreStatusSymbolOps.GetSymbol(KoreStatusSymbol.Success);
+    // Usage: string symbol = KoreEmojiSymbolOps.GetSymbol(KoreStatusSymbol.Success);
     public static string GetSymbol(KoreEmojiType symbol)
     {
         if (SymbolDictionary.TryGetValue(symbol, out string? value))
             return value;
 
-        return KoreEmojiType.TrafficLightPurple.ToString(); // Fallback
+        return "❓"; // Fallback
     }
 }

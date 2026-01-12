@@ -7,6 +7,7 @@ using KoreCommon.SkiaSharp;
 
 namespace KoreCommon.UnitTest;
 
+#nullable enable
 
 public static class KoreTestPlotter
 {

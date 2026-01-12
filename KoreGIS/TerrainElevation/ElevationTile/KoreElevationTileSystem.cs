@@ -105,9 +105,8 @@ public class KoreElevationTileSystem
         // Flip the latitudes, so we know the top and bottom of the output arr files are intuitively the right way up.
         KoreNumeric1DArray<float> reverselats = loopLats.Reverse();
 
-        // Create the output 2D list
-        // [X, Y]
-        KoreFloat2DArray retEle = new KoreFloat2DArray(lonRes, latRes);
+        // Create the output 2D list, [Y, X]
+        KoreFloat2DArray retEle = new KoreFloat2DArray(latRes, lonRes);
 
         // Create the current position we'll move acorss the tile
         KoreLLPoint currPos = new();
@@ -121,8 +120,8 @@ public class KoreElevationTileSystem
                 currPos.LonDegs = loopLons[lonIdx];
 
                 // Lookup the best value to this position and put it in our returned array
-                // [X, Y]
-                retEle[lonIdx, latIdx] = elePatchSystem.ElevationAtPos(currPos);
+                // [Y, X]
+                retEle[latIdx, lonIdx] = elePatchSystem.ElevationAtPos(currPos);
             }
         }
 

@@ -62,11 +62,11 @@ public struct KoreXYZVector
     // Example: KoreXYZVector newPos = KoreXYZVector.Zero();
     public static KoreXYZVector Zero => new KoreXYZVector(0, 0, 0);
 
-    public static KoreXYZVector Right => new KoreXYZVector(1, 0, 0);
-    public static KoreXYZVector Left => new KoreXYZVector(-1, 0, 0);
-    public static KoreXYZVector Up => new KoreXYZVector(0, 1, 0);
-    public static KoreXYZVector Down => new KoreXYZVector(0, -1, 0);
-    public static KoreXYZVector Forward => new KoreXYZVector(0, 0, 1);
+    public static KoreXYZVector Right    => new KoreXYZVector(1, 0, 0);
+    public static KoreXYZVector Left     => new KoreXYZVector(-1, 0, 0);
+    public static KoreXYZVector Up       => new KoreXYZVector(0, 1, 0);
+    public static KoreXYZVector Down     => new KoreXYZVector(0, -1, 0);
+    public static KoreXYZVector Forward  => new KoreXYZVector(0, 0, 1);
     public static KoreXYZVector Backward => new KoreXYZVector(0, 0, -1);
 
     // --------------------------------------------------------------------------------------------
@@ -101,12 +101,12 @@ public struct KoreXYZVector
                Math.Abs(Y - other.Y) < tolerance &&
                Math.Abs(Z - other.Z) < tolerance;
     }
-    
-    
+
+
     public KoreXYZVector FlipX() { return new KoreXYZVector(-X, Y, Z); }
     public KoreXYZVector FlipY() { return new KoreXYZVector(X, -Y, Z); }
     public KoreXYZVector FlipZ() { return new KoreXYZVector(X, Y, -Z); }
-    
+
 
     // --------------------------------------------------------------------------------------------
 

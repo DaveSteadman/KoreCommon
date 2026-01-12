@@ -8,11 +8,11 @@ public struct KoreXYZBox
 {
     public KoreXYZVector Center { get; set; } = KoreXYZVector.Zero;
 
-    public enum EnumFace { Top, Bottom, Left, Right, Front, Back }
+    public enum EnumFace   { Top, Bottom, Left, Right, Front, Back }
     public enum EnumCorner { TopLeftFront, TopRightFront, BottomLeftFront, BottomRightFront, TopLeftBack, TopRightBack, BottomLeftBack, BottomRightBack }
-    public enum EnumEdge { TopFront, TopBack, TopLeft, TopRight, BottomFront, BottomBack, BottomLeft, BottomRight, FrontLeft, FrontRight, BackLeft, BackRight }
+    public enum EnumEdge   { TopFront, TopBack, TopLeft, TopRight, BottomFront, BottomBack, BottomLeft, BottomRight, FrontLeft, FrontRight, BackLeft, BackRight }
 
-    public double Width { get; set; } = 0;
+    public double Width  { get; set; } = 0;
     public double Height { get; set; } = 0;
     public double Length { get; set; } = 0;
 
@@ -26,7 +26,7 @@ public struct KoreXYZBox
     {
         Center = KoreXYZVector.Zero;
 
-        Width = 0;
+        Width  = 0;
         Height = 0;
         Length = 0;
     }
@@ -34,7 +34,7 @@ public struct KoreXYZBox
     public KoreXYZBox(KoreXYZVector center, double width, double height, double length)
     {
         Center = center;
-        Width = width;
+        Width  = width;
         Height = height;
         Length = length;
     }
@@ -68,12 +68,12 @@ public struct KoreXYZBox
     // MARK: Offset methods
     // --------------------------------------------------------------------------------------------
 
-    public double OffsetForwards { get { return (Length / 2) - Center.Z; } }
+    public double OffsetForwards  { get { return (Length / 2) - Center.Z; } }
     public double OffsetBackwards { get { return (Length / 2) + Center.Z; } }
-    public double OffsetLeft { get { return (Width / 2) - Center.X; } }
-    public double OffsetRight { get { return (Width / 2) + Center.X; } }
-    public double OffsetUp { get { return (Height / 2) - Center.Y; } }
-    public double OffsetDown { get { return (Height / 2) + Center.Y; } }
+    public double OffsetLeft      { get { return (Width  / 2) - Center.X; } }
+    public double OffsetRight     { get { return (Width  / 2) + Center.X; } }
+    public double OffsetUp        { get { return (Height / 2) - Center.Y; } }
+    public double OffsetDown      { get { return (Height / 2) + Center.Y; } }
 
     public double LongestOffset()
     {
@@ -91,20 +91,20 @@ public struct KoreXYZBox
 
     public KoreXYZVector Corner(EnumCorner corner)
     {
-        double halfWidth = Width / 2;
+        double halfWidth  = Width / 2;
         double halfHeight = Height / 2;
         double halfLength = Length / 2;
 
         switch (corner)
         {
-            case EnumCorner.TopLeftFront: return new KoreXYZVector(Center.X - halfWidth, Center.Y + halfHeight, Center.Z - halfLength);
-            case EnumCorner.TopRightFront: return new KoreXYZVector(Center.X + halfWidth, Center.Y + halfHeight, Center.Z - halfLength);
-            case EnumCorner.BottomLeftFront: return new KoreXYZVector(Center.X - halfWidth, Center.Y - halfHeight, Center.Z - halfLength);
+            case EnumCorner.TopLeftFront:     return new KoreXYZVector(Center.X - halfWidth, Center.Y + halfHeight, Center.Z - halfLength);
+            case EnumCorner.TopRightFront:    return new KoreXYZVector(Center.X + halfWidth, Center.Y + halfHeight, Center.Z - halfLength);
+            case EnumCorner.BottomLeftFront:  return new KoreXYZVector(Center.X - halfWidth, Center.Y - halfHeight, Center.Z - halfLength);
             case EnumCorner.BottomRightFront: return new KoreXYZVector(Center.X + halfWidth, Center.Y - halfHeight, Center.Z - halfLength);
-            case EnumCorner.TopLeftBack: return new KoreXYZVector(Center.X - halfWidth, Center.Y + halfHeight, Center.Z + halfLength);
-            case EnumCorner.TopRightBack: return new KoreXYZVector(Center.X + halfWidth, Center.Y + halfHeight, Center.Z + halfLength);
-            case EnumCorner.BottomLeftBack: return new KoreXYZVector(Center.X - halfWidth, Center.Y - halfHeight, Center.Z + halfLength);
-            case EnumCorner.BottomRightBack: return new KoreXYZVector(Center.X + halfWidth, Center.Y - halfHeight, Center.Z + halfLength);
+            case EnumCorner.TopLeftBack:      return new KoreXYZVector(Center.X - halfWidth, Center.Y + halfHeight, Center.Z + halfLength);
+            case EnumCorner.TopRightBack:     return new KoreXYZVector(Center.X + halfWidth, Center.Y + halfHeight, Center.Z + halfLength);
+            case EnumCorner.BottomLeftBack:   return new KoreXYZVector(Center.X - halfWidth, Center.Y - halfHeight, Center.Z + halfLength);
+            case EnumCorner.BottomRightBack:  return new KoreXYZVector(Center.X + halfWidth, Center.Y - halfHeight, Center.Z + halfLength);
             default:
                 return Center;
         }
@@ -120,18 +120,18 @@ public struct KoreXYZBox
     {
         switch (edge)
         {
-            case EnumEdge.TopFront: return new KoreXYZLine(Corner(EnumCorner.TopLeftFront), Corner(EnumCorner.TopRightFront));
-            case EnumEdge.TopBack: return new KoreXYZLine(Corner(EnumCorner.TopLeftBack), Corner(EnumCorner.TopRightBack));
-            case EnumEdge.TopLeft: return new KoreXYZLine(Corner(EnumCorner.TopLeftFront), Corner(EnumCorner.TopLeftBack));
-            case EnumEdge.TopRight: return new KoreXYZLine(Corner(EnumCorner.TopRightFront), Corner(EnumCorner.TopRightBack));
+            case EnumEdge.TopFront:    return new KoreXYZLine(Corner(EnumCorner.TopLeftFront), Corner(EnumCorner.TopRightFront));
+            case EnumEdge.TopBack:     return new KoreXYZLine(Corner(EnumCorner.TopLeftBack), Corner(EnumCorner.TopRightBack));
+            case EnumEdge.TopLeft:     return new KoreXYZLine(Corner(EnumCorner.TopLeftFront), Corner(EnumCorner.TopLeftBack));
+            case EnumEdge.TopRight:    return new KoreXYZLine(Corner(EnumCorner.TopRightFront), Corner(EnumCorner.TopRightBack));
             case EnumEdge.BottomFront: return new KoreXYZLine(Corner(EnumCorner.BottomLeftFront), Corner(EnumCorner.BottomRightFront));
-            case EnumEdge.BottomBack: return new KoreXYZLine(Corner(EnumCorner.BottomLeftBack), Corner(EnumCorner.BottomRightBack));
-            case EnumEdge.BottomLeft: return new KoreXYZLine(Corner(EnumCorner.BottomLeftFront), Corner(EnumCorner.BottomLeftBack));
+            case EnumEdge.BottomBack:  return new KoreXYZLine(Corner(EnumCorner.BottomLeftBack), Corner(EnumCorner.BottomRightBack));
+            case EnumEdge.BottomLeft:  return new KoreXYZLine(Corner(EnumCorner.BottomLeftFront), Corner(EnumCorner.BottomLeftBack));
             case EnumEdge.BottomRight: return new KoreXYZLine(Corner(EnumCorner.BottomRightFront), Corner(EnumCorner.BottomRightBack));
-            case EnumEdge.FrontLeft: return new KoreXYZLine(Corner(EnumCorner.TopLeftFront), Corner(EnumCorner.BottomLeftFront));
-            case EnumEdge.FrontRight: return new KoreXYZLine(Corner(EnumCorner.TopRightFront), Corner(EnumCorner.BottomRightFront));
-            case EnumEdge.BackLeft: return new KoreXYZLine(Corner(EnumCorner.TopLeftBack), Corner(EnumCorner.BottomLeftBack));
-            case EnumEdge.BackRight: return new KoreXYZLine(Corner(EnumCorner.TopRightBack), Corner(EnumCorner.BottomRightBack));
+            case EnumEdge.FrontLeft:   return new KoreXYZLine(Corner(EnumCorner.TopLeftFront), Corner(EnumCorner.BottomLeftFront));
+            case EnumEdge.FrontRight:  return new KoreXYZLine(Corner(EnumCorner.TopRightFront), Corner(EnumCorner.BottomRightFront));
+            case EnumEdge.BackLeft:    return new KoreXYZLine(Corner(EnumCorner.TopLeftBack), Corner(EnumCorner.BottomLeftBack));
+            case EnumEdge.BackRight:   return new KoreXYZLine(Corner(EnumCorner.TopRightBack), Corner(EnumCorner.BottomRightBack));
             default:
                 return new KoreXYZLine(Center, Center);
         }

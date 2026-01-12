@@ -76,15 +76,15 @@ public partial class KoreNumeric2DArray<T> where T : struct, INumber<T>
 
         Width     = width;
         Height    = height;
-        Data      = new T[Width, Height];
+        Data      = new T[Height, Width];
         Populated = false;
     }
 
     public KoreNumeric2DArray(T[,] initialData)
     {
-        Width  = initialData.GetLength(0);
-        Height = initialData.GetLength(1);
-        Data   = new T[Width, Height];
+        Height = initialData.GetLength(0);
+        Width  = initialData.GetLength(1);
+        Data   = new T[Height, Width];
 
         Array.Copy(initialData, Data, initialData.Length);
         Populated = true;
@@ -92,9 +92,9 @@ public partial class KoreNumeric2DArray<T> where T : struct, INumber<T>
 
     public KoreNumeric2DArray(KoreNumeric2DArray<T> other)
     {
-        Width  = other.Width;
         Height = other.Height;
-        Data   = new T[Width, Height];
+        Width  = other.Width;
+        Data   = new T[Height, Width];
 
         Array.Copy(other.Data, Data, other.Data.Length);
         Populated = other.Populated;
@@ -104,10 +104,10 @@ public partial class KoreNumeric2DArray<T> where T : struct, INumber<T>
     // Indexer
     // --------------------------------------------------------------------------------------------
 
-    public T this[int x, int y]
+    public T this[int y, int x]
     {
-        get => Data[x, y];
-        set => Data[x, y] = value;
+        get => Data[y, x];
+        set => Data[y, x] = value;
     }
 
     // --------------------------------------------------------------------------------------------
@@ -131,8 +131,8 @@ public partial class KoreNumeric2DArray<T> where T : struct, INumber<T>
         {
             for (int x = 0; x < Width; x++)
             {
-                T value = (Data[x, y] - oldMin) / oldRange * newRange + newMin;
-                scaledArray[x, y] = value;
+                T value = (Data[y, x] - oldMin) / oldRange * newRange + newMin;
+                scaledArray[y, x] = value;
             }
         }
 
@@ -147,10 +147,10 @@ public partial class KoreNumeric2DArray<T> where T : struct, INumber<T>
         {
             for (int x = 0; x < Width; x++)
             {
-                T value = Data[x, y];
+                T value = Data[y, x];
                 if (value < newMin) value = newMin;
                 if (value > newMax) value = newMax;
-                croppedArray[x, y] = value;
+                croppedArray[y, x] = value;
             }
         }
 
@@ -167,7 +167,7 @@ public partial class KoreNumeric2DArray<T> where T : struct, INumber<T>
     {
         for (int y = 0; y < Height; y++)
             for (int x = 0; x < Width; x++)
-                Data[x, y] = value;
+                Data[y, x] = value;
 
         Populated = true;
     }
@@ -175,15 +175,15 @@ public partial class KoreNumeric2DArray<T> where T : struct, INumber<T>
     public void SetRow(int row, T value)
     {
         for (int x = 0; x < Width; x++)
-            Data[x, row] = value;
+            Data[row, x] = value;
     }
 
     public void SetCol(int col, T value)
     {
         for (int y = 0; y < Height; y++)
-            Data[col, y] = value;
+            Data[y, col] = value;
     }
-    
+
     public void SetAllNoise(T minVal, T maxVal)
     {
         Random random = new Random();
@@ -192,7 +192,7 @@ public partial class KoreNumeric2DArray<T> where T : struct, INumber<T>
             for (int x = 0; x < Width; x++)
             {
                 T val = KoreNumericUtils.RandomInRange<T>(minVal, maxVal);
-                Data[x, y] = val;
+                Data[y, x] = val;
             }
         }
 
@@ -227,7 +227,7 @@ public partial class KoreNumeric2DArray<T> where T : struct, INumber<T>
             int destinationY = Height - 1 - y;
             for (int x = 0; x < Width; x++)
             {
-                reversed[x, destinationY] = Data[x, y];
+                reversed[destinationY, x] = Data[y, x];
             }
         }
 
@@ -243,7 +243,7 @@ public partial class KoreNumeric2DArray<T> where T : struct, INumber<T>
             for (int x = 0; x < Width; x++)
             {
                 int destinationX = Width - 1 - x;
-                reversed[destinationX, y] = Data[x, y];
+                reversed[y, destinationX] = Data[y, x];
             }
         }
 
@@ -277,10 +277,10 @@ public partial class KoreNumeric2DArray<T> where T : struct, INumber<T>
         int minY = y;
         int maxX = Math.Clamp(x + 1, 0, Width - 1);
         int maxY = Math.Clamp(y + 1, 0, Height - 1);
-        T topLeft     = Data[minX, minY];
-        T topRight    = Data[maxX, minY];
-        T bottomLeft  = Data[minX, maxY];
-        T bottomRight = Data[maxX, maxY];
+        T topLeft     = Data[minY, minX];
+        T topRight    = Data[minY, maxX];
+        T bottomLeft  = Data[maxY, minX];
+        T bottomRight = Data[maxY, maxX];
 
         // Perform bilinear interpolation
         T interpolatedValue = (T.One - fx) * (T.One - fy) * topLeft
@@ -316,10 +316,10 @@ public partial class KoreNumeric2DArray<T> where T : struct, INumber<T>
         int minY = y;
         int maxX = Math.Clamp(x + 1, 0, Width - 1);
         int maxY = Math.Clamp(y + 1, 0, Height - 1);
-        T topLeft     = Data[minX, minY];
-        T topRight    = Data[maxX, minY];
-        T bottomLeft  = Data[minX, maxY];
-        T bottomRight = Data[maxX, maxY];
+        T topLeft     = Data[minY, minX];
+        T topRight    = Data[minY, maxX];
+        T bottomLeft  = Data[maxY, minX];
+        T bottomRight = Data[maxY, maxX];
 
         interpolatedValues.Add(topLeft);
         interpolatedValues.Add(topRight);
@@ -341,7 +341,7 @@ public partial class KoreNumeric2DArray<T> where T : struct, INumber<T>
         {
             for (int x = 0; x < Width; x++)
             {
-                sb.Append(Data[x, y] + " ");
+                sb.Append(Data[y, x] + " ");
             }
             sb.AppendLine();
         }

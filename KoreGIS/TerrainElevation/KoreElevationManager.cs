@@ -46,6 +46,25 @@ public class KoreElevationManager
     }
 
     // --------------------------------------------------------------------------------------------
+    // MARK: Report
+    // --------------------------------------------------------------------------------------------
+
+    public string Report()
+    {
+        string prepReport = ElePatchSystem.Report();
+        string tileReport = EleTiles.Report();
+
+        return $"Elevation Patch Report\n{prepReport}\n{tileReport}";
+    }
+
+    public float ElevationAtPos(KoreLLPoint pos)
+    {
+        return ElePatchSystem.ElevationAtPos(pos);
+        //return 0f; // KoreLLPoint.Zero;
+    }
+
+
+    // --------------------------------------------------------------------------------------------
     // MARK: Patches
     // --------------------------------------------------------------------------------------------
 
@@ -243,25 +262,6 @@ public class KoreElevationManager
             }
         });
     }
-
-    // --------------------------------------------------------------------------------------------
-    // MARK: Report
-    // --------------------------------------------------------------------------------------------
-
-    public string Report()
-    {
-        string prepReport = ElePatchSystem.Report();
-        string tileReport = EleTiles.Report();
-
-        return $"Elevation Patch Report\n{prepReport}\n{tileReport}";
-    }
-
-    public float ElevationAtPos(KoreLLPoint pos)
-    {
-        return ElePatchSystem.ElevationAtPos(pos);
-        //return 0f; // KoreLLPoint.Zero;
-    }
-
 
 }
 

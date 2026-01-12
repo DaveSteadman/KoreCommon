@@ -19,8 +19,8 @@ public partial class KorePlotterK74
     public readonly int PixelWidth;
     public readonly int PixelHeight;
 
-    public SKBitmap K74Bitmap;
-    public SKCanvas K74Canvas;
+    // public SKBitmap K74Bitmap;
+    // public SKCanvas K74Canvas;
     public KoreSkiaSharpPlotterDrawSettings DrawSettings;
 
     public KoreSkiaSharpPlotter KorePlotter;
@@ -31,8 +31,8 @@ public partial class KorePlotterK74
         this.PixelWidth     = widthcells * cellSizePixels;
         this.PixelHeight    = heightcells * cellSizePixels;
 
-        K74Bitmap = new SKBitmap(PixelWidth, PixelHeight);
-        K74Canvas = new SKCanvas(K74Bitmap);
+        // K74Bitmap = new SKBitmap(PixelWidth, PixelHeight);
+        // K74Canvas = new SKCanvas(K74Bitmap);
 
         // Set default draw settings for K74 style
         DrawSettings = new KoreSkiaSharpPlotterDrawSettings();
