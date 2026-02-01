@@ -8,6 +8,7 @@ public static class KoreNatoSymbolColorPalette
     public static readonly Dictionary<string, SKColor> Colors = new Dictionary<string, SKColor>
     {
         { "Black",        new SKColor(0,   0,   0)   },
+        { "MidGrey",      new SKColor(128, 128, 128) },
         { "OffWhiteGrey", new SKColor(239, 239, 239) },
         { "White",        new SKColor(255, 255, 255) },
 
@@ -24,16 +25,16 @@ public static class KoreNatoSymbolColorPalette
         { "Salmon",       new SKColor(255, 128, 128) }
     };
 
-    public static SKColor BackgroundFriendly { get; } = Colors["BambooGreen"]; // NatoSymbolColorPalette.BackgroundFriendly
-    public static SKColor BackgroundHostile { get; } = Colors["Salmon"]; // NatoSymbolColorPalette.BackgroundHostile
-    public static SKColor BackgroundNeutral { get; } = Colors["LightYellow"]; // NatoSymbolColorPalette.BackgroundNeutral
-    public static SKColor BackgroundUnknown { get; } = Colors["OffWhiteGrey"]; // NatoSymbolColorPalette.BackgroundUnknown
+    public static SKColor BackgroundFriendly { get; } = Colors["CrystalBlue"]; // NatoSymbolColorPalette.BackgroundFriendly
+    public static SKColor BackgroundHostile { get; }  = Colors["Salmon"]; // NatoSymbolColorPalette.BackgroundHostile
+    public static SKColor BackgroundNeutral { get; }  = Colors["BambooGreen"]; // NatoSymbolColorPalette.BackgroundNeutral
+    public static SKColor BackgroundUnknown { get; }  = Colors["LightYellow"]; // NatoSymbolColorPalette.BackgroundUnknown
 
     public static SKColor Black { get; } = Colors["Black"]; // NatoSymbolColorPalette.Black
     public static SKColor White { get; } = Colors["White"]; // NatoSymbolColorPalette.White
 
     public static SKColor BackgroundColor { get; } = Colors["Black"]; // NatoSymbolColorPalette.BackgroundColor
-    public static SKColor BorderColor { get; } = Colors["Blue"]; // NatoSymbolColorPalette.BorderColor
+    public static SKColor BorderColor { get; } = Colors["Black"]; // NatoSymbolColorPalette.BorderColor
     public static SKColor AccentColor { get; } = Colors["Red"]; // NatoSymbolColorPalette.AccentColor
 
 }

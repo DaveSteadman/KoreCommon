@@ -244,6 +244,15 @@ public partial class KoreSkiaSharpPlotter
     }
 
     // --------------------------------------------------------------------------------------------
+    // MARK: BITMAP
+    // --------------------------------------------------------------------------------------------
+
+    public void PasteBitmap(SKBitmap bitmap, float x, float y)
+    {
+        canvas.DrawBitmap(bitmap, x, y);
+    }
+
+    // --------------------------------------------------------------------------------------------
     // MARK: Save
     // --------------------------------------------------------------------------------------------
 
@@ -254,6 +263,23 @@ public partial class KoreSkiaSharpPlotter
         using var stream = File.OpenWrite(filePath);
         data.SaveTo(stream);
     }
+
+    // // Export the canvas as PNG bytes
+    // public byte[] ToPngBytes()
+    // {
+    //     // Render(); // Ensure all elements are drawn
+
+    //     using var image = Surface.Snapshot();
+    //     using var data = image.Encode(SKEncodedImageFormat.Png, 100);
+    //     return data.ToArray();
+    // }
+
+    // // Save the canvas directly to a PNG file
+    // public void SaveToPng(string filePath)
+    // {
+    //     var pngBytes = ToPngBytes();
+    //     File.WriteAllBytes(filePath, pngBytes);
+    // }
 
     // --------------------------------------------------------------------------------------------
     // MARK: Canvas Access

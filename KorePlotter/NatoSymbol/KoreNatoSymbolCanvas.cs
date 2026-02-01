@@ -9,20 +9,24 @@ namespace KorePlotter.NatoSymbol;
 public class KoreNatoSymbolCanvas
 {
     // Arrangement of points and constructs to control draw areas
-    public KoreNatoSymbolLayout Layout { get; }
-
     // SkiaSharp drawing surface and canvas
     public SKSurface Surface { get; }
     public SKCanvas Canvas { get; }
 
-    // List of draw elements added to the canvas
-    //private readonly List<NatoSymbolElement> _elements = new();
+    public float CanvasWidth { get; }
+    public float CanvasHeight { get; }
+    public SKPoint Center { get; }
+
+    // L Distance
+    public float LDistance => CanvasWidth * 0.5f;
 
     // ----------------------------------------------------------------------------------------
 
     public KoreNatoSymbolCanvas(float canvasSize = 1000f)
     {
-        Layout = new KoreNatoSymbolLayout(canvasSize);
+        CanvasWidth  = canvasSize;
+        CanvasHeight = canvasSize;
+        Center       = new SKPoint(CanvasWidth / 2f, CanvasHeight / 2f);
 
         var imageInfo = new SKImageInfo(
             (int)canvasSize,
@@ -40,36 +44,21 @@ public class KoreNatoSymbolCanvas
 
     // ----------------------------------------------------------------------------------------
 
-    // // Add an element to be drawn on the canvas
-    // public void AddElement(NatoSymbolElement element) => _elements.Add(element);
-    // public void AddElements(params NatoSymbolElement[] elements) => _elements.AddRange(elements);
-
-    // // Clear all elements from the canvas
-    // public void ClearElements()
-    // {
-    //     _elements.Clear();
-    //     Canvas.Clear(SKColors.Transparent);
-    // }
+    public void Clear()
+    {
+        Canvas.Clear(SKColors.Transparent);
+    }
 
     // ----------------------------------------------------------------------------------------
 
-    // Draw all elements to the canvas
-    // public void Render()
-    // {
-    //     using var defaultPaint = new SKPaint
-    //     {
-    //         IsAntialias = true,
-    //         Color = SKColors.Black,
-    //         StrokeWidth = Layout.ElementStrokeWidth,
-    //         Style = SKPaintStyle.Stroke
-    //     };
-
-    //     // Draw elements in the order they were added
-    //     foreach (var element in _elements)
-    //     {
-    //         element.Draw(Canvas, Layout, defaultPaint);
-    //     }
-    // }
+    public SKPoint LPoint(float lx, float ly)
+    {
+        float xDist = lx * LDistance;
+        float yDist = ly * LDistance;
+        float xPos = Center.X + xDist;
+        float yPos = Center.Y + yDist;
+        return new SKPoint(xPos, yPos);
+    }
 
     // ----------------------------------------------------------------------------------------
 
@@ -91,6 +80,14 @@ public class KoreNatoSymbolCanvas
     }
 
     // ----------------------------------------------------------------------------------------
+
+    // Get the bitmap representation of the canvas
+    // Usage: SKBitmap bitmap = canvas.ToBitmap();
+    public SKBitmap ToBitmap()
+    {
+        using var image = Surface.Snapshot();
+        return SKBitmap.FromImage(image);
+    }
 
     public void Dispose()
     {

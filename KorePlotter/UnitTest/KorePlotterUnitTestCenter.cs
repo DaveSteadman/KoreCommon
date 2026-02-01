@@ -10,12 +10,13 @@ namespace KorePlotter.UnitTest;
 
 public static class KorePlotterUnitTestCenter
 {
+    // Usage: KorePlotterUnitTestCenter.RunAllTests(testLog);
     public static void RunAllTests(KoreTestLog testLog)
     {
-        // Initialize the test log
-        //KoreTestLog.Initialize(testLog);
-
         // Run individual test methods
+        KoreTestNatoSymbolPlotter.RunTests(testLog);
+
+
         // TestKoreElevationManager(testLog);
         // TestKoreElevationTileIO(testLog);
         // Add more test methods as needed

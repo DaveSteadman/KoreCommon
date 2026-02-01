@@ -9,19 +9,76 @@ namespace KorePlotter.NatoSymbol;
 // Usage: var x = NatoSymbolAffiliation.Friendly;
 public enum NatoSymbolAffiliation
 {
+    Pending,
     Unknown,
-    Friendly,
+    Suspect,
+    Hostile,
     Neutral,
-    Hostile
+    AssumedFriend,
+    Friend
 }
 
 public enum NatoSymbolDomain
 {
-    Unknown,
-    Space,
     Air,
-    Ground,
-    Sea_Surface,
-    Subsurface
+    Space,
+    Land,
+    SeaSurface,
+    SeaSubsurface,
+    Equipment,
+    Installation,
+    Activity
 }
 
+public enum NatoPlatformFunction
+{
+    Military,
+    Civilian,
+    MilitaryFixedWing,
+    CivilianFixedWing,
+    MilitaryRotaryWing,
+    CivilianRotaryWing,
+    MilitaryBalloon,
+    CivilianBalloon,
+    MilitaryAirship,
+    CivilianAirship,
+    UnmannedAerialVehicle,
+    AirDecoy,
+    MedicalEvacuation,
+    Attackstrike,
+    Bomber,
+    Cargo,
+    Fighter,
+    JammerEcm,
+    Tanker,
+    Patrol,
+    Reconnaissance
+}
+
+public enum DrawMode
+{
+    Fill,
+    Stroke,
+    FillAndStroke,
+}
+
+
+public static class NatoSymbolUtils
+{
+    // Usage: string domainName = NatoSymbolUtils.NatoSymbolDomainToString(domain);
+    public static string NatoSymbolDomainToString(NatoSymbolDomain domain)
+    {
+        return domain switch
+        {
+            NatoSymbolDomain.Air           => "Air",
+            NatoSymbolDomain.Space         => "Space",
+            NatoSymbolDomain.Land          => "Land",
+            NatoSymbolDomain.SeaSurface    => "Sea Surface",
+            NatoSymbolDomain.SeaSubsurface => "Sea Subsurface",
+            NatoSymbolDomain.Equipment     => "Equipment",
+            NatoSymbolDomain.Installation  => "Installation",
+            NatoSymbolDomain.Activity      => "Activity",
+            _                              => "Invalid"
+        };
+    }
+}
