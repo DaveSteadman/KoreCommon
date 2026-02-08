@@ -31,114 +31,125 @@ public static class KoreTestNatoSymbolPlotter
             // Unit test canvas - a grid of 100x100 pixel squares, into which we are going to
             // draw a grid of each symbol and domain, with labels.
 
-            KoreSkiaSharpPlotter unitTestCanvas = new(1000, 1000); // 1000x1000 pixels
+            float imageUnit = 250f;
+            float halfUnit = imageUnit / 2f;
+
+            // Pick a random icon for testing
+            var allIcons = Enum.GetValues(typeof(NatoPlatformFunction));
+            var randomIcon = (NatoPlatformFunction)allIcons.GetValue(new Random().Next(allIcons.Length))!;
+
+            KoreSkiaSharpPlotter unitTestCanvas = new((int)imageUnit * 10, (int)imageUnit * 10); // 1000x1000 pixels
 
             // - - - - -
 
-            float xPos = 100f;
+            float xPos = imageUnit;
             float yPos = 0f;
 
             foreach (NatoSymbolDomain domain in Enum.GetValues(typeof(NatoSymbolDomain)))
             {
                 // Get domain name for header
                 string domainName = NatoSymbolUtils.NatoSymbolDomainToString(domain);
-                unitTestCanvas.DrawTextCentered(domainName, new KoreXYVector(xPos + 50f, yPos + 50f));
-                xPos += 100f;
+                unitTestCanvas.DrawTextCentered(domainName, new KoreXYVector(xPos + halfUnit, yPos + halfUnit));
+                xPos += imageUnit;
             }
 
             // - - - - -
 
             xPos = 0f;
-            yPos += 100f;
+            yPos += imageUnit;
 
 
-            unitTestCanvas.DrawTextCentered("Unknown", new KoreXYVector(50f, yPos + 50f));
-            xPos += 100f;
+            unitTestCanvas.DrawTextCentered("Unknown", new KoreXYVector(halfUnit, yPos + halfUnit));
+            xPos += imageUnit;
 
             foreach (NatoSymbolDomain domain in Enum.GetValues(typeof(NatoSymbolDomain)))
             {
                 // Create the canvas, which sets up the layout
-                var symbolCanvas = new KoreNatoSymbolCanvas(100f);
+                var symbolCanvas = new KoreNatoSymbolCanvas(imageUnit);
                 KoreNatoSymbolDrawOps.DrawUnknown(symbolCanvas, domain);
                 KoreNatoSymbolDrawOps.DrawOctagon(symbolCanvas, DrawMode.Stroke);
+
+                randomIcon = (NatoPlatformFunction)allIcons.GetValue(new Random().Next(allIcons.Length))!;
+
+                KoreNatoSymbolDrawOps.DrawIcon(symbolCanvas, randomIcon);
 
                 unitTestCanvas.PasteBitmap(symbolCanvas.ToBitmap(), xPos, yPos);
 
                 symbolCanvas.Clear();
-                xPos += 100f;
+                xPos += imageUnit;
             }
 
             // - - - - -
 
             xPos = 0f;
-            yPos += 100f;
+            yPos += imageUnit;
 
-            unitTestCanvas.DrawTextCentered("Neutral", new KoreXYVector(50f, yPos + 50f));
-            xPos += 100f;
+            unitTestCanvas.DrawTextCentered("Neutral", new KoreXYVector(halfUnit, yPos + halfUnit));
+            xPos += imageUnit;
 
             foreach (NatoSymbolDomain domain in Enum.GetValues(typeof(NatoSymbolDomain)))
             {
                 // Create the canvas, which sets up the layout
-                var symbolCanvas = new KoreNatoSymbolCanvas(100f);
+                var symbolCanvas = new KoreNatoSymbolCanvas(imageUnit);
                 KoreNatoSymbolDrawOps.DrawNeutral(symbolCanvas, domain);
                 KoreNatoSymbolDrawOps.DrawOctagon(symbolCanvas, DrawMode.Stroke);
 
                 unitTestCanvas.PasteBitmap(symbolCanvas.ToBitmap(), xPos, yPos);
 
                 symbolCanvas.Clear();
-                xPos += 100f;
+                xPos += imageUnit;
             }
 
             // - - - - -
 
             xPos = 0f;
-            yPos += 100f;
+            yPos += imageUnit;
 
 
-            unitTestCanvas.DrawTextCentered("Friendly", new KoreXYVector(50f, yPos + 50f));
-            xPos += 100f;
+            unitTestCanvas.DrawTextCentered("Friendly", new KoreXYVector(halfUnit, yPos + halfUnit));
+            xPos += imageUnit;
 
 
 
             foreach (NatoSymbolDomain domain in Enum.GetValues(typeof(NatoSymbolDomain)))
             {
                 // Create the canvas, which sets up the layout
-                var symbolCanvas = new KoreNatoSymbolCanvas(100f);
+                var symbolCanvas = new KoreNatoSymbolCanvas(imageUnit);
                 KoreNatoSymbolDrawOps.DrawFriend(symbolCanvas, domain);
                 KoreNatoSymbolDrawOps.DrawOctagon(symbolCanvas, DrawMode.Stroke);
                 unitTestCanvas.PasteBitmap(symbolCanvas.ToBitmap(), xPos, yPos);
 
                 symbolCanvas.Clear();
-                xPos += 100f;
+                xPos += imageUnit;
             }
 
 
             // - - - - -
 
             xPos = 0f;
-            yPos += 100f;
+            yPos += imageUnit;
 
 
-            unitTestCanvas.DrawTextCentered("Hostile", new KoreXYVector(50f, yPos + 50f));
-            xPos += 100f;
+            unitTestCanvas.DrawTextCentered("Hostile", new KoreXYVector(halfUnit, yPos + halfUnit));
+            xPos += imageUnit;
 
             foreach (NatoSymbolDomain domain in Enum.GetValues(typeof(NatoSymbolDomain)))
             {
                 // Create the canvas, which sets up the layout
-                var symbolCanvas = new KoreNatoSymbolCanvas(100f);
+                var symbolCanvas = new KoreNatoSymbolCanvas(imageUnit);
                 KoreNatoSymbolDrawOps.DrawHostile(symbolCanvas, domain);
                 KoreNatoSymbolDrawOps.DrawOctagon(symbolCanvas, DrawMode.Stroke);
                 unitTestCanvas.PasteBitmap(symbolCanvas.ToBitmap(), xPos, yPos);
 
                 symbolCanvas.Clear();
-                xPos += 100f;
+                xPos += imageUnit;
             }
 
 
             // - - - - -
 
             xPos = 0f;
-            yPos += 100f;
+            yPos += imageUnit;
 
 
             // Check output directory

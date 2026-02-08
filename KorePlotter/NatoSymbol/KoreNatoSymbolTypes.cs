@@ -52,7 +52,26 @@ public enum NatoPlatformFunction
     JammerEcm,
     Tanker,
     Patrol,
-    Reconnaissance
+    Reconnaissance,
+    Trainer,
+    Utility,
+    VSTOL,
+    AirborneCommandPost,
+    AirborneEarlyWarning,
+    AntisurfaceWarfare,
+    AntisubmarineWarfare,
+    Communications,
+    CombatSearchAndRescue,
+    ElectronicSupportMeasures,
+    Government,
+    MineCountermeasures,
+    PersonnelRecovery,
+    Passenger,
+    SearchAndRescue,
+    SupressionOfEnemyAirDefence,
+    SpecialOperationsForces,
+    UltraLight,
+    Vip
 }
 
 public enum DrawMode
