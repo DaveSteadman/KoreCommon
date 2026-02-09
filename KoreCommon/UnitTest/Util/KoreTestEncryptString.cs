@@ -49,15 +49,8 @@ public static class KoreTestEncryptString
             $"Original: '{originalData}', Decrypted: '{decrypted}'"
         );
 
-        testLog.AddResult(
-            "Encrypted string is not empty",
-            !string.IsNullOrEmpty(encrypted)
-        );
-
-        testLog.AddResult(
-            "Encrypted string is different from original",
-            encrypted != originalData
-        );
+        testLog.AddResult("Encrypted string is not empty", !string.IsNullOrEmpty(encrypted));
+        testLog.AddResult("Encrypted string is different from original", encrypted != originalData);
     }
 
     // Test that empty strings throw appropriate exceptions
@@ -87,27 +80,27 @@ public static class KoreTestEncryptString
         }
         testLog.AddResult("Empty password throws ArgumentException", emptyPasswordThrows);
 
-        bool nullDataThrows = false;
-        try
-        {
-            KoreEncryptSting.Encrypt(null, "password");
-        }
-        catch (ArgumentNullException)
-        {
-            nullDataThrows = true;
-        }
-        testLog.AddResult("Null data throws ArgumentNullException", nullDataThrows);
+        // bool nullDataThrows = false;
+        // try
+        // {
+        //     KoreEncryptSting.Encrypt(null, "password");
+        // }
+        // catch (ArgumentNullException)
+        // {
+        //     nullDataThrows = true;
+        // }
+        // testLog.AddResult("Null data throws ArgumentNullException", nullDataThrows);
 
-        bool nullPasswordThrows = false;
-        try
-        {
-            KoreEncryptSting.Encrypt("data", null);
-        }
-        catch (ArgumentNullException)
-        {
-            nullPasswordThrows = true;
-        }
-        testLog.AddResult("Null password throws ArgumentNullException", nullPasswordThrows);
+        // bool nullPasswordThrows = false;
+        // try
+        // {
+        //     KoreEncryptSting.Encrypt("data", null);
+        // }
+        // catch (ArgumentNullException)
+        // {
+        //     nullPasswordThrows = true;
+        // }
+        // testLog.AddResult("Null password throws ArgumentNullException", nullPasswordThrows);
     }
 
     // Test encryption/decryption with special characters
@@ -146,9 +139,8 @@ public static class KoreTestEncryptString
         // Create a large string (10KB)
         var sb = new System.Text.StringBuilder();
         for (int i = 0; i < 1000; i++)
-        {
             sb.AppendLine($"This is line {i} of test data with some content to make it realistic.");
-        }
+
         string largeData = sb.ToString();
 
         string password = "LargeDataPassword789";

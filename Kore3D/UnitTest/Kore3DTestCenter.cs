@@ -8,7 +8,7 @@ namespace KoreCommon.UnitTest;
 
 // Usage: KoreTestLog testLog = KoreTestCenter.RunCoreTests();
 
-public static class KoreTestCenter
+public static class Kore3DTestCenter
 {
     // Central path for all unit test output files
     public static string TestPath => KoreFileOps.JoinPaths(Directory.GetCurrentDirectory(), "UnitTestArtefacts");
@@ -23,22 +23,14 @@ public static class KoreTestCenter
                 return;
             }
 
-            // Test Core maths and data structures
-            KoreTestMath.RunTests(testLog);
-            KoreTestXYZVector.RunTests(testLog);
-            KoreTestLine.RunTests(testLog);
-            KoreTestTriangle.RunTests(testLog);
-            KoreTestList1D.RunTests(testLog);
-            KoreTestList2D.RunTests(testLog);
-            KoreTestStringDictionary.RunTests(testLog);
 
-            // Database tests
-            KoreTestDatabase.RunTests(testLog);
 
-            // SkiaSharp Plotter tests
-            KoreTestPlotter.RunTests(testLog);
-            KoreTestSkiaSharp.RunTests(testLog);
-            KoreTestPlotterK74.RunAllTests(testLog);
+            // Graphics: Mesh and color tests
+            KoreTestColor.RunTests(testLog);
+            KoreTestMesh.RunTests(testLog);
+            KoreTestMeshUvOps.RunTests(testLog);
+            KoreTestMiniMesh.RunTests(testLog);
+
         }
         catch (Exception)
         {
