@@ -93,5 +93,52 @@ public static partial class KoreNatoSymbolDrawOps
         return canvas.LDistance * 0.035f; // 3% of L distance
     }
 
+    // Draws the largest possible text centered inside a rect.
+    public static void TextInRect(
+        KoreNatoSymbolCanvas canvas,
+        SKRect bounds,
+        string text,
+        SKColor? color = null,
+        float paddingFactor = 0.9f,
+        SKTypeface? typeface = null)
+    {
+        if (string.IsNullOrEmpty(text))
+            return;
+
+        paddingFactor = Math.Clamp(paddingFactor, 0.01f, 1.0f);
+
+        float testFontSize = 100f;
+        using var testFont = new SKFont(typeface ?? SKTypeface.Default, testFontSize);
+
+        float textWidth = testFont.MeasureText(text);
+        var fontMetrics = testFont.Metrics;
+        float textHeight = fontMetrics.Descent - fontMetrics.Ascent;
+
+        if (textWidth <= 0f || textHeight <= 0f)
+            return;
+
+        float scaleX = (bounds.Width * paddingFactor) / textWidth;
+        float scaleY = (bounds.Height * paddingFactor) / textHeight;
+        float scale = Math.Min(scaleX, scaleY);
+        float finalFontSize = testFontSize * scale;
+
+        using var font = new SKFont(typeface ?? SKTypeface.Default, finalFontSize);
+        using var textPaint = new SKPaint
+        {
+            Color = color ?? SKColors.Black,
+            IsAntialias = true
+        };
+
+        textWidth = font.MeasureText(text);
+        fontMetrics = font.Metrics;
+        textHeight = fontMetrics.Descent - fontMetrics.Ascent;
+
+        float centeredX = bounds.MidX - (textWidth / 2f);
+        float centeredY = bounds.MidY - (textHeight / 2f) - fontMetrics.Ascent;
+
+        canvas.Canvas.DrawText(text, centeredX, centeredY, font, textPaint);
+    }
+
+
 }
 

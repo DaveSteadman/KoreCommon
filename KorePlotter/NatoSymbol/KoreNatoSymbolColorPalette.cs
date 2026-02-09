@@ -35,7 +35,7 @@ public static class KoreNatoSymbolColorPalette
 
     public static SKColor BackgroundColor { get; } = Colors["Black"]; // NatoSymbolColorPalette.BackgroundColor
     public static SKColor BorderColor { get; } = Colors["Black"]; // NatoSymbolColorPalette.BorderColor
-    public static SKColor AccentColor { get; } = Colors["Red"]; // NatoSymbolColorPalette.AccentColor
+    public static SKColor AccentColor { get; } = Colors["Black"]; // NatoSymbolColorPalette.AccentColor
 
 }
 

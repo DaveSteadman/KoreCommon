@@ -15,6 +15,156 @@ public static partial class KoreNatoSymbolDrawOps
         SKRect bounds = IconBoundsRect(canvas);
         switch (icon)
         {
+            case NatoPlatformFunction.MilitaryFixedWing:
+            {
+                using SKPath bowtiePath = BuildBowtieIconPath(bounds, true);
+                using SKPaint bowtiePaint = new SKPaint
+                {
+                    Style = SKPaintStyle.Fill,
+                    Color = KoreNatoSymbolColorPalette.BorderColor,
+                    IsAntialias = true
+                };
+                canvas.Canvas.DrawPath(bowtiePath, bowtiePaint);
+                break;
+            }
+
+            case NatoPlatformFunction.CivilianFixedWing:
+            {
+                using SKPath bowtiePath = BuildBowtieIconPath(bounds, false);
+                using SKPaint bowtiePaint = new SKPaint
+                {
+                    Style = SKPaintStyle.Stroke,
+                    Color = KoreNatoSymbolColorPalette.BorderColor,
+                    StrokeWidth = StrokeWidthForCanvas(canvas),
+                    IsAntialias = true
+                };
+                canvas.Canvas.DrawPath(bowtiePath, bowtiePaint);
+                break;
+            }
+
+            case NatoPlatformFunction.MilitaryRotaryWing:
+            {
+                using SKPath infinityPath = BuildInfinityIconPath(bounds, true, 0.1f);
+                using SKPaint infinityPaint = new SKPaint
+                {
+                    Style = SKPaintStyle.Fill,
+                    Color = KoreNatoSymbolColorPalette.BorderColor,
+                    IsAntialias = true
+                };
+                canvas.Canvas.DrawPath(infinityPath, infinityPaint);
+                break;
+            }
+
+            case NatoPlatformFunction.CivilianRotaryWing:
+            {
+                using SKPath infinityPath = BuildInfinityIconPath(bounds, false, 0.1f);
+                using SKPaint infinityPaint = new SKPaint
+                {
+                    Style = SKPaintStyle.Stroke,
+                    Color = KoreNatoSymbolColorPalette.BorderColor,
+                    StrokeWidth = StrokeWidthForCanvas(canvas),
+                    StrokeCap = SKStrokeCap.Round,
+                    StrokeJoin = SKStrokeJoin.Round,
+                    IsAntialias = true
+                };
+                canvas.Canvas.DrawPath(infinityPath, infinityPaint);
+                break;
+            }
+
+            case NatoPlatformFunction.MilitaryBalloon:
+            {
+                using SKPath balloonPath = BuildBalloonIconPath(bounds, true);
+                using SKPaint balloonPaint = new SKPaint
+                {
+                    Style = SKPaintStyle.Fill,
+                    Color = KoreNatoSymbolColorPalette.BorderColor,
+                    IsAntialias = true
+                };
+                canvas.Canvas.DrawPath(balloonPath, balloonPaint);
+                break;
+            }
+
+            case NatoPlatformFunction.CivilianBalloon:
+            {
+                using SKPath balloonPath = BuildBalloonIconPath(bounds, false);
+                using SKPaint balloonPaint = new SKPaint
+                {
+                    Style = SKPaintStyle.Stroke,
+                    Color = KoreNatoSymbolColorPalette.BorderColor,
+                    StrokeWidth = StrokeWidthForCanvas(canvas),
+                    IsAntialias = true
+                };
+                canvas.Canvas.DrawPath(balloonPath, balloonPaint);
+                break;
+            }
+
+            case NatoPlatformFunction.MilitaryAirship:
+            {
+                using SKPath airshipPath = BuildAirshipIconPath(bounds, true);
+                using SKPaint airshipPaint = new SKPaint
+                {
+                    Style = SKPaintStyle.Fill,
+                    Color = KoreNatoSymbolColorPalette.BorderColor,
+                    IsAntialias = true
+                };
+                canvas.Canvas.DrawPath(airshipPath, airshipPaint);
+                break;
+            }
+
+            case NatoPlatformFunction.CivilianAirship:
+            {
+                using SKPath airshipPath = BuildAirshipIconPath(bounds, false);
+                using SKPaint airshipPaint = new SKPaint
+                {
+                    Style = SKPaintStyle.Stroke,
+                    Color = KoreNatoSymbolColorPalette.BorderColor,
+                    StrokeWidth = StrokeWidthForCanvas(canvas),
+                    IsAntialias = true
+                };
+                canvas.Canvas.DrawPath(airshipPath, airshipPaint);
+                break;
+            }
+
+            case NatoPlatformFunction.UnmannedAerialVehicle:
+            {
+                using SKPath uavPath = BuildUAVIconPath(bounds, true);
+                using SKPaint uavPaint = new SKPaint
+                {
+                    Style = SKPaintStyle.Fill,
+                    Color = KoreNatoSymbolColorPalette.BorderColor,
+                    IsAntialias = true
+                };
+                canvas.Canvas.DrawPath(uavPath, uavPaint);
+                break;
+            }
+
+            case NatoPlatformFunction.AirDecoy:
+            {
+                using SKPath airDecoyPath = BuildAirDecoyIconPath(bounds, true);
+                using SKPaint airDecoyPaint = new SKPaint
+                {
+                    Style = SKPaintStyle.Fill,
+                    Color = KoreNatoSymbolColorPalette.BorderColor,
+                    IsAntialias = true
+                };
+                canvas.Canvas.DrawPath(airDecoyPath, airDecoyPaint);
+                break;
+            }
+
+            case NatoPlatformFunction.MedicalEvacuation:
+                SKPath medevacPath = BuildMedEvacIconPath(bounds, true);
+                using (SKPaint medevacPaint = new SKPaint
+                {
+                    Style = SKPaintStyle.Fill,
+                    Color = KoreNatoSymbolColorPalette.AccentColor,
+                    IsAntialias = true
+                })
+                {
+                    canvas.Canvas.DrawPath(medevacPath, medevacPaint);
+                }
+                medevacPath.Dispose();
+                break;
+
             case NatoPlatformFunction.Military:                     DrawTextIcon(canvas, bounds, NatoPlatformFunction.Military);                     break;
             case NatoPlatformFunction.Civilian:                     DrawTextIcon(canvas, bounds, NatoPlatformFunction.Civilian);                     break;
             case NatoPlatformFunction.Attackstrike:                 DrawTextIcon(canvas, bounds, NatoPlatformFunction.Attackstrike);                 break;
@@ -63,7 +213,7 @@ public static partial class KoreNatoSymbolDrawOps
     }
 
     // --------------------------------------------------------------------------------------------
-    // MARK: Icon Draw Ops
+    // MARK: Text Icons
     // --------------------------------------------------------------------------------------------
 
     public static void DrawTextIcon(KoreNatoSymbolCanvas canvas, SKRect bounds, NatoPlatformFunction icon)
@@ -139,6 +289,355 @@ public static partial class KoreNatoSymbolDrawOps
 
         // Draw the text
         canvas.Canvas.DrawText(outText, centeredX, centeredY, font, textPaint);
+    }
+
+    // --------------------------------------------------------------------------------------------
+    // MARK: Image Icons
+    // --------------------------------------------------------------------------------------------
+
+    public static SKPath BuildInfinityIconPath(SKRect bounds, bool isFilled, float insetFraction = 0.10f)
+    {
+        insetFraction = Math.Clamp(insetFraction, 0f, 0.49f);
+
+        float inset = bounds.Width * insetFraction;
+        float left = bounds.Left + inset;
+        float right = bounds.Right - inset;
+        float top = bounds.Top + (inset * 0.5f);
+        float bottom = bounds.Bottom - (inset * 0.5f);
+
+        float midX = (left + right) * 0.5f;
+        float midY = (top + bottom) * 0.5f;
+        float halfWidth = (right - left) * 0.5f;
+        float halfHeight = (bottom - top) * 0.5f;
+
+        if (!isFilled)
+        {
+            // Civilian: thin centerline infinity.
+            SKPath centerPath = new SKPath();
+            int samples = 200;
+            for (int i = 0; i <= samples; i++)
+            {
+                float t = (float)(-Math.PI + ((2.0 * Math.PI) * i / samples));
+                float s = MathF.Sin(t);
+                float c = MathF.Cos(t);
+
+                // Gerono lemniscate: x = sin(t), y = sin(t)cos(t)
+                float xNorm = s;
+                float yNorm = s * c;
+
+                float x = midX + (xNorm * halfWidth);
+                float y = midY + (yNorm * (halfHeight * 0.95f));
+
+                if (i == 0)
+                    centerPath.MoveTo(x, y);
+                else
+                    centerPath.LineTo(x, y);
+            }
+            return centerPath;
+        }
+
+        // Military: explicit closed silhouette (two lobes), not a thick line.
+        float w = right - left;
+        float h = bottom - top;
+        float centerCtrlX = w * 0.24f;
+        float centerCtrlY = h * 0.30f;
+        float endCtrlY = h * 0.26f;
+
+        SKPath fillPath = new SKPath();
+
+        // Left filled lobe.
+        fillPath.MoveTo(midX, midY);
+        fillPath.CubicTo(
+            midX - centerCtrlX, midY - centerCtrlY,
+            left, midY - endCtrlY,
+            left, midY
+        );
+        fillPath.CubicTo(
+            left, midY + endCtrlY,
+            midX - centerCtrlX, midY + centerCtrlY,
+            midX, midY
+        );
+        fillPath.Close();
+
+        // Right filled lobe.
+        fillPath.MoveTo(midX, midY);
+        fillPath.CubicTo(
+            midX + centerCtrlX, midY - centerCtrlY,
+            right, midY - endCtrlY,
+            right, midY
+        );
+        fillPath.CubicTo(
+            right, midY + endCtrlY,
+            midX + centerCtrlX, midY + centerCtrlY,
+            midX, midY
+        );
+        fillPath.Close();
+
+        fillPath.FillType = SKPathFillType.Winding;
+        return fillPath;
+    }
+
+    // --------------------------------------------------------------------------------------------
+
+    public static SKPath BuildBowtieIconPath(SKRect bounds, bool isFilled, float insetFraction = 0.1f)
+    {
+        SKPath path = new SKPath();
+
+        // Inset is expressed as a fraction of rect width to scale across output sizes.
+        insetFraction = Math.Clamp(insetFraction, 0f, 0.49f);
+        float inset = bounds.Width * insetFraction;
+        float left = bounds.Left + inset;
+        float right = bounds.Right - inset;
+        float top = bounds.Top + (inset / 2f);
+        float bottom = bounds.Bottom - (inset / 2f);
+        float midX = bounds.MidX;
+        float midY = bounds.MidY;
+
+        // Left triangle.
+        path.MoveTo(left, top);
+        path.LineTo(midX, midY);
+        path.LineTo(left, bottom);
+        path.Close();
+
+        // Right triangle.
+        path.MoveTo(right, top);
+        path.LineTo(midX, midY);
+        path.LineTo(right, bottom);
+        path.Close();
+
+        path.FillType = SKPathFillType.Winding;
+        return path;
+    }
+
+    // --------------------------------------------------------------------------------------------
+
+    public static SKPath BuildBalloonIconPath(SKRect bounds, bool isFilled)
+    {
+        SKPath path = new SKPath();
+
+        // Build a simple balloon: circular envelope + centered neck rectangle.
+        float inset = Math.Min(bounds.Width, bounds.Height) * 0.08f;
+        float left = bounds.Left + inset;
+        float right = bounds.Right - inset;
+        float top = bounds.Top + inset;
+        float bottom = bounds.Bottom - inset;
+
+        float availableWidth = right - left;
+        float availableHeight = bottom - top;
+
+        // Keep circle dominant with a small neck below it.
+        float circleDiameter = Math.Min(availableWidth, availableHeight * 0.78f);
+        float radius = circleDiameter * 0.5f;
+        float centerX = (left + right) * 0.5f;
+        float circleTop = top;
+        float centerY = circleTop + radius;
+        float circleBottom = centerY + radius;
+
+        SKRect circleRect = new SKRect(
+            centerX - radius,
+            centerY - radius,
+            centerX + radius,
+            centerY + radius
+        );
+        path.AddOval(circleRect);
+
+        float neckWidth = circleDiameter * 0.32f;
+        float neckHeight = Math.Max((bottom - circleBottom), circleDiameter * 0.16f);
+        float neckTop = circleBottom;
+        float neckBottom = Math.Min(neckTop + neckHeight, bottom);
+
+        SKRect neckRect = new SKRect(
+            centerX - (neckWidth * 0.5f),
+            neckTop,
+            centerX + (neckWidth * 0.5f),
+            neckBottom
+        );
+        path.AddRect(neckRect);
+
+        path.FillType = SKPathFillType.Winding;
+        return path;
+    }
+
+    // --------------------------------------------------------------------------------------------
+
+
+    public static SKPath BuildAirshipIconPath(SKRect bounds, bool isFilled)
+    {
+        float inset = Math.Min(bounds.Width, bounds.Height) * 0.06f;
+        float left = bounds.Left + inset;
+        float right = bounds.Right - inset;
+        float top = bounds.Top + inset;
+        float bottom = bounds.Bottom - inset;
+        float width = right - left;
+        float height = bottom - top;
+        float midY = (top + bottom) * 0.5f;
+
+        // Main hull (airship body).
+        float hullWidth = width * 0.78f;
+        float hullHeight = height * 0.56f;
+        float hullLeft = left;
+        float hullTop = midY - (hullHeight * 0.5f);
+        SKRect hullRect = new SKRect(hullLeft, hullTop, hullLeft + hullWidth, hullTop + hullHeight);
+        using SKPath hullPath = new SKPath();
+        hullPath.AddOval(hullRect);
+
+        // Tail assembly attached to hull rear.
+        float tailAttachX = hullRect.Right - (hullHeight * 0.08f);
+        float tailMidX = right - (width * 0.16f);
+        float tailOuterX = right - (width * 0.02f);
+
+        float waistHalf = hullHeight * 0.18f;
+        float finTipOffset = hullHeight * 0.66f;
+
+        using SKPath tailPath = new SKPath();
+        tailPath.MoveTo(tailAttachX, midY - waistHalf);
+        tailPath.LineTo(tailMidX, midY - waistHalf);
+        tailPath.LineTo(tailOuterX, midY - finTipOffset);
+        tailPath.LineTo(tailMidX, midY);
+        tailPath.LineTo(tailOuterX, midY + finTipOffset);
+        tailPath.LineTo(tailMidX, midY + waistHalf);
+        tailPath.LineTo(tailAttachX, midY + waistHalf);
+        tailPath.Close();
+
+        // Return a merged silhouette so stroke mode has no interior overlap lines.
+        SKPath? merged = hullPath.Op(tailPath, SKPathOp.Union);
+        if (merged == null)
+        {
+            SKPath fallback = new SKPath();
+            fallback.AddPath(hullPath);
+            fallback.AddPath(tailPath);
+            fallback.FillType = SKPathFillType.Winding;
+            return fallback;
+        }
+
+        merged.FillType = SKPathFillType.Winding;
+        return merged;
+    }
+
+    // --------------------------------------------------------------------------------------------
+
+    public static SKPath BuildUAVIconPath(SKRect bounds, bool isFilled)
+    {
+        SKPath path = new SKPath();
+
+        // Large, shallow, downward-facing chevron as a single closed shape.
+        float insetX = bounds.Width  * 0.15f;
+        float insetY = bounds.Height * 0.18f;
+
+        float left = bounds.Left + insetX;
+        float right = bounds.Right - insetX;
+        float midX = bounds.MidX;
+
+        float topY = bounds.Top + insetY;
+        float bottomY = bounds.MidY + (bounds.Height * 0.14f);
+
+        float endTopY = topY;
+        float endBottomY = topY + (bounds.Height * 0.18f);
+
+        float midTopY = bounds.MidY;
+        float midBottomY = bounds.Bottom - insetY;
+
+        // float thickness = Math.Max(bounds.Height * 0.18f, 2f);
+        // float innerTopY = topY + thickness;
+        // float innerBottomY = bottomY + (thickness * 1.2f);
+
+        // Outer V.
+        path.MoveTo(left, endTopY);
+        path.LineTo(midX, midTopY);
+        path.LineTo(right, endTopY);
+
+        // Inner return V (to make a thick chevron band).
+        path.LineTo(right, endBottomY);
+        path.LineTo(midX, midBottomY);
+        path.LineTo(left, endBottomY);
+        path.Close();
+
+        path.FillType = SKPathFillType.Winding;
+        return path;
+    }
+
+    // --------------------------------------------------------------------------------------------
+
+    public static SKPath BuildAirDecoyIconPath(SKRect bounds, bool isFilled)
+    {
+        SKPath path = new SKPath();
+
+        float insetX = bounds.Width * 0.12f;
+        float insetY = bounds.Height * 0.10f;
+        float left = bounds.Left + insetX;
+        float right = bounds.Right - insetX;
+        float top = bounds.Top + insetY;
+        float bottom = bounds.Bottom - insetY;
+        float width = right - left;
+        float height = bottom - top;
+
+        // Baseline bar.
+        float barHeight = Math.Max(height * 0.10f, 2f);
+        float barTop = bottom - barHeight;
+        SKRect barRect = new SKRect(left, barTop, right, bottom);
+        path.AddRect(barRect);
+
+        // Three left-pointing triangles above the bar.
+        float triRegionTop = top;
+        float triRegionBottom = barTop - (height * 0.12f);
+        float triHeight = Math.Max(triRegionBottom - triRegionTop, 2f);
+        float triWidth = width * 0.23f;
+        float triGap = width * 0.035f;
+
+        // Align group to right side like the reference.
+        float groupWidth = (3f * triWidth) + (2f * triGap);
+        float startX = right - groupWidth;
+
+        for (int i = 0; i < 3; i++)
+        {
+            float triLeft = startX + i * (triWidth + triGap);
+            float triRight = triLeft + triWidth;
+            float midY = triRegionTop + (triHeight * 0.5f);
+
+            // Left-pointing filled triangle.
+            path.MoveTo(triLeft, midY);
+            path.LineTo(triRight, triRegionTop);
+            path.LineTo(triRight, triRegionTop + triHeight);
+            path.Close();
+        }
+
+        path.FillType = SKPathFillType.Winding;
+        return path;
+    }
+
+    // --------------------------------------------------------------------------------------------
+
+    public static SKPath BuildMedEvacIconPath(SKRect bounds, bool isFilled)
+    {
+        SKPath path = new SKPath();
+
+        // Build a square-aspect cross that maximizes use of the rect.
+        float squareSize = Math.Min(bounds.Width, bounds.Height);
+        float left = bounds.MidX - (squareSize * 0.5f);
+        float top = bounds.MidY - (squareSize * 0.5f);
+
+        // Arm thickness as a fraction of square size gives a recognisable red-cross shape.
+        float armThickness = squareSize * 0.33f;
+        float armInset = (squareSize - armThickness) * 0.5f;
+
+        SKRect vertical = new SKRect(
+            left + armInset,
+            top,
+            left + armInset + armThickness,
+            top + squareSize
+        );
+
+        SKRect horizontal = new SKRect(
+            left,
+            top + armInset,
+            left + squareSize,
+            top + armInset + armThickness
+        );
+
+        path.AddRect(vertical);
+        path.AddRect(horizontal);
+        path.FillType = SKPathFillType.Winding;
+        return path;
     }
 
 }
