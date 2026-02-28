@@ -32,6 +32,9 @@ public static class KoreTestCenter
             KoreTestList2D.RunTests(testLog);
             KoreTestStringDictionary.RunTests(testLog);
 
+            // Calendar event tests
+            KoreTestCalendarEvent.RunTests(testLog);
+
             // Database tests
             KoreTestDatabase.RunTests(testLog);
 
